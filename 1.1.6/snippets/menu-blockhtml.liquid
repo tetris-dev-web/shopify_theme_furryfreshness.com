@@ -1,0 +1,13 @@
+<div class="block-html">
+	{% if settings[menu_html_title] != blank %}
+		<div class="menu-title">{{ settings[menu_html_title] }}</div>
+	{% endif %}
+	<div class="widget-inner">
+      	
+		<div class="box-image">{{ menu_html_img | asset_url | img_tag: settings[menu_html_title], "img-responsive" }}</div>
+     
+		{% if settings[menu_html_des] != blank %}
+			<div class="content">{{ settings[menu_html_des] }}</div>
+		{% endif %}
+	</div>
+</div>

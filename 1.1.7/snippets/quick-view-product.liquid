@@ -1,0 +1,157 @@
+<!-- Begin quick-view-template -->
+<div class="clearfix" id="quickview-popup" style="display:none">
+  <div class="overlay"></div>
+  <div class="product-content clearfix">
+    <div class="product-img col-xs-6">
+      <div class="quickview-featured-image"></div>
+      <div class="more-view">
+        <ul class="product-photo-thumbs {% if settings.style_moreview == 'horizontal' %} quickview-more-views-owlslider {% else %} quickview-more-view-wrapper-jcarousel {% endif %}">
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-shop col-xs-6">
+      <div class="product-item">
+        <h2 class="product-title"><a>&nbsp;</a></h2>
+        <div class="product-details clearfix" id="add-to-cart-form">
+          <form action="/cart/add" method="post" class="variants">
+
+            <div class="prices">
+              <span class="text-price"> Price: </span>
+              <span class="compare-price"></span>
+              <span class="price"></span>
+            </div>
+            <p class="product-description"></p>
+
+            <select name='id' style="display:none"></select>
+            <div class="wrap-button">
+              <div class="wrap-qty">
+                <div class="custom-qty">
+                  <input type="text" id="quantity" class="quantity" name="quantity" value="1">
+                  <div class="btn-plus">
+                    <span class="dec button down-qty">-</span>
+                    <span class="inc button up-qty">+</span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn add-to-cart-btn" id="add-to-cart-btn">Add to cart</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>  
+    <a href="javascript:void(0)" class="close-popup"><i class="clever-icon-close"></i></a> 
+  </div>
+</div>
+<!-- End of quick-view-template -->
+<script type="text/javascript">  
+  Shopify.doNotTriggerClickOnThumb = false; 
+
+  var selectCallbackQuickview = function(variant, selector) {
+    var productItem = jQuery('.product-quickview .product-item');
+    addToCart = productItem.find('.add-to-cart-btn'),
+      productPrice = productItem.find('.price'),
+      comparePrice = productItem.find('.compare-price'),
+      totalPrice = productItem.find('.total-price span');
+
+
+    if (variant) {
+      if (variant.available) {
+        // We have a valid product variant, so enable the submit button
+        addToCart.removeClass('disabled').removeAttr('disabled').text('Add to Cart');
+
+      } else {
+        // Variant is sold out, disable the submit button
+        addToCart.val('Sold Out').addClass('disabled').attr('disabled', 'disabled');
+      }
+
+      // Regardless of stock, update the product price
+      productPrice.html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+
+                                            // Also update and show the product's compare price if necessary
+                                            if ( variant.compare_at_price > variant.price ) {
+                        comparePrice
+                        .html(Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}"))
+                        .show();
+      productPrice.addClass('on-sale');
+    } else {
+      comparePrice.hide();
+      productPrice.removeClass('on-sale');
+    }
+
+    {% if settings.use_color_swatch %}
+    // BEGIN SWATCHES
+    var form = jQuery('#' + selector.domIdPrefix).closest('form');
+    for (var i=0,length=variant.options.length; i<length; i++) {
+      var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+      if (radioButton.size()) {
+        radioButton.get(0).checked = true;
+      }
+    }
+    // END SWATCHES
+    {% endif %}
+
+    //update variant inventory
+    {% if settings.display_quickview_availability %}
+    var inventoryInfo = productItem.find('.product-inventory span');
+    if (variant.available) {
+      if (variant.inventory_management!=null) {
+        inventoryInfo.text(variant.inventory_quantity + " in stock");
+      } else {
+        inventoryInfo.text("Many in stock");
+      }
+    } else {
+      inventoryInfo.text("Out of stock");
+    }
+    {% endif %}
+
+    /*recaculate total price*/
+    //try pattern one before pattern 2
+    var regex = /([0-9]+[.|,][0-9]+[.|,][0-9]+)/g;
+    var unitPriceTextMatch = jQuery('.product-quickview .price').text().match(regex);
+
+    if (!unitPriceTextMatch) {
+      regex = /([0-9]+[.|,][0-9]+)/g;
+      unitPriceTextMatch = jQuery('.product-quickview .price').text().match(regex);      
+    }
+
+    if (unitPriceTextMatch) {
+      var unitPriceText = unitPriceTextMatch[0];      
+      var unitPrice = unitPriceText.replace(/[.|,]/g,'');
+      var quantity = parseInt(jQuery('.product-quickview input[name=quantity]').val());
+      var totalPrice = unitPrice * quantity;
+
+      var totalPriceText = Shopify.formatMoney(totalPrice, window.money_format);
+
+      totalPriceText = totalPriceText.match(regex)[0];
+
+      var regInput = new RegExp(unitPriceText, "g");  
+      var totalPriceHtml = jQuery('.product-quickview .price').html().replace(regInput ,totalPriceText); 
+      jQuery('.product-quickview .total-price span').html(totalPriceHtml);      
+    }/*end of price calculation*/
+
+    /*begin variant image*/
+    if (variant && variant.featured_image) {
+      var newImage = Shopify.resizeImage(variant.featured_image.src, 'compact');
+      newImage = newImage.replace(/https?:/,'');
+      jQuery('.product-quickview .quickview-more-views-owlslider img').each(function() {
+        var grandSize = jQuery(this).attr('src');
+        if (grandSize == newImage) {
+          jQuery(this).parent().trigger('click');              
+          return false;
+        }
+      });
+    }
+    /*end of variant image*/  
+
+  } else {
+    // The variant doesn't exist. Just a safegaurd for errors, but disable the submit button anyway
+    addToCart.text('Unavailable').addClass('disabled').attr('disabled', 'disabled');
+  }
+
+  };
+</script>

@@ -1,0 +1,52 @@
+  <div class="close-sibade"></div>
+<div class=" col-md-3 col-sm-4 col-xs-12 col-left" id="filter-sidebar"> 
+
+  {% if settings.display_sidebar_categories %}
+  <div class="widget sidebar-links">
+    <div class="title"><h3><span>{{ settings.sidebar_categories_title }}</span> <span class="novetty_caret"><i class="fa fa-caret-down" aria-hidden="true"></i></span></h3></div>
+    <div class="widget-content content">
+      <ul>
+        {% if settings.style_categories == 'style_show_all' %}
+        {% for category in collections %}
+        <li><a href="{{ category.url }}" {% if collection.handle == category.handle %} class="active" {% endif %}>{{ category.title }}</a></li>     
+        {% endfor %}
+        {% else %}
+
+        {% assign items = settings.categories_items | split:"," %}
+        {% assign items_downcase = items | downcase %}
+
+
+
+        {% for category in collections %}
+        {% assign cat = category.title | downcase %}
+        {% if items_downcase contains cat %}
+
+
+        {% for item in items %}  
+        {% assign i_tem = item | strip %}
+        {% assign i_tem_downcase = item | downcase | strip %}
+        {% if i_tem_downcase contains cat and i_tem_downcase.size == cat.size %}
+
+        <li><a href="{{ category.url }}" {% if collection.handle == category.handle %} class="active" {% endif %}>{{ category.title }}<span class="count">({{ category.all_products_count }})</span></a></li>     
+        {% endif %}
+
+        {% endfor %}  
+
+
+
+        {% endif %}
+        {% endfor %}
+
+
+
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+  {% include 'collection-sidebar-shop-by-blocks' %}
+
+</div>
+<div class="overlay-filter"></div>

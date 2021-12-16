@@ -1,0 +1,108 @@
+{% comment %}
+  This snippet is used to showcase each product during the loop,
+  'for product in collection.products' in collection.liquid.
+
+  This example has each product on it's own line for all breakpoints.
+{% endcomment %}
+
+{% comment %}
+  Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+
+{% assign on_sale = false %}
+{% if item.compare_at_price_min > item.price_min %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% comment %}
+  Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+
+{% assign sold_out = true %}
+{% if item.available  %}
+  {% assign sold_out = false %}
+{% endif %}
+
+{% comment %}
+  Set a class for sold-out and on-sale items
+{% endcomment %}
+{% assign delayTime = 100 | times : forloop.index %}
+<div id="product-{{ item.id }}" class="product-item grid-item{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %} wow fadeInUp" data-wow-delay="{{delayTime}}ms">
+
+  {% comment %}
+    Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+    This allows you to create collection-based navigation on the product page.
+
+    Results of using 'within: collection':
+    - Instead of a URL with /products/product-handle
+      you would get /collections/collection-handle/products/product-handle
+
+    For more info on navigation within a collection
+      - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+  {% endcomment %}
+  <div class="product-image">
+    <a href="{{ item.url | within: collection }}" class="product-list-thumb product-grid-image">
+      <img src="{{ item.featured_image.src | product_img_url: 'medium' }}" alt="{{ item.featured_image.alt | escape }}"> 
+    </a>
+    {% if on_sale or sold_out %}
+     <div class="product-label">
+      {% if on_sale %}
+       <strong class="label">Sale</strong>
+      {% endif %}
+      {% if sold_out %}
+        <strong class="sold-out-label">Sold Out</strong>
+      {% endif %}
+     </div>
+    {% endif %}
+  </div>
+  
+  <div class="product-details">
+    <a class="product-title {% if product.title contains 'FurryFreshness ' %}product-title--split{% endif %}" href="{{ product.url | within: collection }}">
+      {% if product.title contains 'FurryFreshness ' %}
+        <strong>FurryFreshness</strong>{{ product.title | remove: 'FurryFreshness' }}
+      {% else %}
+        {{ product.title }}
+      {% endif %}
+    </a>
+
+    {% if settings.display_product_reviews %}       
+    <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
+    {% endif %}
+
+    <p class="short-description">{{ item.description | strip_html | truncatewords: 50 }}</p>
+
+    <div class="price-box">
+      {% if on_sale %}
+      <p class="sale">
+        <span class="old-price"> {{ item.compare_at_price_min | money }}</span>
+        <span class="special-price">{% if item.price_varies %}<em>from </em>{% endif %}{{ item.price_min | money }}</span>
+      </p>
+      {% else %}
+      <p class="regular-product">
+        {% comment %}
+          You can show a leading 'from' or 'up to' by checking 'item.price_varies'
+          if your variants have different prices.
+        {% endcomment %}
+        <span >{% if item.price_varies %}<em>from </em>{% endif %}{{ item.price_min | money }}</span>
+      </p>
+      {% endif %}
+    </div>
+    
+    <div class="action">
+      {% assign variantCount = item.variants | size %}
+      <form action="/cart/add" method="post" class="variants no_ro_widget" id="product-actions-{{ item.id }}" enctype="multipart/form-data" style="padding:0px;">    
+        {% if sold_out %}
+        <input class="btn add-to-cart-btn" type="submit" value="Unavailable" disabled="disabled" />
+        {% else %}
+        {% if variantCount > 1 %}    
+        <input class="btn harman_btn4" type="button" onclick="window.location.href='{{item.url}}'" value="Select options" />
+        {% else %}
+        <input type="hidden" name="id" value="{{ item.variants[0].id }}" />      
+        <input class="btn add-to-cart-btn" type="submit" value="Add to Cart" />
+        {% endif %}
+        {% endif %}
+      </form>         
+    </div>
+    {% include 'wishlist-product-search' %} 
+  </div>
+</div>

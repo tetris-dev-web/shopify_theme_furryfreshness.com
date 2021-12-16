@@ -1,0 +1,25 @@
+{% capture js_variables %}
+  <script>
+  Shopify = window.Shopify || {};
+  {% comment %} /* # Theme settings
+  ================================================== */ {% endcomment %}
+  Shopify.theme_settings = {};
+  {% comment %} Example: {% endcomment %}
+  {% comment %} Cart 
+  Shopify.theme_settings.display_tos_checkbox = {{ settings.display_tos_checkbox | json }};
+  Shopify.theme_settings.go_to_checkout = {{ settings.go_to_checkout | json }};
+  Shopify.theme_settings.cart_action = {{ settings.cart_action | json }};
+  {% endcomment %}
+  </script>
+{% endcapture %}
+
+{%- assign js_variables = js_variables | split: 'Shopify.' -%}
+
+{%- for variable in js_variables -%}
+  {%- assign variableblock = variable | strip -%}
+  {% if forloop.first %}
+    {{ variableblock }}
+  {% else %}
+    {{ variableblock | prepend: 'Shopify.' }}
+  {% endif %}
+{%- endfor -%}

@@ -1,0 +1,14 @@
+<header class="page-header em-effect06">
+  <div class="images em-eff06-03">
+    {% if settings.display_image_cat %}
+    	{% if collection.image %}
+    		{{ collection.image | img_url: 'master' | img_tag }}
+    	{% else %}
+    		{{ 'image_category.jpg' | asset_url | img_tag }}
+    	{% endif %}
+    {% endif %}
+    
+	<h2>{{ collection.title }}</h2>    
+  </div>
+
+</header>

@@ -1,0 +1,24 @@
+ <ul class="blog-list--main">
+					{% for article in blogs.all.articles limit: 5 %}
+                    <li>
+                        <div class="blog-list-item--main">
+                            <a class="blog-list-item--main__img-wrapper" href="{{ article.url }}">
+                               <img src="{{ article.image.src | img_url:'grande' }}">
+                            </a>
+                            <div class="blog-list-item--main__info">
+                                <a class="blog-list-item--main__info-title" href="{{ article.url }}">{{ article.title }}</a>
+                                <div class="blog-list-item--main__info-description hidden-xs">
+                                    {% if article.summary %}
+									{{ article.summary }}
+									{% else %}
+									{{ article.content | strip_html | truncatewords: 30 }}
+									{% endif %}
+                                </div>
+                                <div class="blog-list-item--main__publish-info"><span class="blog-list-item--main__publish-date">{{ article.published_on | date:'dd/MM/yyyy' }}</span> trong <span class="blog-list-item--main__publish-cate">Góc cha mẹ</span></div>
+                            </div>
+                        </div>
+                    </li>
+					{% endfor %}
+                </ul>
+{% include 'facebook-pixel-init' %}
+{% include 'facebook-pixel-view-content' %}

@@ -1,0 +1,90 @@
+<div id="cart">
+
+  <!-- Begin empty cart -->
+  {% if cart.item_count == 0 %}
+  <div class="row">
+    <div class="col-lg-12 expanded-message">
+      <br>
+      <br>
+      <h2 class="tc">Your cart is empty!</h2>
+    </div>
+  </div>
+  <!-- End empty cart -->
+
+  <!-- Begin cart -->
+  {% else %}
+  <div class="row">
+    <div class="col-lg-12">
+      <!--h1>Your cart</h1-->
+      <form action="/cart" method="post" id="cartform" class="fix-shadow">
+        <div class="col-md-8 col-sm-8 cart-list">
+          <table>
+            <thead>
+              <tr>
+                <th class="image">Product</th>
+                <th class="item">&nbsp;</th>
+                <th class="qty">Qty</th>
+                <th class="price">Price</th>
+                <th class="remove">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <script>mixed_cart = false;</script>
+              {% for item in cart.items %}
+              {% assign prod_index = forloop.index0 %}
+              <input type="hidden" name="product_id[{{ forloop.index0 }}]" value="{{ item.product.id }}">
+              <input type="hidden" name="variant_id[{{ forloop.index0 }}]" value="{{ item.variant.id }}">
+              <input type="hidden" name="quantity[{{ forloop.index0 }}]" value="{{ item.quantity }}">
+              <tr>
+                <td class="image">
+                  <div class="product_image">
+                    <a href="{{ item.url }}">
+                      <img src="{{ item | img_url: 'compact' }}"  alt="{{ item.product.title }}" />
+                    </a>
+                  </div>
+                </td>
+                <td class="item">
+                  <a href="{{ item.url }}">
+                    <strong>{{ item.product.title }}</strong>
+                    
+                    <span class="bold_ro_desc" data-product-id="{{item.id}}-{{ forloop.index0 }}"></span>
+                    <span class="bold_load_cart_item_properties"></span>
+                    
+                    {% if item.product.variants.size > 1 %}
+                    <span class="variant_title">{{ item.variant.title }}</span>
+                    {% endif %}
+                  </a>
+                </td>
+                <td class="qty">
+                  <input type="text" size="4" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" onfocus="this.select();" class="tc item-quantity" />
+                </td>
+                <td class="price">{{ item.line_price  | money }}</td>
+                <td class="remove"><a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart"><i class="icon_close"></i></a></td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="subtotal"><p class="t-title">Total price :</p>
+            <p class="price"><span class="total"><strong>{{ cart.total_price | money }}</strong></span></p>
+          </div>
+
+          <div class="cart-buttons inner-right inner-left">
+            <input type="submit" id="update-cart" class="btn" name="update" value="{{ 'Update Cart'}}" />
+            <input type="submit" id="checkout" class="harman_btn5 btn" name="checkout" value="{{ 'Check Out'}}" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+
+  </div>
+
+  {% endif %}
+
+  <!-- End cart -->
+
+</div>
+

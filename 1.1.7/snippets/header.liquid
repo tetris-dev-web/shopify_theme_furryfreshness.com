@@ -1,0 +1,301 @@
+<header id="header-content" class="header-layout-1">
+  <div class="header-top">
+    <div class="container-top">
+      <div class="top-currency">
+        <div class="row">
+          <div class="header-top-left col-lg-5 col-md-6 hidden-sm hidden-xs">
+            
+            
+            <div class="header-links">
+              <div class="cusstom-link">
+                <ul class="customer-links">
+                  {% if shop.customer_accounts_enabled %}
+                  {% if customer %}
+
+                  <li><i class="icon_check_alt" aria-hidden="true"></i><a href="/checkout"><span>Checkout</span></a></li>
+                  <li>
+                    {{ 'Logout' | customer_logout_link }}
+
+                  </li>
+                  <li>
+                    <a class="my-account" href="/account">My Account</a>
+                  </li>
+
+                  {% else %}
+                  <li><i class="icon_lock-open" aria-hidden="true"></i>
+                    {{ 'Login' | customer_login_link }}
+
+                  </li>
+                  <li><i class="icon_profile" aria-hidden="true"></i>
+                    {% if shop.customer_accounts_optional %}
+                    {{ 'Register' | customer_register_link }}
+                    {% endif %}
+                  </li>
+                  <li>
+                    <a href = '/pages/edit-my-subscription'>Edit My Subscription</a>
+                  </li>
+
+                  {% endif %}
+                  {% endif %}
+                  <li>{% include 'new-currency-top' %}</li>
+                </ul>
+              </div>
+      
+            </div>
+            
+            {% if settings.show_header_contact %}
+            <div class="header-contact">
+              {% if settings.header_contact_mail != blank %}
+              <div class="contact-content">
+                <span>
+                  {{ settings.header_contact_mail }}
+                </span>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+            
+          </div>
+          <div class="bar-content header-content-right col-lg-7 col-md-6 col-xs-12">
+            
+            <div class="righticons">
+                <ul class="topsocial">
+                  <li><a href="https://www.instagram.com/furryfreshness/"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="https://www.facebook.com/furryfreshness/"><i class="fa fa-facebook"></i></a></li>
+                  
+                  <li><a href="#" class="icon-search desktopsearch"><i class="fa fa-search"></i></a></li>                    
+                </ul>
+              </div>
+
+          </div>
+         
+                      
+          
+          
+        </div>
+      </div>
+      
+    
+    </div>
+  </div>
+  
+   <div class="icon-search mobilesearch"><i class="clever-icon-search-4"> </i></div>
+  
+   <div id="search-top">
+              <div class="search-form" style="display: none;">
+                <div class="search-close"><i class="icon_close"></i></div>
+                {% include 'search-bar' %}
+              </div>
+              <div class="overlay-search"></div>
+            </div>
+  
+    
+
+  
+  <div class="header-bottom">
+    <div class="container">
+      <div class="header-inner">
+        <div class="row main-header">
+          <div class="col-xs-4 toggle-me">
+            <div id="off-canvas-button">
+              <span class="off-canvas-nav"><i class="clever-icon-close"></i></span>			
+            </div>
+            <div class="toggle-menu">
+              <button class="navbar-toggle btn-menu-canvas" data-toggle="offcanvas" data-target="#off-canvas-nav">
+                <i class="icon_menu"></i>
+              </button>
+            </div>
+          </div>
+         
+          <div class="logo">
+            <div class="">
+              {% if settings.use_logo %}
+              <h1><a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a></h1>
+              {% if template == 'index' %}
+              <h1 style="display:none"><a href="/">{{ shop.name }}</a></h1>
+              {% endif %}
+              {% else %}
+              <h1><a href="/">{{ shop.name }}</a></h1>
+              {% endif %}
+            </div>
+
+          </div>
+          <div class="header-cart-container col-md-4 col-lg-4">
+            {% if settings.enable_wishlist %}
+            <div class="wishlist-menu">
+              <a href="/pages/wish-list" title="My Wishlist">
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %}
+            <div class="header-cart">
+              <!--%include 'customer_links' %-->
+              <div class="top-cart">
+                <div class="top-cart">
+                  <a href="/cart" id="cartToggle">
+                    <span class="icon top-icon-cart">
+                      <span id="cart-count">{{ cart.item_count }}</span>
+                      <i class="clever-icon-cart-3"></i>
+                    </span>
+                  </a> 
+                </div>
+                <div id="dropdown-cart"> 
+                  <form action="/cart" method="post" id="cartform" class="fix-shadow">
+                  <div class="continue-shoping"><span>My Cart</span><a><i class="clever-icon-close"></i></a></div>
+                  <div class="cart-empty">
+                    <p>You have no items in your shopping cart.</p>
+                  </div>
+                  <div class="mini_cart_header">
+                    <ol class="cart-list">  
+                      {% for item in cart.items %}
+                      <li class="item" id="cart-item-{{item.id}}">
+                        <a href="{{item.url}}" title="{{item.title}}" class="product-image"><img src="{{ item.image | product_img_url: 'small' }}" alt="{{item.title}}"></a>
+                        <div class="product-inner">
+
+                          <p class="product-name"><a href="{{item.url}}">{{ item.product.title }}</a></p>
+                          <div class="option">
+                            {% if item.product.variants.size != 0 %}
+                            {% unless item.variant.title contains 'Default' %}
+                            <small>{{ item.variant.title }}</small>
+                            {% endunless %}
+                            {% endif %}
+                          </div>
+                          <div class="cart-collateral">
+                            <span class="qty-cart">Qty:  {{item.quantity}}</span>
+                            <span class="price">{{item.price | money}}</span>
+                          </div>
+                          <a href="javascript:void(0)" title="Remove Item" class="btn-remove"><i class="clever-icon-close"></i></a>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ol>
+                    <div class="wrap-btcart">
+                      <div class="summary">                
+                        <p class="total">
+                          <span class="label" style="color:#000">Total:</span>
+                          <span class="price">{{cart.total_price | money}}</span> 
+                        </p>
+                      </div>
+                      <div class="actions">
+                        <div class="view-cart"><a class="harman_btn4" href="/cart">View Cart</a></div>
+                        <!--<input type="submit" id="checkout" class="harman_btn5 btn" name="checkout" value="{{ 'Check Out'}}" />-->
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+                {% comment %}
+                If customer accounts are enabled, provide login and create account links
+                {% endcomment %}
+              </div> <!-- End Top Header --> 
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>  
+  </div>
+  <div class="header">
+    <div class="container">
+      <div class="row header-menu">
+        <div class="logo-sticky col-xs-1">
+          {% if settings.use_logo_sticky %}
+          <a href="/"><img src="{{ 'logo-sticky.png' | asset_url }}" alt="{{ shop.name }}" /></a>
+          {% endif %}
+        </div>
+        <div class="menu-main-home col-xs-12 hidden-xs">
+          <div class="menu-top ">
+            <div class="menu-action">{% include 'site-nav' %}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nm-page-overlay"></div>
+</header>
+
+<script>
+  jQuery('#header-content .icon-search').click(function(){
+    jQuery('#search-top .search-form').fadeIn('300');        
+
+    jQuery('#search-top').addClass('active');
+  });
+  
+  jQuery('#header-content .search-close').click(function(){
+    jQuery('#search-top .search-form').fadeOut('300'); 
+
+    jQuery('#search-top').removeClass('active');
+  });
+</script>
+{% if settings.display_ticky_menu %}
+<script>
+  $(document).ready(function() {
+    $( ".dropdown-sub").hover(
+      function() {
+        $( this ).parent().addClass("has_arrow");
+      }, function() {
+        $( this ).parent().removeClass("has_arrow");
+
+      }
+    );
+  });
+  jQuery(window).scroll(function() {    
+    var scroll = jQuery(window).scrollTop();
+    if (scroll > 150) {
+      jQuery("#header-content .header").addClass("is-ticky");
+    }else{
+      jQuery("#header-content .header").removeClass("is-ticky");
+    }
+  });
+  if (window.screen.width > 1024) {
+    jQuery(window).scroll(function() {    
+      var scroll = jQuery(window).scrollTop();
+      if (scroll > 150) {
+        jQuery("#header-content").addClass("fixed-cart");
+      }else{
+        jQuery("#header-content").removeClass("fixed-cart");
+      }
+    });
+  }
+  if (window.screen.width < 1025) {
+    jQuery(window).scroll(function() { 
+      var scroll = jQuery(window).scrollTop();
+      jQuery("#header-content .header").removeClass("is-ticky");
+      if (scroll > 40) {
+        jQuery("#header-content .header-bottom").addClass("is-ticky");
+      }else{
+        jQuery("#header-content .header-bottom").removeClass("is-ticky");
+      }
+    });
+  }
+  jQuery('.top-cart a').click(function(){
+
+    jQuery('#dropdown-cart').addClass('active');
+    jQuery('.wrapper-container').addClass('show-cart');
+    jQuery('body').css( "overflow", "hidden" );
+
+  });
+
+  jQuery('.continue-shoping a').click(function(){
+
+    jQuery('#dropdown-cart').removeClass('active');
+    jQuery('.wrapper-container').removeClass('show-cart');
+    jQuery('body').css( "overflow", "visible" );
+
+  });
+  jQuery(document).mouseup(function (e){
+
+    var container = jQuery("#dropdown-cart");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+      jQuery('#dropdown-cart').removeClass('active');
+      jQuery('.wrapper-container').removeClass('show-cart');
+      jQuery('body').css( "overflow", "visible" );
+    }
+
+  });
+
+
+</script>
+{% endif %}

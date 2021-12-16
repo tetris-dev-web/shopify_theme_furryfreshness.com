@@ -1,0 +1,11 @@
+{% if settings.home_product_title_1 != blank %}
+<div class="heading-block">
+  <h3 class="title">{{ settings.home_product_title_1 }}</h3>
+</div>
+{% endif %}
+{% if settings.enable_product_1 %}
+<div class="top-product">
+  {% assign tabnew_collection = settings.collection_product_1 %}
+  {% include 'home-tab-product' %}
+</div>
+{% endif %}

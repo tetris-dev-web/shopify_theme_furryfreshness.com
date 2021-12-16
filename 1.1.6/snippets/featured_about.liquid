@@ -1,0 +1,55 @@
+{% if settings.display_featured_about %}
+  <div class="featured_about">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="block-title">
+            {% if settings.featured_about_title1 != blank %}
+            <h3><span>{{ settings.featured_about_title1 }}</span></h3>
+            {% endif %}
+          </div>
+          <div class="images">
+            {{ 'featured_about_images1.jpg' | asset_url | img_tag }}
+          </div>
+          <div class="content">
+            {% if settings.featured_about_text_1 != blank %}
+            {{ settings.featured_about_text_1 }}
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="block-title">
+            {% if settings.featured_about_title2 != blank %}
+            <h3><span>{{ settings.featured_about_title2 }}</span></h3>
+            {% endif %}
+          </div>
+          <div class="images">
+            {{ 'featured_about_images2.jpg' | asset_url | img_tag }}
+          </div>
+          <div class="content">
+            {% if settings.featured_about_text_2 != blank %}
+            {{ settings.featured_about_text_2 }}
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="block-title">
+            {% if settings.featured_about_title3 != blank %}
+            <h3><span>{{ settings.featured_about_title3 }}</span></h3>
+            {% endif %}
+          </div>
+          <div class="images">
+            {{ 'featured_about_images3.jpg' | asset_url | img_tag }}
+          </div>
+          <div class="content">
+            {% if settings.featured_about_text_3 != blank %}
+            {{ settings.featured_about_text_3 }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}

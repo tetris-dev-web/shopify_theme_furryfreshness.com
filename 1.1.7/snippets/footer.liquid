@@ -1,0 +1,89 @@
+<div class="button-accrion" style="display:none;"></div>
+<footer class="footer-container">
+ 
+    <div class="footer-top"> 
+    <div class="container">
+      <div class="home-cust-container">
+        {% if settings.footer_column_1_title != blank %}
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <h3 class="module-title">{{ settings.footer_column_1_title }}</h3>
+          <ul class="content">
+            {% assign footerCol1 = settings.footer_column_1_title | handleize %}
+            {% for link in linklists[settings.footercol1].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if settings.footer_column_2_title != blank %}
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <h3 class="module-title">{{ settings.footer_column_2_title }}</h3>
+          <ul class="content">
+            {% assign footerCol2 = settings.footer_column_2_title | handleize %}
+            {% for link in linklists[settings.footercol2].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+       
+          {% if settings.display_footer_isocal %}
+          <div class="footer-icon-share">
+            {% if settings.footer_column_4_icon_1 != blank %}
+            <a href="{{ settings.footer_column_4_icon_link_1 }}"><i class="{{ settings.footer_column_4_icon_1 }}"></i></a>
+            {% endif %}
+            {% if settings.footer_column_4_icon_2 != blank %}
+            <a href="{{ settings.footer_column_4_icon_link_2 }}"><i class="{{ settings.footer_column_4_icon_2 }}"></i></a>
+            {% endif %}
+            {% if settings.footer_column_4_icon_3 != blank %}
+            <a href="{{ settings.footer_column_4_icon_link_3 }}"><i class="{{ settings.footer_column_4_icon_3 }}"></i></a>
+            {% endif %}
+            {% if settings.footer_column_4_icon_4 != blank %}
+            <a href="{{ settings.footer_column_4_icon_link_4 }}"><i class="{{ settings.footer_column_4_icon_4 }}"></i></a>
+            {% endif %}
+            {% if settings.footer_column_4_icon_5 != blank %}
+            <a href="{{ settings.footer_column_4_icon_link_5 }}"><i class="{{ settings.footer_column_4_icon_5 }}"></i></a>
+            {% endif %}
+          </div>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+{% comment %}
+  
+  {% if settings.footer_column_3_title != blank %}
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <h3 class="module-title">{{ settings.footer_column_3_title }}</h3>
+          <ul class="content">
+            {% assign footerCol3 = settings.footer_column_3_title | handleize %}
+            {% for link in linklists[settings.footercol3].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <div class="col-md-3 col-sm-12 col-xs-12 text-left">
+          <h3 class="module-title">{{ settings.footer_column_4_title }}</h3>
+          {% if settings.enable_footer_Top %}
+          {% if settings.footer_display_newsletter %}	
+          <div class="footer-newsletter">
+            {% include 'footer-newsletter' %}
+          </div>
+          {% endif %}
+        </div>
+          {% endif %} 
+  
+  {% endcomment %}
+  
+  <div class="footer-bottom">
+            {% if settings.display_footer_copyright %}
+            <address>
+
+              {{ settings.footer_copyright_text_1 }}
+
+            </address>
+            {% endif %}
+
+  </div>
+</footer>
+{% include 'message-modal' %}

@@ -1,0 +1,24 @@
+<!-- Facebook pixel events by Codematic-->
+<script>
+  window.addEventListener("load", function(){
+    product_ = {{ product | json }};
+    cart_ = {{ cart | json }}
+      
+    function fbAddtoCart(selected_variant_price_){
+    	fbq('track', 'AddToCart', { content_name: product_.title,
+      							num_items: 1,
+                                content_type: "product_group",
+                                content_ids: [product_.id],
+                                value: selected_variant_price_/100,
+                                currency: cart_.currency
+                                });
+    }
+    
+    product_add_to_cart = document.getElementById({{ element_id | json }})
+    product_add_to_cart.addEventListener("click", function(e) {
+    	fbAddtoCart({{ product.selected_or_first_available_variant.price | json }});
+   })
+   
+});
+
+</script>
