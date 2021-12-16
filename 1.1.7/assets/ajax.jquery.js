@@ -919,7 +919,7 @@
         });
         return false
       });
-      jQuery(".product-quickview .overlay, .close-popup").live("click", function() {
+      jQuery(".product-quickview .overlay, .close-popup").click(function() {
         mt.closeQuickViewPopup();
         return false
       })

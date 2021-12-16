@@ -356,8 +356,14 @@
   </div>
   <script>
     jQuery(document).ready(function () {
-
+      // Let first image can be selected
       jQuery('#zt_list_product li').first().find('a').addClass('zoomGalleryActive');
+
+      // Click thumbnail image and change selection
+      jQuery('#zt_list_product li>a').click(function(){
+        $('#zt_list_product li>a').removeClass('zoomGalleryActive');
+        $(this).addClass('zoomGalleryActive');
+      });
 
       jQuery(".thumb-image-mobile").owlCarousel({
         itemsCustom: [
@@ -502,6 +508,7 @@
 
 
         Shopify.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+
           jQuery('#zt_list_product img').each(function () {
 
             var grandSize = jQuery(this).attr('src');
@@ -515,7 +522,6 @@
             newImageSizedSrc = newImageSizedSrc.replace('_grande', '');
 
             newImageSizedSrc = newImageSizedSrc.replace('.jpg.jpg', '.jpg');
-
             newImageSizedSrc = removeExtent(newImageSizedSrc);
             if (grandSize == newImageSizedSrc) {
               // Change Featured Image
@@ -547,13 +553,14 @@
       {% if product.available and product.variants.size > 1 %}
       new Shopify.OptionSelectors('product-selectors', {
         product: {{ product | json }},
-      onVariantSelected: selectCallback,
-      enableHistoryState: true
-      });
+        onVariantSelected: selectCallback,
+        enableHistoryState: true
+        });
 
     {% comment %}
     Use color swatch and linked options(copyright by @carolineschnapp)
     {% endcomment %}
+
     {% if settings.use_color_swatch and product.available and product.options.size > 1 %}
     Shopify.linkOptionSelectors({{ product | json }});
     {% endif %}
@@ -728,14 +735,14 @@
 
     var item = {
       Name: {{ product.title| json }},
-    ProductID: { { product.id | json } },
-    Categories: { { product.collections | map: 'title' | json } },
-    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+      ProductID: {{ product.id | json }},
+      Categories: {{ product.collections | map: 'title' | json }},
+      ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
       URL: "{{ shop.secure_url }}{{ product.url }}",
-        Brand: { { product.vendor | json } },
-    Price: { { product.price | money | json } },
-    CompareAtPrice: { { product.compare_at_price_max | money | json } }
-  };
+      Brand: {{ product.vendor | json }},
+      Price: {{ product.price | money | json }},
+      CompareAtPrice: {{ product.compare_at_price_max | money | json }}
+    };
 
     _learnq.push(['track', 'Viewed Product', item]);
     _learnq.push(['trackViewedItem', {
