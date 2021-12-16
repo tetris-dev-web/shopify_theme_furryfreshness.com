@@ -648,6 +648,14 @@
       </div>
     </div>
   </div>
+  <style>
+    .bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl {
+      visibility: hidden;
+    }
+    .bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl .bold-ro__initial-discount-price {
+      display: none;
+    }
+  </style>
   <script>
     /********** Subscription functionality **********/
     var subscriptionAcception = false;
@@ -659,12 +667,16 @@
     var funcSubscribe = function () {
       var obj = $('.bold-ro__product .bold-ro__one-time-div span');
       if (obj.length > 0 && obj.html().trim() == 'One-time purchase') {
-        // Add Price
-        obj.append('<br><span class="price">{{ product.price | money }}</span>');
+        // Add Price - Remove it by Hagen : 2021.12.16
+        // obj.append('<br><span class="price">{{ product.price | money }}</span>');
 
         // Break subscription price into separate line
         var subscriptionTextContainer = $('.bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl');
-        subscriptionTextContainer.html(subscriptionTextContainer.html().replace(' (', '<br> ('))
+
+        // Hide the subscription price : By Hagen : 2012.12.16
+        subscriptionTextContainer.html(subscriptionTextContainer.html().replace(' (', ''));
+        subscriptionTextContainer.html(subscriptionTextContainer.html().replace(') ', ''));
+        $('.bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl').css('visibility', 'visible');
 
         // Add click event
         $('.bold-ro__product .bold-ro__recurring-div').click(function () {
@@ -706,7 +718,7 @@
       }
     }
 
-    interValSubscribe = setInterval(funcSubscribe, 1000);
+    interValSubscribe = setInterval(funcSubscribe, 500);
 
   </script>
 
