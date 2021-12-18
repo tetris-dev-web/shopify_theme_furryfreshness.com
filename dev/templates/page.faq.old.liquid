@@ -1,0 +1,137 @@
+<div class="container page-faq">
+  <div class="page-faq-1">
+    {% if settings.display_faq_row1 %}
+    <div class="row">
+      {% if settings.titlefaq != blank %}
+      <div class="title-faq">{{ settings.titlefaq }}</div>
+      {% endif %}
+      
+      <div class="col-xs-12 col-md-6 col-sm-6 faq-col">
+      {% for i in (1..5) %}
+      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
+      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
+      {% capture collapse %}collapse{{ i }}{% endcapture %}
+      <div class="panel-group" id="accordion">
+        {% if settings[subtitlefaq] != blank %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
+                {{ settings[subtitlefaq] }}
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </h4>
+          </div>
+          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
+            {{ settings[contentfaq] }}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      </div>
+      <div class="col-xs-12 col-md-6 col-sm-6 faq-col">
+      {% for i in (6..10) %}
+      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
+      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
+      {% capture collapse %}collapse{{ i }}{% endcapture %}
+      <div class="panel-group" id="accordion">
+        {% if settings[subtitlefaq] != blank %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
+                {{ settings[subtitlefaq] }}
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </h4>
+          </div>
+          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
+            {{ settings[contentfaq] }}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      </div> 
+    </div>
+    {% endif %}
+    {% if settings.display_faq_row2 %}
+    <div class="row">
+      {% if settings.titlefaq_2 != blank %}
+      <div class="title-faq">{{ settings.titlefaq_2 }}</div>
+      {% endif %}
+      
+      <div class="col-xs-12 col-md-6 col-sm-6 faq-col">
+      {% for i in (11..15) %}
+      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
+      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
+      {% capture collapse %}collapse{{ i }}{% endcapture %}
+      <div class="panel-group" id="accordion">
+        {% if settings[subtitlefaq] != blank %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
+                {{ settings[subtitlefaq] }}
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </h4>
+          </div>
+          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
+            {{ settings[contentfaq] }}
+          </div>
+        </div>
+        {% endif %}
+      </div> 
+      {% endfor %}
+      </div>
+      <div class="col-xs-12 col-md-6 col-sm-6 faq-col">
+      {% for i in (16..20) %}
+      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
+      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
+      {% capture collapse %}collapse{{ i }}{% endcapture %}
+      <div class="panel-group" id="accordion">
+        {% if settings[subtitlefaq] != blank %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
+                {{ settings[subtitlefaq] }}
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </h4>
+          </div>
+          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
+            {{ settings[contentfaq] }}
+          </div>
+        </div>
+        {% endif %}
+      </div> 
+      {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<script>
+  jQuery('.main-content > .container').removeClass('container');
+  
+  
+//     jQuery('.page-faq .faq-col .panel-group').click(function(){
+//     jQuery(".page-faq .faq-col .panel-group").removeClass("active");
+//       // add class to the one we clicked
+//       $(this).addClass("active");    
+//    jQuery(this).click(function(){
+//     if(jQuery(this).hasClass('active')){
+//     	jQuery(this).removeClass('active');
+//     }else{
+//     jQuery(this).addClass('active');
+//     }  
+//   });
+ 
+  
+  });
+ 
+  
+</script>

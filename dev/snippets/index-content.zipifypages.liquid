@@ -1,0 +1,32 @@
+{%- assign zp_use_homepage = false -%}{%- comment -%}
+  Updated: 07/30/2020
+  This file is system-generated and should not be modified
+  We reserve the right to overwrite it at any moment to add improvements or new features so that customizations you made might be lost
+{%- endcomment -%}
+{%- if zp_use_homepage -%}
+  {%- assign zp_index_page_handle = shop.metafields['zipifypages']['indexpagehandle'] -%}
+  {%- assign zp_page = pages[zp_index_page_handle] -%}
+  {%- assign zp_page_id_size = '' | append: zp_page.id | size -%}
+  {%- if zp_page_id_size > 0 -%}
+    {%- if zp_page.template_suffix contains 'custom.zipifypages' -%}
+{% include 'page-content.zipifypages', renderctx: 'idxthmtpl' %}
+    {%- else -%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% render 'header-scripts.zipifypages', renderctx: 'idxtpl' %}{{ content_for_header }}
+  </head>
+  <body>
+    {% include 'page-content.zipifypages', renderctx: 'idxtpl' %}
+    {% render 'page-footer.zipifypages', renderctx: 'idxtpl' %}
+  </body>
+</html>{% layout none %}
+    {%- endif -%}
+  {%- else -%}
+{% include 'index.original.zipifypages' %}
+  {%- endif -%}
+{%- else -%}
+  {% include 'index.original.zipifypages' %}
+{%- endif -%}
