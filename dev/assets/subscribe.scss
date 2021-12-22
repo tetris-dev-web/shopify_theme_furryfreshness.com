@@ -1,4 +1,5 @@
 .bold-ro__product {
+  /*  Disabled By Hagen / 2021.21.22 : Update the subscription layout to be original view
   text-align: center;
   margin-top: 5px;
   
@@ -95,13 +96,11 @@
     }
     
     .bold-ro__frequency-div {
-       margin-left: -100px; 
-      margin-top: -8px; */
-   /*    border: solid 1px #d8d8d8; */
+      margin-left: -100px; 
+      margin-top: -8px;
       border-radius: 10px;
       margin-right: -11px;
       padding-bottom: 10px;
-/*       display: none; */
     }
   }
   
@@ -109,6 +108,35 @@
     margin-top: 75px;
     padding-top: 24px;
     width: 376px;
+  }
+  */
+
+  .bold-ro__recurring-div .bold-ro__recurring-lbl {
+    visibility: hidden;
+
+    .bold-ro__initial-discount-price {
+      display: none;
+    }
+  }
+
+  .bold-ro__radio-div {
+    padding-bottom: 0px;
+    padding-top: 0px;
+
+    input[type=radio] {
+      display: inline-block;
+      margin-right: 10px;
+    }    
+
+    .bold-ro__recurring-text,
+    .bold-ro__one-time-purchase {
+      font-size: 15px;
+    }
+  }
+
+  .bold-ro__bold-active {
+    border-color: transparent;
+    background: none;
   }
 }
 

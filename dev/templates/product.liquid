@@ -656,37 +656,14 @@
     </div>
   </div>
   <style>
-    .bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl {
-      visibility: hidden;
-    }
-    .bold-ro__product .bold-ro__recurring-div .bold-ro__recurring-lbl .bold-ro__initial-discount-price {
-      display: none;
-    }
     .product-shop p.afterpay-paragraph {
       display: none !important;
-    }
-
-    .bold-ro__radio-div {
-      padding-bottom: 0px;
-      padding-top: 0px;
-    }
-    .bold-ro__radio-div input[type=radio] {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .bold-ro__radio-div .bold-ro__recurring-text,
-    .bold-ro__radio-div .bold-ro__one-time-purchase {
-      font-size: 15px;
-    }
-
-    .bold-ro__bold-active {
-      border-color: transparent;
-      background: none;
     }
   </style>
   <script>
     /********** Subscription functionality **********/
     var subscriptionAcception = false;
+    var subscriptionPeriod = 0;
 
     // Add Price to left box
     jQuery('.main-content > .container').removeClass('container');
@@ -720,6 +697,7 @@
           }
         });
 
+        subscriptionPeriod = $('.bold-ro__product .bold-ro__frequency-num').val();
         $('.bold-ro__product .bold-ro__frequency-num').change(function () {
           $('.product-subscribe-popup .months').html($(this).val());
           $('.product-subscribe-popup').show();
@@ -733,12 +711,14 @@
         $('.product-subscribe-popup .btn-popup-cancel').click(function (e) {
           e.preventDefault();
           $('.product-subscribe-popup').hide();
-          $('.bold-ro__product .bold-ro__one-time-div').trigger('click');
+          $('.bold-ro__product .bold-ro__frequency-num').val(subscriptionPeriod);
+          // $('.bold-ro__product .bold-ro__one-time-div').trigger('click');
         });
         $('.product-subscribe-popup .btn-popup-accept').click(function (e) {
           e.preventDefault();
-          subscriptionAcception = true;
           $('.product-subscribe-popup').hide();
+          subscriptionAcception = true;
+          subscriptionPeriod = $('.bold-ro__product .bold-ro__frequency-num').val();
         });
 
         // Clear Interval
