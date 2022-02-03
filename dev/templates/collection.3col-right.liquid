@@ -1,71 +1,71 @@
-
-
-{% if settings.isotope_collection_results_per_page != blank %}
-{% assign product_per_page = settings.isotope_collection_results_per_page %}
-{% else %}
-{% assign product_per_page = 14 %}
-{% endif %}
-
-<div class="row main_row sidebar-right">
-  {% include 'page-header' %} 
-  <div class="col-md-9 col-sm-12 col-xs-12 col-main display-toolbar collection-page">    
-    {% paginate collection.products by product_per_page %}
-
-    {% comment %}
-    Use .grid--rev so that the collection tags appear below the products on mobile
-    {% endcomment %}     
-    {% include 'toolbar' %}
-
-
-    {% comment %}
-    Use class grid-uniform to have evenly sized columns clear
-    each other properly at each breakpoint.
-    {% endcomment %}
-    <div class="product-grid-isotope-parent">
-      <div class="products-grid product-grid-item">
-
-          {% if collection.products.size > 0 %}      
-          {% paginate collection.products by product_per_page %}  
-          {% for product in collection.products %}
-          {% include 'isotope-product' %}
-          {% endfor %}
-          {% endpaginate %}
-          {% else %}
-          <p style="text-align: center;">There are no products in this collection.</p>
-          {% endif %}
- 
-      </div>
-    </div>
-
-    {% if paginate.pages > 1 %}
-    <div class="padding">
-      {% include 'pagination-page' %}
-    </div>
-    {% endif %}
-
-    {% endpaginate %}    
-  </div>
-
-  {% include 'collection-sidebar' %}
-</div>
-
-<style>
-  /* ---- Custom ---- */  
-
-  /* ---- replace  page-header image to background cover ---- */ 
-  {% if settings.display_image_cat %}
-  {% if collection.image %}
-  .collection-page .page-header{
-    background: url({{ collection.image | img_url: 'master'}});
-    background-size: cover;
-  }
-
-  {% else %}
-  .collection-page .page-header{
-    background: url({{ 'image_category.jpg' | asset_url }});
-    background-size: cover;				           
-  }
-  {% endif %}
-  {% endif %}
-
+
+
+{% if settings.isotope_collection_results_per_page != blank %}
+{% assign product_per_page = settings.isotope_collection_results_per_page %}
+{% else %}
+{% assign product_per_page = 14 %}
+{% endif %}
+
+<div class="row main_row sidebar-right">
+  {% include 'page-header' %} 
+  <div class="col-md-9 col-sm-12 col-xs-12 col-main display-toolbar collection-page">    
+    {% paginate collection.products by product_per_page %}
+
+    {% comment %}
+    Use .grid--rev so that the collection tags appear below the products on mobile
+    {% endcomment %}     
+    {% include 'toolbar' %}
+
+
+    {% comment %}
+    Use class grid-uniform to have evenly sized columns clear
+    each other properly at each breakpoint.
+    {% endcomment %}
+    <div class="product-grid-isotope-parent">
+      <div class="products-grid product-grid-item">
+
+          {% if collection.products.size > 0 %}      
+          {% paginate collection.products by product_per_page %}  
+          {% for product in collection.products %}
+          {% include 'isotope-product' %}
+          {% endfor %}
+          {% endpaginate %}
+          {% else %}
+          <p style="text-align: center;">There are no products in this collection.</p>
+          {% endif %}
+ 
+      </div>
+    </div>
+
+    {% if paginate.pages > 1 %}
+    <div class="padding">
+      {% include 'pagination-page' %}
+    </div>
+    {% endif %}
+
+    {% endpaginate %}    
+  </div>
+
+  {% include 'collection-sidebar' %}
+</div>
+
+<style>
+  /* ---- Custom ---- */  
+
+  /* ---- replace  page-header image to background cover ---- */ 
+  {% if settings.display_image_cat %}
+  {% if collection.image %}
+  .collection-page .page-header{
+    background: url({{ collection.image | img_url: 'master'}});
+    background-size: cover;
+  }
+
+  {% else %}
+  .collection-page .page-header{
+    background: url({{ 'image_category.jpg' | asset_url }});
+    background-size: cover;				           
+  }
+  {% endif %}
+  {% endif %}
+
 </style>

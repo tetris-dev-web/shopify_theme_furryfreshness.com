@@ -18,17 +18,9 @@
 
 
   <!-- Facebook Pixel Code by Codematic-->
-  <script>
-    var head = document.head;
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = "https://180309.tracking.hyros.com/v1/lst/universal-script?ph=84df6cdfe3f0c1c11501e2ffe22f0e8eebef196a26b2fc2899270b87960a0a20&tag=!tracking";
-    head.appendChild(script);
-  </script>
+  
 
-  <!-- AnyTrack Tracking Code -->
-  <script>!function(e,t,n,s,a){(a=t.createElement(n)).async=!0,a.src="https://assets.anytrack.io/Up4Ez21tITpg.js",(t=t.getElementsByTagName(n)[0]).parentNode.insertBefore(a,t),e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)}}(window,document,"script","AnyTrack");</script>
-  <!-- End AnyTrack Tracking Code -->
+  
 
   <meta name="google-site-verification" content="RruU07WHkpI-9PpgH7IhM1RBxn0GryYx6j0po5SLeTw" />
 
@@ -244,11 +236,11 @@ Add the page template as a class for easy page or template specific styling.
           //recurring_cart: 0, single_product: 1, mixed_cart: 2
           //if in recurring cart
           if(BOLD.recurring_orders.modes.current_mode == 0){
-            btn = e.querySelector('.bold-ro__recurring-div .bold-ro__recurring-radio-btn');
+            btn = e.querySelector('One-time purchase');
           }
           //if in single product or multiple product
           else{
-            btn = e.querySelector('.bold-ro__subscribe-radio-btn');
+            btn = e.querySelector('One-time purchase');
           }
 
           //if button exists, click it, if not, do nothing

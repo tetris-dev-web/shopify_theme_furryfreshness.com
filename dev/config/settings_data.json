@@ -1844,7 +1844,8 @@
           "2d61e1ce-b152-4489-9fce-1c48a46aa9e9",
           "f9bfe137-963c-4a57-95e9-816d00439ad9"
         ],
-        "settings": {}
+        "settings": {
+        }
       },
       "weigh-against-alternatives": {
         "type": "weigh-against-alternatives",
@@ -1898,7 +1899,9 @@
         }
       }
     },
-    "content_for_index": []
+    "content_for_index": [
+
+    ]
   },
   "presets": {
     "Default": {

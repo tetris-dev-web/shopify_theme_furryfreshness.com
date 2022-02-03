@@ -1,0 +1,220 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+	line-height: 1;
+	background:#f1f4f8!important;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+strong{font-weight:bold;}
+h1{font-family: 'PT Sans', sans-serif;font-weight:400!important;font-size:80px!important;color: rgba(47,47,47,0.86);}
+h3{font-family: 'Open Sans', sans-serif;font-weight:400!important;font-size: 34px!important;color:#4c4c4c;}
+h2{font-family: 'Open Sans', sans-serif;font-weight:400!important;font-size: 50px!important;color: rgba(47,47,47,0.86);}
+.style01{font-family: 'PT Sans', sans-serif;font-weight:400!important;}
+.font-style2{font-family: 'PT Sans', sans-serif;font-weight:400!important;}
+.content-blk h3 {padding: 0 132px;line-height: 46px!important;margin-top:0px;margin-bottom: 25px;display: inline-block;}
+p {font-size: 22px!important;font-family: 'Arimo', sans-serif;font-weight:400!important;line-height: 28px;color: rgba(47,47,47,0.86);margin: 20px 0!important;}
+.img-style1{height:400px!important;}
+.content-inner {background: #fff;border-radius: 20px;margin-top: 30px;padding: 41px 35px 20px;}
+.content-blk h3 strong{color:#980000;}
+.content-blk .container{padding:0;}
+.pet-block h2 span {font-weight:700;color: #980000;font-style: italic;}
+.pet-block p u {
+    text-decoration: none;
+    color: #980000;
+}
+.red-color{color:#980000;}
+.pet-block h2 {padding: 0 159px;line-height: 55px;margin-bottom:0;}
+.font-style2 strong{ font-weight:700;}
+.thumb img{width:295px;border-radius:10px;}
+.blk01 img{width:400px;margin-bottom: 20px;}
+.blk01 h4 {font-size: 21px;font-weight:700;margin-bottom: 20px;color:rgba(47,47,47,0.86);}
+h2.custom01 {font-size: 40px!important;line-height: 1em;margin-top:25px;}
+.video-outer{padding-top:78.125%;width: 100%;position: relative;margin: 30px 0;}
+.video-outer iframe{position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+.blue-heading{color:#1aa9db;font-size:42px!important;font-weight:700;margin: 20px 0;}
+.block-2 img {width: 240px;}
+.block-2 img {width: 240px;border: 1px solid rgba(0,0,0,0.095);
+box-shadow: 0 4px 3px rgb(0 0 0 / 8%);padding: 5px;}
+.block-2 h3{color:#1aa9db;font-weight:700!important;padding:0;font-size:32px!important;font-family: 'PT Sans', sans-serif;margin-top:12px;}
+.block-2 h3.smallheading{font-size:28px!important;}
+.style01{font-style:italic;}
+.pet-block .box h2 {padding:0px 75px 15px 75px;font-size: 20px!important;font-weight:700!important;line-height: 28px;color:#000;}
+.border-block {padding-bottom: 20px;}
+.border-block .box{border: 3px solid #000;border-radius:10px;}
+.bottleOuter {margin: 32px -35px;padding: 44px 54px;border: 2px dashed rgba(47,47,47,0.86);}
+.button{margin-bottom:30px;display:inline-block;}
+footer p{font-weight:700;font-family: 'PT Sans', sans-serif;font-weight:400!important;font-size:16px!important;color:rgba(47, 47, 47, 0.541176);}
+footer {padding-top: 40px;}
+input[type=radio]:checked ~ label{border:3px solid #fe9715;}
+/* The container */
+.box {
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.border-block input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 20px;
+    left: 33px;
+    height: 25px;
+    width: 25px;
+    background-color:transparent;
+    border-radius: 3px;
+    border: 2px solid;
+	z-index:1;
+}
+
+/* On mouse-over, add a grey background color */
+.border-block:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the radio button is checked, add a blue background */
+.border-block input:checked ~ .checkmark {
+  background-color:transparent;
+  border-color: #fe9715;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.border-block input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.border-block .checkmark:after {
+    left: 3px;
+    top: -7px;
+    width: 5px;
+    height: 15px;
+    content: url('../assets/Q122-draw-check-mark.png');
+    font-size: 31px;
+	color:#fe9715;
+}
+@media screen and (max-width:1199px){
+	.container{max-width:1170px;}
+}
+@media screen and (max-width:1170px){
+	.container{max-width:100%;}
+	.content-blk h3 {
+    padding: 0 62px;
+}
+.pet-block h2 {
+    padding: 0 99px;
+}
+.block-2 h3.smallheading {
+    font-size: 28px!important;
+    line-height: 34px!important;
+	padding:0 33px;
+}
+.pet-block .box h2 {
+    padding: 15px 61px;
+}
+.box .thumb{height:326px;}
+}
+@media screen and (max-width:991px){
+	.content-blk h3 {
+    padding: 0 10px;
+}
+.pet-block h2 {
+    padding: 0 10px;
+}
+}
+@media screen and (max-width:767px){
+	.thumb1 {
+    margin-top: 20px;
+}
+.video-outer{margin:15px 0;}
+h2.custom01 {
+    margin-bottom: 25px;
+}
+.smallThumb {
+    text-align: center;
+}
+.box .thumb {
+    height: auto;
+}
+.bottleOuter {
+    padding: 44px 35px 20px;
+}
+.center-block{text-align:center;}
+h1{font-size:35px!important;}
+h2{font-size:30px!important;line-height:normal!important;}
+.pet-block h2{line-height:normal!important;}
+.content-blk h3{font-size:20px!important;line-height:29px!important;}
+.content-inner{padding:41px 10px 20px;}
+	p{font-size:20px!important;}
+	.blk01 h4 {
+    line-height: 30px!important;
+    padding: 0 10px;
+}
+h2.custom01 {
+    font-size: 25px!important;
+}
+.blue-heading{font-size:20px!important;}
+.block-2 h3{font-size:32px!important;}
+.bottleOuter {
+    margin: 32px -10px;
+}
+.content-blk .container{padding:0 8px;}
+}

@@ -1,59 +1,59 @@
-  {{ 'bootstrap-rtl.min.css' | asset_url | stylesheet_tag }}
-{% include 'homepage-flexslider' %}
-
-<div class="block-top">
-  <div class="container-fluid no-padding-lr">
-      {% include 'block-carousel-top' %}
-  </div>
-</div>
-
-{% if settings.enable_tabs %}	
-<div class="tabs-product-home">
-  <div class="container">
-    {% comment %} Product Tabs {% endcomment %}
-    {% include 'home-page-tabsproduct' %}
-  </div>
-</div>
-{% endif %}
-
-
-{% if settings.display_saleoff_home %}
-<div class="home-saleoff">
-    <div class="container">
-        {% comment %} saleoff home {% endcomment %}
-        {% include 'home-saleoff' %}
-    </div>
-</div>
-{% endif %}
-
-{% if settings.display_testimonials %}
-  {% comment %} Testimonials {% endcomment %}
-  {% include 'home-testimonials' %}
-{% endif %}
-
-
-{% if settings.footer_display_newsletter %}
-<div class="newsneter">
-  <div class="container">
-    <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-12">
-    	{% comment %} newsletter {% endcomment %}
-    	{% include 'homepage-block-newsletter' %}
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{% if settings.enable_ourbrands %}
-<div class="logo-brand">
-  <div class="container-fluid">
-    {% comment %} Block Brands Slider {% endcomment %}
-    {% include 'brands' %}
-  </div>
-</div>
-{% endif %}
-
-<script>
-  jQuery('.main-content > .container').removeClass('container');
-</script>
-{% include 'facebook-pixel-init' %}
+  {{ 'bootstrap-rtl.min.css' | asset_url | stylesheet_tag }}
+{% include 'homepage-flexslider' %}
+
+<div class="block-top">
+  <div class="container-fluid no-padding-lr">
+      {% include 'block-carousel-top' %}
+  </div>
+</div>
+
+{% if settings.enable_tabs %}	
+<div class="tabs-product-home">
+  <div class="container">
+    {% comment %} Product Tabs {% endcomment %}
+    {% include 'home-page-tabsproduct' %}
+  </div>
+</div>
+{% endif %}
+
+
+{% if settings.display_saleoff_home %}
+<div class="home-saleoff">
+    <div class="container">
+        {% comment %} saleoff home {% endcomment %}
+        {% include 'home-saleoff' %}
+    </div>
+</div>
+{% endif %}
+
+{% if settings.display_testimonials %}
+  {% comment %} Testimonials {% endcomment %}
+  {% include 'home-testimonials' %}
+{% endif %}
+
+
+{% if settings.footer_display_newsletter %}
+<div class="newsneter">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-12">
+    	{% comment %} newsletter {% endcomment %}
+    	{% include 'homepage-block-newsletter' %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if settings.enable_ourbrands %}
+<div class="logo-brand">
+  <div class="container-fluid">
+    {% comment %} Block Brands Slider {% endcomment %}
+    {% include 'brands' %}
+  </div>
+</div>
+{% endif %}
+
+<script>
+  jQuery('.main-content > .container').removeClass('container');
+</script>
+{% include 'facebook-pixel-init' %}
 {% include 'facebook-pixel-view-content' %}

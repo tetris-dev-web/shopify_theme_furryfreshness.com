@@ -1,77 +1,77 @@
-{% unless item_in_page %}
-{% assign item_in_page = 4 %}
-{% endunless %}
-{% unless columns_product %}
-{% assign columns_product = 4 %}
-{% endunless %}
-{% unless product_in_tab %}
-{% assign product_in_tab = 16 %}
-{% endunless %}
-{% assign products = collection_produclists %}
-
-{% assign colProduct = 12 | divided_by:columns_product %}
-<div class="carousel slide" id="{{ owl_id }}">
-
-
-  {% assign countRow = 0 %}
-  {% for product in products limit:product_in_tab %}
-  {% assign countRow = countRow | plus: 1 %}
-  {% assign modpage = forloop.index | modulo:item_in_page %}      		
-  {% assign modcol = countRow | modulo:columns_product %}
-  {% if modpage == 1 or item_in_page == 1 %}
-  <div class="product_list">
-    {% endif %}
-    {% if modcol == 1 or columns_product == 1%}
-    <div class="products-row">
-      {% endif %}            		     
-      <div class="item">
-        {% include 'product-grid-item' %}
-      </div>
-
-      {% if modcol == 0 or modpage == 0 or forloop.last %}
-    </div>
-    {% endif %} 
-    {% if modpage == 0 or forloop.last %}
-    {% assign countRow = 0 %}
-  </div>
-
-  {% endif %}
-  {% endfor %}
-
-</div>
-
-<script>
-  $(document).ready(function() {
-    $("#{{owl_id}}").owlCarousel({
-      itemsCustom : [
-      [320, 1],
-      [360, 1],
-      [450, 1],
-      [600, 1],
-      [700, 2],
-      [800, 1],
-      [1000, 1],
-      [1200, {{columns_product}}],
-      [1400, {{columns_product}}],
-      [1600, {{columns_product}}]
-      ],
-      autoPlay : false,
-      stopOnHover : true,
-
-      lazyLoad : false,
-      lazyFollow : true,
-      lazyEffect : "fade",
-      pagination : false,
-
-      // Navigation
-      navigation : true,
-      navigationText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
-      rewindNav : true,
-      scrollPerPage : false,
-
-      });
-
-
-  })
-
-</script>
+{% unless item_in_page %}
+{% assign item_in_page = 4 %}
+{% endunless %}
+{% unless columns_product %}
+{% assign columns_product = 4 %}
+{% endunless %}
+{% unless product_in_tab %}
+{% assign product_in_tab = 16 %}
+{% endunless %}
+{% assign products = collection_produclists %}
+
+{% assign colProduct = 12 | divided_by:columns_product %}
+<div class="carousel slide" id="{{ owl_id }}">
+
+
+  {% assign countRow = 0 %}
+  {% for product in products limit:product_in_tab %}
+  {% assign countRow = countRow | plus: 1 %}
+  {% assign modpage = forloop.index | modulo:item_in_page %}      		
+  {% assign modcol = countRow | modulo:columns_product %}
+  {% if modpage == 1 or item_in_page == 1 %}
+  <div class="product_list">
+    {% endif %}
+    {% if modcol == 1 or columns_product == 1%}
+    <div class="products-row">
+      {% endif %}            		     
+      <div class="item">
+        {% include 'product-grid-item' %}
+      </div>
+
+      {% if modcol == 0 or modpage == 0 or forloop.last %}
+    </div>
+    {% endif %} 
+    {% if modpage == 0 or forloop.last %}
+    {% assign countRow = 0 %}
+  </div>
+
+  {% endif %}
+  {% endfor %}
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#{{owl_id}}").owlCarousel({
+      itemsCustom : [
+      [320, 1],
+      [360, 1],
+      [450, 1],
+      [600, 1],
+      [700, 2],
+      [800, 1],
+      [1000, 1],
+      [1200, {{columns_product}}],
+      [1400, {{columns_product}}],
+      [1600, {{columns_product}}]
+      ],
+      autoPlay : false,
+      stopOnHover : true,
+
+      lazyLoad : false,
+      lazyFollow : true,
+      lazyEffect : "fade",
+      pagination : false,
+
+      // Navigation
+      navigation : true,
+      navigationText : ['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+      rewindNav : true,
+      scrollPerPage : false,
+
+      });
+
+
+  })
+
+</script>

@@ -1,5 +1,5 @@
 {% comment %}
-  Updated: 2021/12/07
+  Updated: 2022/01/12
 {% endcomment %}
 
 {% unless oneclickupsellapp %}
@@ -567,8 +567,54 @@ PrecheckoutIntegrations.prototype = {
                 }
             }
         }
+    },
+
+    get bundlerBuilder() {
+        return {
+            selector: '/apps/bundles',
+            get bundleBuilderInput () {
+                return document.querySelector('#bb_proxy_prefix');
+            },
+            get present() {
+                return this.bundleBuilderInput &&
+                    this.bundleBuilderInput.value === this.selector &&
+                    this.bundlerForm &&
+                    !!this.bundlerForm.querySelector(`[formaction="${this.selector}/cart"]`);
+            },
+            get bundlerForm() {
+                return this.bundleBuilderInput.closest(`form[action*="${this.selector}"]`);
+            },
+            submit() {
+                this.bundlerForm.submit();
+            }
+        }
     }
 };
+
+if (!window.OCUApi) window.OCUApi = {};
+const FALSE_REDIRECT = { redirect_url: null };
+window.OCUApi = Object.assign(OCUApi, {
+    showUpsell: function(params) {
+        const dispatcher = this.context.popupDispatcher;
+        dispatcher.context = this.context;
+        dispatcher.target = params.form;
+
+        return new Promise(function(resolve, reject) {
+            const callback = function(res) {
+                resolve(res.detail.response || FALSE_REDIRECT);
+            };
+
+            if (!lqd.is_precheckout) resolve(FALSE_REDIRECT);
+
+            dispatcher.listenCustomEvent(callback);
+            dispatcher._show(null, true);
+        });
+    },
+
+    initialize: function(params) {
+        this.context = params.context;
+    }
+});
 
 function PopupDispatcher() {}
 
@@ -590,7 +636,11 @@ PopupDispatcher.prototype = {
         const isProductOnCart = isProductLocation && lqd.template_name === 'cart';
         OCUIncart._is_product_action = this.isProductAction;
 
-        if ((!event.isTrusted && this.secondAttempt) || isProductOnCart) return this._clearFlow();
+        const isEventPermitted = (!event.isTrusted && this.secondAttempt)
+            || isProductOnCart
+            || this.context.helpers.isDisabledButton(this.event.target);
+
+        if (isEventPermitted) return this._clearFlow();
 
         if (this.isProductLocationOption(target)) return this.productLocation(event, target);
 
@@ -623,12 +673,11 @@ PopupDispatcher.prototype = {
     },
 
     show: function(event, target) {
-        const self = this.context;
-        self.prevent(event);
+        this.context.prevent(event);
 
         if (utils.store.get('amazonPayInitiated')) return null;
         const form = target.closest('[action="/cart"], [action="/checkout"]');
-        if (form && !self.validate(form)) {
+        if (form && !this.context.validate(form)) {
             clearTimeout(utils.store.get('fallback').id);
             utils.store.set('submitted', false);
             return form.reportValidity();
@@ -636,8 +685,14 @@ PopupDispatcher.prototype = {
 
         if (window.disableBodyScroll) disableBodyScroll(); // fix locked scroll at mobile for themes with libs.min.js
 
-        const isRechargeEnabled = lqd.integrate_with_recharge && !lqd.disabled_by_subscription_app;
+        return this._show(event, false);
+    },
 
+    _show: function (event, apiMode) {
+        this.apiMode = apiMode;
+
+        const self = this.context;
+        const isRechargeEnabled = lqd.integrate_with_recharge && !lqd.disabled_by_subscription_app;
         const precheckoutConfig = {
             utils: utils,
             Updater: Updater,
@@ -647,7 +702,7 @@ PopupDispatcher.prototype = {
 
         return this.getIncartConfig()
             .then(function(response) {
-                window.OCUIncart.preLoad.showLoader();
+                window.OCUIncart.preLoad && window.OCUIncart.preLoad.showLoader();
                 self.helpers.beforeCreate();
 
                 this.kind = response.data.kind;
@@ -657,7 +712,7 @@ PopupDispatcher.prototype = {
                 OCUIncart._is_product_action = this.isProductAction;
                 return this._upsellAppInstance().setData(precheckoutConfig);
             }.bind(this))
-            .catch(this.checkout.bind(this));
+            .catch(this[apiMode ? '_finalizeEvent' : 'checkout'].bind(this));
     },
 
     getIncartConfig: function() {
@@ -676,11 +731,14 @@ PopupDispatcher.prototype = {
 
         if (isShownOfferIdPresent) query += 'split_test_weight=' + isShownOfferIdPresent;
 
-        const payload = this._incartPayload();
-
-        this._endLoading();
-
-        return axios.post(endpoint + query, payload, { headers: headers });
+        try {
+            if (!this.apiMode) this._endLoading();
+            const payload = this._incartPayload();
+            return axios.post(endpoint + query, payload, { headers: headers });
+        } catch (e) {
+            this.nativeClick();
+            return this._emptyResolve('skip');
+        }
     },
 
     checkout: function(event) {
@@ -697,7 +755,7 @@ PopupDispatcher.prototype = {
             && !lqd.skip_cart;
 
         this._endLoading();
-        window.OCUIncart.preLoad.hideLoader();
+        window.OCUIncart.preLoad && window.OCUIncart.preLoad.hideLoader();
 
         if (this.bt && this.bt.present) this.bt.endLoadingBtn();
 
@@ -722,7 +780,7 @@ PopupDispatcher.prototype = {
 
     productLocation: function(event, target) {
         const variantId = this._formVariantId(target);
-        if (this.popupAccepted) return this._clearFlow();
+        if (this.popupAccepted) return this.nativeClick();
         if (!this._variantWasTrigger(variantId) && !this._productWasTrigger()) return this.breakHandling(event, target); // exit handling if product not trigger
 
         this.context.prevent(event, true);
@@ -732,7 +790,8 @@ PopupDispatcher.prototype = {
         this.verifyToken()
             .then(function() {
                 this.getIncartConfig({ product_id: lqd.product.id, variant_id: variantId })
-                    .then(function() {
+                    .then(function(response) {
+                        if (response === 'skip') return;
                         if (lqd.skip_cart || this.context.helpers.isBuyNow(this.event)) return this.addAndCheck();
                         this.check(this.event, this.target, null);
                     }.bind(this))
@@ -782,9 +841,10 @@ PopupDispatcher.prototype = {
             .catch(this.checkout.bind(this));
     },
 
-    listenCustomEvent: function() {
+    listenCustomEvent: function(callback) {
         // this.removeCustomEvents();
-        document.addEventListener('ocuNativeClick', this.checkout.bind(this), { once: true });
+        const cb = callback ? callback : this.checkout;
+        document.addEventListener('ocuNativeClick', cb.bind(this), { once: true });
     },
 
     removeCustomEvents: function() {
@@ -805,6 +865,9 @@ PopupDispatcher.prototype = {
 
         if (shownPopupId) payload.shown_popup_id = shownPopupId;
         if (payload.location === 'product') {
+
+            if (!variant) throw new Error('Variant not found');
+
             payload.product_page_product_id = +variant.product_id;
             payload.product_page_variant_id = +variant.variant_id
         }
@@ -857,8 +920,12 @@ PopupDispatcher.prototype = {
         return new Promise(function(resolve) { resolve(response); });
     },
 
+    _finalizeEvent: function(response) {
+        document.dispatchEvent(new CustomEvent('ocuNativeClick', { detail: { redirect_url: null } }));
+    },
+
     _clearFlow() {
-        window.OCUIncart.preLoad.hideLoader();
+        window.OCUIncart.preLoad && window.OCUIncart.preLoad.hideLoader();
         this.context.helpers.clearFallback();
         utils.store.set('submitted', false);
         return null;
@@ -879,10 +946,17 @@ PopupDispatcher.prototype = {
         if (!this.isProductAction) return {};
 
         const variant = this.target.querySelector('[name="id"]');
+        const isVariantAvailable = lqd.product.available || lqd.product.variants.find(function(item) {
+            return item.id === +variant.value && item.available;
+        });
+
+        const availableVariantId = isVariantAvailable && !Number.isNaN(+variant.value);
+
+        if (!availableVariantId) return null;
 
         return {
             product_id: lqd.product.id,
-            variant_id: variant.value || lqd.product.variants[0].id
+            variant_id: variant.value
         };
     },
 
@@ -911,6 +985,302 @@ PopupDispatcher.prototype = {
         return this._isAddAction(form) ? 'product' : 'cart';
     }
 }
+
+function CartDispatcher() {
+    this.cartToken = lqd.cart.token || utils.cookie.get('cart');
+    this.selectors = {
+        price: 'data-ocu-price-block',
+        productTotal: 'data-ocu-total-block',
+        cartSubtotal: 'data-ocu-subtotal'
+    }
+
+    const open = window.XMLHttpRequest.prototype.open;
+
+    this.openReplacement = function() {
+        this.addEventListener('load', function () {
+            if (CartDispatcher.prototype.shouldRequest(this._url)) {
+                CartDispatcher.prototype.cart.get('?ocu')
+                    .then(function(res) {
+                        CartDispatcher.prototype.renderDiscounts(res.data.token, res.data.items);
+                    });
+            }
+        });
+
+        return open.apply(this, arguments);
+    }
+
+    this.fetchReplacement = function(ns, fetch) {
+        if (typeof fetch !== 'function') return;
+
+        ns.fetch = function() {
+            const response = fetch.apply(this, arguments);
+
+            response.then(function(res) {
+                if (CartDispatcher.prototype.shouldRequest(res.url)) {
+                    CartDispatcher.prototype.cart.get('?ocu')
+                        .then(function(res) {
+                            CartDispatcher.prototype.renderDiscounts(res.data.token, res.data.items);
+                        });
+                }
+            });
+
+            return response;
+        }
+    }
+
+    this.fetchReplacement(window, window.fetch);
+
+    window.XMLHttpRequest.prototype.open = this.openReplacement;
+}
+
+CartDispatcher.prototype = {
+    helpers: new Helpers(),
+    cart: new Cart(),
+
+    renderDiscounts: function(token, items) {
+        if (this.shouldGetDiscounts(items) || !this.areAttributesPresent(items)) return;
+
+        this.getDiscounts(token, items)
+            .then(function(res) {
+                const lineItems = res.data.discounts.lineItems;
+
+                lineItems.map(function(lineItem) {
+                    if (lineItem.price === lineItem.discountedPrice) return;
+
+                    this.fillDiscountedPrice(lineItem);
+                    this.fillItemTotal(lineItem);
+                }.bind(this));
+
+                this.fillCartSubtotal(res.data.discounts.subtotal);
+            }.bind(this))
+            .catch(function(error) {
+                console.log(error)
+            })
+    },
+
+    getDiscounts: function(token, items) {
+        const url = '/pre_purchase/v1/cart_discounts';
+        const endpoint = window.OCUIncart && OCUIncart.appEndpoint;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Shop-Domain': lqd.permanent_domain
+        };
+        const payload = this.helpers.getCartItems(items || lqd.cart.items);
+        payload.cart_token = this.cartToken || token;
+        payload.currency_rate = (window.Shopify && Shopify.currency && +Shopify.currency.rate) || 1;
+
+        if (!payload.cart_token) return Promise.reject(new Error('Cart Token is Missing'));
+
+        return axios.post(endpoint + url, payload, { headers: headers });
+    },
+
+    doesUrlMatch: function(requestURL) {
+        const cartUrls = ['add', 'update', 'change', 'clear'];
+
+        return cartUrls.some(url => requestURL && requestURL.includes(`/cart/${url}`));
+    },
+
+  	shouldCartRequest: function(requestURL) {
+        if (!requestURL) return false;
+
+        const isNotICURequest = !/\/cart.(js|json)\?icu/.test(requestURL) // handle case with looping cart requests when In Cart Upsell & Cross Sell and OCU apps enabled
+
+        return requestURL.includes('/cart.js') && !requestURL.includes('/cart.js?ocu') && isNotICURequest;
+  	},
+
+  	shouldRequest: function(requestURL) {
+        if (!requestURL) return false;
+
+      	return this.doesUrlMatch(requestURL) || this.shouldCartRequest(requestURL);
+  	},
+
+  	shouldGetDiscounts: function(items) {
+        const cartItems = this.helpers.getCartItems(items || lqd.cart.items).line_items;
+
+        return cartItems.every(function(cartItem) {
+            if (!cartItem.properties) return;
+            return cartItem.properties._ocu_offer_id === undefined;
+        }.bind(this));
+    },
+
+    areAttributesPresent: function(items) {
+        const cartItems = this.helpers.getCartItems(items || lqd.cart.items).line_items;
+
+        return cartItems.some(item => {
+            const wasEl = document.querySelector(`[data-ocu-price-block="${item.variant_id}"]`);
+            const totalEl = document.querySelector(`[data-ocu-total-block="${item.variant_id}"]`);
+            const subtotalEl = document.querySelector('[data-ocu-subtotal]');
+
+            return !!wasEl || !!totalEl || !!subtotalEl;
+        })
+    },
+
+    fillDiscountedPrice: function(lineItem) {
+        const wasPriceEls = document.querySelectorAll(`[data-ocu-price-block="${lineItem.variantId}"]`);
+
+      	wasPriceEls.forEach(wasPriceEl => {
+            if (!wasPriceEl) return;
+
+      		const formattedDiscountedPrice = this.getCurrency(lineItem.discountedPrice, OCUIncart.money_format);
+        	const formattedOriginalPrice = this.getCurrency(lineItem.price, OCUIncart.money_format);
+
+        	wasPriceEl.innerHTML = `<del style="padding-right:16px">${formattedOriginalPrice}</del><span>${formattedDiscountedPrice}</span>`;
+      	});
+    },
+
+    fillItemTotal: function(lineItem) {
+        const totalEls = document.querySelectorAll(`[data-ocu-total-block="${lineItem.variantId}"]`);
+
+        totalEls.forEach(totalEl => {
+            if (!totalEl) return;
+
+            totalEl.innerHTML = this.getCurrency(lineItem.discountedPrice * lineItem.quantity, OCUIncart.money_format);
+        });
+    },
+
+    fillCartSubtotal: function(subtotal) {
+        const subtotalEls = document.querySelectorAll('[data-ocu-subtotal]');
+
+        subtotalEls.forEach(subtotalEl => {
+            if (!subtotalEl) return;
+
+            subtotalEl.innerHTML = this.getCurrency(subtotal, OCUIncart.money_format);
+        });
+    },
+
+    getCurrency: function(price, format) {
+        const currencyCode = (window.Shopify && Shopify.currency && +Shopify.currency.active) || 'USD';
+        return Shopify.formatMoney && Shopify.formatMoney(price, format) || window.OCUApi.currency(price/100, format, currencyCode);
+    }
+};
+
+class Currency {
+    constructor() {
+        this.currenciesWithoutDec = [
+            'BYR',
+            'XAF',
+            'XPF',
+            'CLP',
+            'KMF',
+            'JPY',
+            'PYG',
+            'RWF',
+            'KRW',
+            'VND',
+            'VUV',
+            'XOF',
+            'MGA',
+            'UGX',
+            'ISK'
+        ];
+
+        this.entities = {
+            '&nbsp;': ' ',
+            '&pound;': '£',
+            '&euro;': '€',
+            '&dollar;': '$'
+        };
+
+        this.types = {
+            amount: [2, ',', '.'],
+            amount_no_decimals: [2, ',', '.'],
+            amount_with_comma_separator: [2, '.', ','],
+            amount_no_decimals_with_comma_separator: [2, '.', ','],
+            amount_with_space_separator: [2, ' ', ','],
+            amount_no_decimals_with_space_separator: [2, ' ', ','],
+            amount_with_apostrophe_separator: [2, '\'', '.'],
+            get default() {
+                return this.amount;
+            }
+        };
+
+        this.currency = this.currency.bind(this);
+    }
+
+    round(x, precision = 1) {
+        let m = 10 ** precision;
+        return Number.isInteger(x) ? (x * m) / m :  Math.round(x * m) / m;
+    }
+
+    thousand(x) {
+        if (isNaN(x)) return x;
+        if (x === 0) return x;
+        if (x < 999) return (Math.round(x * 100) / 100);
+        if (x < 9999) return this.round((Math.round(x * 10) / 10000), 0) + 'k';
+        if (x < 1000000) return this.round((Math.round(x * 10) / 10000), 0) + 'k';
+        if (x < 10000000) return this.round((Math.round(x * 10) / 10000000), 0) + 'm';
+        if (x < 1000000000) return this.round(Math.round((x * 10 / 10000000)), 0) + 'm';
+        if (x >= 1000000000) return this.round(Math.round((x * 10 / 10000000000)), 0) + 'b';
+    }
+
+    replaceCharEntity(text) {
+        const replacer = (key) => this.entities[key] !== null && this.entities[key] !== undefined ? this.entities[key] : key;
+        return text && text.replace(/(&\w+;)/g, replacer) !== null && text.replace(/(&\w+;)/g, replacer) !== undefined ? text.replace(/(&\w+;)/g, replacer) : text;
+    }
+
+    type(key) {
+        const match = /\{\{\s*(\w+)\s*\}\}/.exec(key) && /\{\{\s*(\w+)\s*\}\}/.exec(key)[1];
+        return this.types[match] !== null && this.types[match] !== undefined ? this.types[match] : this.types.default;
+    }
+
+    toFixed(value, precision) {
+        let power = Math.pow(10, precision);
+
+        return (Math.round((value + 1e-8) * power) / power).toFixed(precision);
+    }
+
+    formatNumber(number, opts, args) {
+        if (!+number && +number !== 0) return '&mdash;';
+        let suffix;
+        let k = args.includes('thousand');
+        const noCurrency = args.includes('noCurrency');
+        let currencyCode = args.find(arg => this.currenciesWithoutDec.includes(arg)) || noCurrency;
+        const noPrecision = args.includes('noPrecision');
+
+        if (k) {
+            number = this.thousand(+number);
+            suffix = /\d+\.?\d*([k-m])/.exec(number) && /\d+\.?\d*([k-m])/.exec(number)[1] || '';
+            number = parseFloat(number);
+        }
+
+        opts = {
+            precision: noPrecision ? 0 : opts[0],
+            thousand: opts[1],
+            decimal: opts[2]
+        };
+
+        let negative = number < 0 ? '-' : '';
+        let base = parseInt(this.toFixed(Math.abs(number), opts.precision), 10) + '';
+        let mod = base.length > 3 ? base.length % 3 : 0;
+
+        let formatted = negative +
+            (mod ? base.substr(0, mod) + opts.thousand : '') +
+            base.substr(mod).replace(/(\d{3})(?=\d)/g, '$1' + opts.thousand) +
+        (opts.precision > 0 ? opts.decimal + this.toFixed(Math.abs(number), opts.precision).split('.')[1] : '');
+
+        if (suffix) formatted = formatted.replace(/([,.]00|0)$/, '') + suffix;
+
+        return currencyCode && !suffix ? formatted.split(opts.decimal)[0] : formatted;
+    }
+
+    formatNumberForView(amount, format, ...args) {
+        format = this.replaceCharEntity(format);
+
+        const noCurrency = args.includes('noCurrency');
+        const withCurrency = /\{\{\s*\w+\s*\}\}/;
+        const withoutCurrency = /.*\{\{\s*\w+\s*\}\}.*/;
+        const reg = noCurrency ? withoutCurrency : withCurrency;
+
+        return format && format.replace(reg, this.formatNumber(amount, this.type(format), args));
+    }
+
+    currency(amount, format, ...args) {
+        return this.formatNumberForView(amount, format, ...args);
+    }
+}
+
+if (!window.OCUApi) window.OCUApi = {};
+window.OCUApi.currency = new Currency().currency;
 
 window.OCUIncart = {
     cart_items: {{ cart.items | json}},
@@ -1138,9 +1508,12 @@ Application.prototype = {
     cart: new Cart(),
     utils: new ApplicationsUtils(),
     popupDispatcher: new PopupDispatcher(),
+    cartDispatcher: new CartDispatcher(),
 
     setAttributes: function() {
         if (/register|account|login|reset_password|search|^$/.test(lqd.template_name)) return;
+
+        this.cartDispatcher.renderDiscounts();
 
         const forEach = Array.prototype.forEach;
         const checkoutButtons = document.querySelectorAll(this.ocuSelectors);
@@ -1286,6 +1659,8 @@ Application.prototype = {
         if (this.helpers.zpPreventRedirect(e.target)) return;
 
         if (this.helpers.isBuyNow(e) && !lqd.isPopupTriggerPage) return new BuyNow(e);
+
+        if (this.helpers.isCartPopupRedirectsToCart(e)) return;
 
         // if (this.helpers.checkDirectCheckoutButtons(e.target)) {
         //     e.target.dataset.ocuCheckout = true;
@@ -2025,7 +2400,7 @@ function Updater(res) {
         attributes: '[name^="attributes["]',
         currency: '[name="currency"]',
         geolocation_currency: 'form[action="/localization"] input[name="currency_code"]',
-        updates: '[name^="updates["], [data-cart-item-input-quantity], [data-cart-item-quantity], input[data-line], [name="quantity"]',
+        updates: '[name^="updates["], [data-cart-item-input-quantity], [data-cart-item-quantity], input[data-line], [name="quantity"], [data-quantity-input]',
         note: '[name="note"]',
         cartItemKey: '[data-cart-item-key], [data-cart-item], [data-variant]'
     };
@@ -2429,10 +2804,12 @@ function Cart() {
         return ajax.request(options)
     };
 
-    this.get = function() {
+    this.get = function(query) {
+        const validateQuery = typeof query === 'string' ? query : '';
+
         var options = {
             method: 'get',
-            url: '/cart.js'
+            url: '/cart.js' + validateQuery
         };
 
         return ajax.request(options);
@@ -2770,6 +3147,8 @@ function PublicMethod() {
 
     this.redirect = function(result) {
         const recharge = self.integrations.recharge;
+        const bundlerBuilder = integrations.bundlerBuilder;
+        if (bundlerBuilder.present) return bundlerBuilder.submit();
         if (recharge.isSubscription(lqd)) return recharge.redirect(null, null, result.checkout_url);
         if (result.destination === 'checkout' || lqd.skip_cart) return location.assign(result.checkout_url);
         location.assign('/' + result.destination);
@@ -3004,7 +3383,7 @@ function Helpers() {
 
     this.checkAddToCart = function(target) {
         const isTargetSubmit = /submit|add|checkout/.test(target.name) || this.isActionButton(target);
-        return (isTargetSubmit || this.isBuyNow({target: target})) && target.closest('form[action="/cart/add"]'); // , form[data-zp-add-to-cart-form] - Pages selector
+        return (isTargetSubmit || this.isBuyNow({target: target})) && target.closest('form[action*="/cart/add"]'); // , form[data-zp-add-to-cart-form] - Pages selector
     };
 
     this.zpPreventRedirect = function(target) {
@@ -3050,6 +3429,7 @@ function Helpers() {
     };
 
     this.isBuyNow = function(e) {
+        if (!e) return false;
         const selectors = utils.store.get('classList');
         return e.target.classList.contains(selectors.buyNow) && !e.target.classList.contains(selectors.buyNowBranded);
     };
@@ -3154,6 +3534,20 @@ function Helpers() {
         const chatButton = document.querySelector(utils.store.get('chatButton').selector);
         if (chatButton) chatButton.remove();
     };
+
+    this.isDisabledButton = function(target) {
+        const button = target.closest('button');
+        const entity = target.tagName.toLowerCase() === 'button' ? target : button;
+        return entity && (entity.disabled || !!entity.ariaDisabled);
+    };
+
+    this.isCartPopupRedirectsToCart = function(e) {
+        if (!e.target.dataset.ocuCheckout) return;
+        if (lqd.template_name === 'cart') return;
+
+        // handle outofthesandbox themes
+        return Shopify.theme_settings && Shopify.theme_settings.go_to_checkout === false;
+    }
 }
 
 function ApplicationsUtils() {
@@ -3199,12 +3593,19 @@ function ApplicationsUtils() {
 const script = document.createElement('script');
 document.head.appendChild(script);
 script.src = ocuCdn + '/vendor/axios.min.js';
+
+function initApplication() {
+    const application = new Application();
+    OCUApi.initialize({ context: application });
+    return application;
+}
+
 script.onload = function() {
-    if (window.axios) return new Application();
+    if (window.axios) return initApplication()
     if (window.require) {
         require([ocuCdn + '/vendor/axios.min.js'], function(e) {
             window.axios = e;
-            new Application();
+            initApplication()
         });
     }
 };
