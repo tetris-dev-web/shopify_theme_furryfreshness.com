@@ -756,6 +756,16 @@ height: 55px;
 .wrapper-container .site-nav > li > ul > li > ul > li > ul > .menu-dropdown:hover > ul,
 .wrapper-container .site-nav > li > ul > li > ul > ul > li > .menu-dropdown.open > ul { display: block; }
 
+/* Small logo header layout */
+@media (min-width: 1024px) {
+  .header-second-layout .logo {margin: 0px; position: absolute; top:-24px; left: 50%; transform: translateX(-50%);}
+  .header-second-layout .logo img {width: 160px;}
+  .header-second-layout .header-menu {margin-top: -3px;}
+  .header-second-layout .header-menu .site-nav {display: block;}
+  .header-second-layout .header-menu .site-nav > li {float: left; margin-right: 2%;}
+  .header-second-layout .header-menu .site-nav .level-top>a {font-size: 16px;}
+  .header-second-layout .header-menu .site-nav li:nth-child(4) {margin-left: 42%;}
+}
 
 /* Custom Fonts -------------------------------------------------------------------------- */
 
@@ -2369,7 +2379,7 @@ left: 0;
 
 .top-currency > div {
 letter-spacing: 1px;
-line-height: 40px;
+line-height: 30px;
 }
 .top-currency .row {
 display: flex;
