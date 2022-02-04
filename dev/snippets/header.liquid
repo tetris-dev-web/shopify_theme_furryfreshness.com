@@ -70,7 +70,7 @@
     <div class="overlay-search"></div>
   </div>
 
-  <div class="header-bottom{% unless settings.enable_small_log_header %} header-second-layout{% endunless %}">
+  <div class="header-bottom{% if settings.enable_small_log_header %} header-second-layout{% endif %}">
     <div class="container">
       <div class="header-inner">
         <div class="row main-header">
@@ -177,7 +177,7 @@
     </div>  
   </div> <!-- header-bottom -->
 
-  <div class="header{% unless settings.enable_small_log_header %} header-second-layout{% endunless %}">
+  <div class="header{% if settings.enable_small_log_header %} header-second-layout{% endif %}">
     <div class="container">
       <div class="row header-menu">
         <div class="logo-sticky col-xs-1">

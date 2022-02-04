@@ -43,6 +43,16 @@
       },
       {
         "type": "header",
+        "content": "Header Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_small_log_header",
+        "label": "Use small logo layout",
+        "default": false
+      },
+      {
+        "type": "header",
         "content": "Logo and icon"
       },
       {
