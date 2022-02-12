@@ -1,34 +1,34 @@
-
-
-<div class="row">
-  {% include 'collection-sidebar' %}
-  <div class="block-row col-xs-9 col-main">
-    {% paginate collection.products by 50 %}
-	{% include 'page-header' %}  
-    
-    {% include 'toolbar-list' %}
-    
-    {% comment %}
-      Use class grid-uniform to have evenly sized columns clear
-      each other properly at each breakpoint.
-    {% endcomment %}
-    <div class="product-list">
-      {% comment %}
-        Loop through our products in the current collection.
-        See the snippet 'product-grid-item' for the layout.
-      {% endcomment %}      
-      {% for product in collection.products %}
-      {% include 'product-list-item' %}
-      {% else %}
-      <p style="text-align: center;">There are no products in this collection.</p>
-      {% endfor %}
-    </div>
-    
-    {% if paginate.pages > 1 %}
-    <div class="padding">
-      {% include 'pagination-page' %}
-    </div>
-    {% endif %}
-    {% endpaginate %}
-  </div>
-</div>
+
+
+<div class="row">
+  {% include 'collection-sidebar' %}
+  <div class="block-row col-xs-9 col-main">
+    {% paginate collection.products by 50 %}
+	{% include 'page-header' %}  
+    
+    {% include 'toolbar-list' %}
+    
+    {% comment %}
+      Use class grid-uniform to have evenly sized columns clear
+      each other properly at each breakpoint.
+    {% endcomment %}
+    <div class="product-list">
+      {% comment %}
+        Loop through our products in the current collection.
+        See the snippet 'product-grid-item' for the layout.
+      {% endcomment %}      
+      {% for product in collection.products %}
+      {% include 'product-list-item' %}
+      {% else %}
+      <p style="text-align: center;">There are no products in this collection.</p>
+      {% endfor %}
+    </div>
+    
+    {% if paginate.pages > 1 %}
+    <div class="padding">
+      {% include 'pagination-page' %}
+    </div>
+    {% endif %}
+    {% endpaginate %}
+  </div>
+</div>

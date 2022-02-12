@@ -1,218 +1,218 @@
-{% comment %}
-Comments will not appear right after they are submitted, either to be checked for spam
-or to await moderation. When a comment is submitted, the browser is redirected to a page
-that includes the new comment id in its URL.
-Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
-
-More information:
-- http://docs.shopify.com/themes/liquid-variables/comment
-{% endcomment %}
-
-{% comment %}
-We're going to reference the number of comments below, so let's hold it in a variable.
-{% endcomment %}
-{% assign number_of_comments = article.comments_count %}
-
-{% comment %}
-If a comment was just submitted and it has no blank fields, we have an extra comment to count.
-{% endcomment %}
-{% if comment and comment.created_at %}
-{% assign number_of_comments = article.comments_count | plus: 1 %}
-{% endif %}
-
-
-<!--<header class="page-header">
-{% if current_tags %}
-<h2>{{ blog.title | link_to: blog.url }} &raquo; {{ current_tags.first }}</h2>
-{% else %}
-<h2>{{ blog.title }}</h2>
-{% endif %}
-</header>-->
-
-<div class="row">
-  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 blog-detail col-main">
-    {% if article.content contains '<img' %}
-    <div class="image">
-      {% assign content_blog_home = article.content %}
-      <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
-    </div>
-    {% endif %}
-    <div class="article-content">
-      <div class="date-author">
-        <div class="left-blog">
-          <span class="blog_author">{{ article.author }}</span>
-          <span class="date-time">
-            {{ article.published_at | date: '%b %d, %Y' }}
-          </span>
-        </div>
-      </div>
-      <header class="page-header">
-        <h1>{{ article.title }}</h1>
-      </header>
-      <div class="rte">
-        {{ article.content }}
-      </div>
-
-
-      {% comment %}
-      Show off meta information like comments and tags.
-      {% endcomment %}
-      <ul class="user-tags row">
-        <li class=" col-xs-12 col-sm-12 col-md-7">
-          <label>Tags: </label>
-          {% for tag in article.tags %}
-          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-          {% endfor %}
-        </li>
-        <li class="share-link col-xs-12 col-sm-12 col-md-5">
-          <label>Share: </label>
-          {% capture share_url %}{{ shop.url }}{{ article.url }}{% endcapture %}
-          {% if settings.icon_isocal_1 != blank %}
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="facebook" title="Facebook">
-            {{ settings.icon_isocal_1 }}
-          </a>
-          {% endif %}
-          {% if settings.icon_isocal_2 != blank %}
-          <a href="//twitter.com/share?url={{ share_url }}&text={{ product.title }}" target="_blank" class="twitter" title="Twitter">
-            {{ settings.icon_isocal_2 }}
-          </a>
-          {% endif %}
-          {% if settings.icon_isocal_3 != blank %}
-          <a href="//pinterest.com/pin/create/button/?url={{ share_url }}" target="_blank" class="vimeo" title="Pinterest">
-            {{ settings.icon_isocal_3 }}
-          </a>
-          {% endif %}
-          {% if settings.icon_isocal_4 != blank %}
-          <a href="//plus.google.com/share?url={{ share_url }}" target="_blank" class="google-plus" title="Google plus">
-            {{ settings.icon_isocal_4 }}
-          </a>
-          {% endif %}
-        </li>
-      </ul>
-
-      {% comment %}
-      Addthis
-      {% endcomment %}	
-
-
-      {% comment %}
-      Create links to the next and previous articles, if available.
-      {% endcomment %}
-
-      {% if blog.next_article or blog.previous_article %}
-
-      {% comment %}
-      If you only have elements floated in a container, you can use the
-      .clearfix class to force the parent to maintain its structure.
-      {% endcomment %}
-      <div class="action-btn">
-        {% if blog.previous_article %}
-        <span class="left">{{ '&larr; Previousv Post' | link_to: blog.previous_article }}</span>
-        {% endif %}
-        {% if blog.next_article %}
-        <span class="right">{{ 'Next Post &rarr;' | link_to: blog.next_article }}</span>
-        {% endif %}
-      </div>
-      {% endif %}
-
-      {% if blog.comments_enabled? %}
-
-      {% comment %}
-      Just like our blog.liquid page, define how many comments should be on each page.
-      {% endcomment %}
-
-      <h2 class="title-comment">Comments</h2>
-
-      {% paginate article.comments by 5 %}
-
-      {% comment %}
-      #comments is required, it is used as an anchor link by Shopify.
-      {% endcomment %}
-      <div id="comments">
-
-        {% if comment and comment.created_at %}
-        <p class="note form-success">
-          {% if blog.moderated? %}
-          Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.
-          {% else %}
-          Your comment was posted successfully! Thank you!
-          {% endif %}
-        </p>
-        {% endif %}
-
-        {% if number_of_comments > 0 %}
-        <ul>
-          {% comment %}If a comment was just submitted with no blank field, let's show it.{% endcomment %}
-          {% if comment and comment.created_at %}
-          <li id="{{ comment.id }}" class="comment first{% if article.comments_count == 0 %} last{% endif %}">
-            {% include 'comment' %}
-          </li>
-          {% endif %}
-
-          {% comment %}
-          Showing the rest of the comments.
-          {% endcomment %}
-          {% for comment in article.comments %}
-          <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
-            {% include 'comment' %}
-          </li>
-          {% endfor %}
-        </ul>
-
-        {% if paginate.pages > 1 %}
-        <div class="text-center">
-          {% include 'pagination' %}
-        </div>
-        {% endif %}
-        {% endif %}
-
-        {% comment %}
-        Comment submission form
-        {% endcomment %}
-
-        {% form article %}
-        {% comment %}
-        #add-comment-title is used simply as an anchor link
-        {% endcomment %}
-        <h3 id="add-comment-title">Leave a comment</h3>
-        {% include 'form-errors-custom' %}
-        <div class="comment-form">
-          <label for="comment-author">Your Name</label>
-          <input {% if form.errors contains "author" %} class="error"{% endif %} type="text" name="comment[author]" id="comment-author" value="{{ form.author }}">
-
-          <label for="comment-email">Your Email</label>
-          <input {% if form.errors contains "email" %} class="error"{% endif %} type="email" name="comment[email]" id="comment-email" value="{{ form.email }}">
-        </div>
-
-        <div class="message">
-          <label for="comment-body">Your Comment</label>
-          <textarea {% if form.errors contains "body" %} class="error"{% endif %} name="comment[body]" id="comment-body">{{ form.body }}</textarea>
-        </div>
-
-        <p class="note">All blog comments are checked prior to publishing</p>
-        <input type="submit" class="btn-secondary" value="Post Comment">
-        {% if form.errors %}
-        <script>
-          window.location.hash = '#add-comment-title';
-        </script>
-        {% endif %}
-
-        {% if form.posted_successfully? %}
-        <script>
-          window.location.hash = '#comments';
-        </script>
-        {% endif %}
-        {% endform %}
-      </div>
-      {% endpaginate %}
-      {% endif %}
-    </div>
-  </div>
-  <!-- Begin sidebar -->
-  {% include 'blog_sidebar' %}
-  <!-- End sidebar -->
-
-</div>
-<script>
-  jQuery('.blog-detail .rte img').remove();
+{% comment %}
+Comments will not appear right after they are submitted, either to be checked for spam
+or to await moderation. When a comment is submitted, the browser is redirected to a page
+that includes the new comment id in its URL.
+Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+
+More information:
+- http://docs.shopify.com/themes/liquid-variables/comment
+{% endcomment %}
+
+{% comment %}
+We're going to reference the number of comments below, so let's hold it in a variable.
+{% endcomment %}
+{% assign number_of_comments = article.comments_count %}
+
+{% comment %}
+If a comment was just submitted and it has no blank fields, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.created_at %}
+{% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+
+<!--<header class="page-header">
+{% if current_tags %}
+<h2>{{ blog.title | link_to: blog.url }} &raquo; {{ current_tags.first }}</h2>
+{% else %}
+<h2>{{ blog.title }}</h2>
+{% endif %}
+</header>-->
+
+<div class="row">
+  <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 blog-detail col-main">
+    {% if article.content contains '<img' %}
+    <div class="image">
+      {% assign content_blog_home = article.content %}
+      <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+    </div>
+    {% endif %}
+    <div class="article-content">
+      <div class="date-author">
+        <div class="left-blog">
+          <span class="blog_author">{{ article.author }}</span>
+          <span class="date-time">
+            {{ article.published_at | date: '%b %d, %Y' }}
+          </span>
+        </div>
+      </div>
+      <header class="page-header">
+        <h1>{{ article.title }}</h1>
+      </header>
+      <div class="rte">
+        {{ article.content }}
+      </div>
+
+
+      {% comment %}
+      Show off meta information like comments and tags.
+      {% endcomment %}
+      <ul class="user-tags row">
+        <li class=" col-xs-12 col-sm-12 col-md-7">
+          <label>Tags: </label>
+          {% for tag in article.tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </li>
+        <li class="share-link col-xs-12 col-sm-12 col-md-5">
+          <label>Share: </label>
+          {% capture share_url %}{{ shop.url }}{{ article.url }}{% endcapture %}
+          {% if settings.icon_isocal_1 != blank %}
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="facebook" title="Facebook">
+            {{ settings.icon_isocal_1 }}
+          </a>
+          {% endif %}
+          {% if settings.icon_isocal_2 != blank %}
+          <a href="//twitter.com/share?url={{ share_url }}&text={{ product.title }}" target="_blank" class="twitter" title="Twitter">
+            {{ settings.icon_isocal_2 }}
+          </a>
+          {% endif %}
+          {% if settings.icon_isocal_3 != blank %}
+          <a href="//pinterest.com/pin/create/button/?url={{ share_url }}" target="_blank" class="vimeo" title="Pinterest">
+            {{ settings.icon_isocal_3 }}
+          </a>
+          {% endif %}
+          {% if settings.icon_isocal_4 != blank %}
+          <a href="//plus.google.com/share?url={{ share_url }}" target="_blank" class="google-plus" title="Google plus">
+            {{ settings.icon_isocal_4 }}
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+
+      {% comment %}
+      Addthis
+      {% endcomment %}	
+
+
+      {% comment %}
+      Create links to the next and previous articles, if available.
+      {% endcomment %}
+
+      {% if blog.next_article or blog.previous_article %}
+
+      {% comment %}
+      If you only have elements floated in a container, you can use the
+      .clearfix class to force the parent to maintain its structure.
+      {% endcomment %}
+      <div class="action-btn">
+        {% if blog.previous_article %}
+        <span class="left">{{ '&larr; Previousv Post' | link_to: blog.previous_article }}</span>
+        {% endif %}
+        {% if blog.next_article %}
+        <span class="right">{{ 'Next Post &rarr;' | link_to: blog.next_article }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if blog.comments_enabled? %}
+
+      {% comment %}
+      Just like our blog.liquid page, define how many comments should be on each page.
+      {% endcomment %}
+
+      <h2 class="title-comment">Comments</h2>
+
+      {% paginate article.comments by 5 %}
+
+      {% comment %}
+      #comments is required, it is used as an anchor link by Shopify.
+      {% endcomment %}
+      <div id="comments">
+
+        {% if comment and comment.created_at %}
+        <p class="note form-success">
+          {% if blog.moderated? %}
+          Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.
+          {% else %}
+          Your comment was posted successfully! Thank you!
+          {% endif %}
+        </p>
+        {% endif %}
+
+        {% if number_of_comments > 0 %}
+        <ul>
+          {% comment %}If a comment was just submitted with no blank field, let's show it.{% endcomment %}
+          {% if comment and comment.created_at %}
+          <li id="{{ comment.id }}" class="comment first{% if article.comments_count == 0 %} last{% endif %}">
+            {% include 'comment' %}
+          </li>
+          {% endif %}
+
+          {% comment %}
+          Showing the rest of the comments.
+          {% endcomment %}
+          {% for comment in article.comments %}
+          <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
+            {% include 'comment' %}
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% if paginate.pages > 1 %}
+        <div class="text-center">
+          {% include 'pagination' %}
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% comment %}
+        Comment submission form
+        {% endcomment %}
+
+        {% form article %}
+        {% comment %}
+        #add-comment-title is used simply as an anchor link
+        {% endcomment %}
+        <h3 id="add-comment-title">Leave a comment</h3>
+        {% include 'form-errors-custom' %}
+        <div class="comment-form">
+          <label for="comment-author">Your Name</label>
+          <input {% if form.errors contains "author" %} class="error"{% endif %} type="text" name="comment[author]" id="comment-author" value="{{ form.author }}">
+
+          <label for="comment-email">Your Email</label>
+          <input {% if form.errors contains "email" %} class="error"{% endif %} type="email" name="comment[email]" id="comment-email" value="{{ form.email }}">
+        </div>
+
+        <div class="message">
+          <label for="comment-body">Your Comment</label>
+          <textarea {% if form.errors contains "body" %} class="error"{% endif %} name="comment[body]" id="comment-body">{{ form.body }}</textarea>
+        </div>
+
+        <p class="note">All blog comments are checked prior to publishing</p>
+        <input type="submit" class="btn-secondary" value="Post Comment">
+        {% if form.errors %}
+        <script>
+          window.location.hash = '#add-comment-title';
+        </script>
+        {% endif %}
+
+        {% if form.posted_successfully? %}
+        <script>
+          window.location.hash = '#comments';
+        </script>
+        {% endif %}
+        {% endform %}
+      </div>
+      {% endpaginate %}
+      {% endif %}
+    </div>
+  </div>
+  <!-- Begin sidebar -->
+  {% include 'blog_sidebar' %}
+  <!-- End sidebar -->
+
+</div>
+<script>
+  jQuery('.blog-detail .rte img').remove();
 </script>

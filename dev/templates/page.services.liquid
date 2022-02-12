@@ -1,86 +1,86 @@
-{% comment %}
-Regular page content goes here.
-{% endcomment %}
-<div class="services-page">
-  {% if settings.display_services_1 %}
-  <div class="services-item1">
-    <div class="container services-container">
-      <div class="row">
-        <div class="content-services col-xs-12">
-          {% if settings.services_title_1 != blank %}
-          <h2>{{ settings.services_title_1 }}</h2>
-          {% endif %}
-          {% if settings.services_content_1 != blank %}
-          {{ settings.services_content_1 }}
-          {% endif %}
-          {% if settings.services_textlink_1 != blank %}
-          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_1 }}">{{ settings.services_textlink_1 }}</a></div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if settings.display_services_2 %}
-  <div class="services-item2">
-    <div class="container services-container">
-      <div class="row">
-        <div class="content-services col-xs-12">
-          {% if settings.services_title_2 != blank %}
-          <h2>{{ settings.services_title_2 }}</h2>
-          {% endif %}
-          {% if settings.services_content_2 != blank %}
-          {{ settings.services_content_2 }}
-          {% endif %}
-          {% if settings.services_textlink_2 != blank %}
-          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_2 }}">{{ settings.services_textlink_2 }}</a></div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if settings.display_services_3 %}
-  <div class="services-item3">
-    <div class="container services-container">
-      <div class="row">
-        <div class="content-services col-xs-12">
-          {% if settings.services_title_3 != blank %}
-          <h2>{{ settings.services_title_3 }}</h2>
-          {% endif %}
-          {% if settings.services_content_3 != blank %}
-          {{ settings.services_content_3 }}
-          {% endif %}
-          {% if settings.services_textlink_3 != blank %}
-          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_3 }}">{{ settings.services_textlink_3 }}</a></div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if settings.display_services_4 %}
-  <div class="services-item4">
-    <div class="container services-container">
-      <div class="row">
-        <div class="content-services col-xs-12">
-          {% if settings.services_title_4 != blank %}
-          <h2>{{ settings.services_title_4 }}</h2>
-          {% endif %}
-          {% if settings.services_content_4 != blank %}
-          {{ settings.services_content_4 }}
-          {% endif %}
-          {% if settings.services_textlink_4 != blank %}
-          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_4 }}">{{ settings.services_textlink_4 }}</a></div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-</div>
-<script>
-  jQuery('.main-content > .container').removeClass('container');
-</script>
-{% include 'facebook-pixel-init' %}
+{% comment %}
+Regular page content goes here.
+{% endcomment %}
+<div class="services-page">
+  {% if settings.display_services_1 %}
+  <div class="services-item1">
+    <div class="container services-container">
+      <div class="row">
+        <div class="content-services col-xs-12">
+          {% if settings.services_title_1 != blank %}
+          <h2>{{ settings.services_title_1 }}</h2>
+          {% endif %}
+          {% if settings.services_content_1 != blank %}
+          {{ settings.services_content_1 }}
+          {% endif %}
+          {% if settings.services_textlink_1 != blank %}
+          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_1 }}">{{ settings.services_textlink_1 }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if settings.display_services_2 %}
+  <div class="services-item2">
+    <div class="container services-container">
+      <div class="row">
+        <div class="content-services col-xs-12">
+          {% if settings.services_title_2 != blank %}
+          <h2>{{ settings.services_title_2 }}</h2>
+          {% endif %}
+          {% if settings.services_content_2 != blank %}
+          {{ settings.services_content_2 }}
+          {% endif %}
+          {% if settings.services_textlink_2 != blank %}
+          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_2 }}">{{ settings.services_textlink_2 }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if settings.display_services_3 %}
+  <div class="services-item3">
+    <div class="container services-container">
+      <div class="row">
+        <div class="content-services col-xs-12">
+          {% if settings.services_title_3 != blank %}
+          <h2>{{ settings.services_title_3 }}</h2>
+          {% endif %}
+          {% if settings.services_content_3 != blank %}
+          {{ settings.services_content_3 }}
+          {% endif %}
+          {% if settings.services_textlink_3 != blank %}
+          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_3 }}">{{ settings.services_textlink_3 }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if settings.display_services_4 %}
+  <div class="services-item4">
+    <div class="container services-container">
+      <div class="row">
+        <div class="content-services col-xs-12">
+          {% if settings.services_title_4 != blank %}
+          <h2>{{ settings.services_title_4 }}</h2>
+          {% endif %}
+          {% if settings.services_content_4 != blank %}
+          {{ settings.services_content_4 }}
+          {% endif %}
+          {% if settings.services_textlink_4 != blank %}
+          <div class="btn-container"><a class="btn-services" href="{{ settings.services_link_4 }}">{{ settings.services_textlink_4 }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<script>
+  jQuery('.main-content > .container').removeClass('container');
+</script>
+{% include 'facebook-pixel-init' %}
 {% include 'facebook-pixel-view-content' %}

@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
+<script>
+// >> TriplePixel :: start
++function(x){function O(a,w){x=new XMLHttpRequest,x.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),x.send(null),x.onreadystatechange=function(){4===x.readyState&&200===x.status?setTimeout(function(){eval(x.responseText)},300):(299<x.status||x.status<200)&&a&&!w&&(w=!0,O(a-1))}}window[x]||(window[x]=1,O(5))}();
+// << TriplePixel :: end
+</script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% render 'header-scripts.zipifypages', renderctx: 'lsctn' %}{{ content_for_header }}
