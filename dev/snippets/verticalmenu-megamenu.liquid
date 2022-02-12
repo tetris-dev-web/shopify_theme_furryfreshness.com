@@ -1,48 +1,48 @@
-{% capture menuvideo %}vermenuitem_evideo_{{ intMega }}{% endcapture %}
-{% capture menuproduct %}vermenuitem_eproduct_{{ intMega }}{% endcapture %}
-{% capture menuhtml %}vermenuitem_ehtml_{{ intMega }}{% endcapture %}
-{% capture menulink %}vermenuitem_eblocklinks_{{ intMega }}{% endcapture %}
-
-{% capture menu_colvideo %}vermenuitem_columns_blockvideo_{{ intMega }}{% endcapture %}
-{% capture menu_colproduct %}vermenuitem_columns_blockproducts_{{ intMega }}{% endcapture %}
-{% capture menu_colhtml %}vermenuitem_columns_blockhtml_{{ intMega }}{% endcapture %}
-{% capture menu_collink %}vermenuitem_columns_blocklinks_{{ intMega }}{% endcapture %}
-
-
-{% capture width %}vermenuitem_width_{{ intMega }}{% endcapture %}
-{% capture menustyles %}style='width:{{ settings[width] }}'{% endcapture %}
-
-<div class="dropdown-sub sub-apmegamenu-{{ intMega }}" {{ menustyles }}>
-  <div class="dropdown-menu-inner">
-    <div class="row">
-      {% if settings[menulink] %}
-      <div class="mega-col col-sm-{{ settings[menu_collink] }} menulink">
-        {% capture menu_col_links %}vermenuitem_columns_{{ intMega }}{% endcapture %}
-        {% include 'menu-blocklinks' %}
-      </div>
-      {% endif %}
-      {% if settings[menuvideo] %}
-      <div class="mega-col col-sm-{{ settings[menu_colvideo] }} menuvideo">
-        {% capture menu_video %}vermenuitem_cvideo_{{ intMega }}{% endcapture %}
-        {% include 'menu-blockvideos' %}
-      </div>
-      {% endif %}
-      {% if settings[menuproduct] %}
-      <div class="mega-col col-sm-{{ settings[menu_colproduct] }} menuproduct">
-        {% capture collection_menu %}vermenuitem_cproduct_{{ intMega }}{% endcapture %}
-        {% capture collection_menu_title %}vermenuitem_tproduct_{{ intMega }}{% endcapture %}
-        {% capture collection_product_limit %}vermenuitem_nproduct_{{ intMega }}{% endcapture %}
-        {% include 'menu-blockproducts' %}
-      </div>
-      {% endif %}
-      {% if settings[menuhtml] %}
-      <div class="mega-col col-sm-{{ settings[menu_colhtml] }} menuhtml ">
-        {% capture menu_html_title %}vermenuitem_thtml_{{ intMega }}{% endcapture %}
-        {% capture menu_html_img %}vermenuitem_ihtml_{{ intMega }}.jpg{% endcapture %}
-        {% capture menu_html_des %}vermenuitem_chtml_{{ intMega }}{% endcapture %}
-        {% include 'menu-blockhtml' %}
-      </div>
-      {% endif %}
-    </div>
-  </div>
+{% capture menuvideo %}vermenuitem_evideo_{{ intMega }}{% endcapture %}
+{% capture menuproduct %}vermenuitem_eproduct_{{ intMega }}{% endcapture %}
+{% capture menuhtml %}vermenuitem_ehtml_{{ intMega }}{% endcapture %}
+{% capture menulink %}vermenuitem_eblocklinks_{{ intMega }}{% endcapture %}
+
+{% capture menu_colvideo %}vermenuitem_columns_blockvideo_{{ intMega }}{% endcapture %}
+{% capture menu_colproduct %}vermenuitem_columns_blockproducts_{{ intMega }}{% endcapture %}
+{% capture menu_colhtml %}vermenuitem_columns_blockhtml_{{ intMega }}{% endcapture %}
+{% capture menu_collink %}vermenuitem_columns_blocklinks_{{ intMega }}{% endcapture %}
+
+
+{% capture width %}vermenuitem_width_{{ intMega }}{% endcapture %}
+{% capture menustyles %}style='width:{{ settings[width] }}'{% endcapture %}
+
+<div class="dropdown-sub sub-apmegamenu-{{ intMega }}" {{ menustyles }}>
+  <div class="dropdown-menu-inner">
+    <div class="row">
+      {% if settings[menulink] %}
+      <div class="mega-col col-sm-{{ settings[menu_collink] }} menulink">
+        {% capture menu_col_links %}vermenuitem_columns_{{ intMega }}{% endcapture %}
+        {% include 'menu-blocklinks' %}
+      </div>
+      {% endif %}
+      {% if settings[menuvideo] %}
+      <div class="mega-col col-sm-{{ settings[menu_colvideo] }} menuvideo">
+        {% capture menu_video %}vermenuitem_cvideo_{{ intMega }}{% endcapture %}
+        {% include 'menu-blockvideos' %}
+      </div>
+      {% endif %}
+      {% if settings[menuproduct] %}
+      <div class="mega-col col-sm-{{ settings[menu_colproduct] }} menuproduct">
+        {% capture collection_menu %}vermenuitem_cproduct_{{ intMega }}{% endcapture %}
+        {% capture collection_menu_title %}vermenuitem_tproduct_{{ intMega }}{% endcapture %}
+        {% capture collection_product_limit %}vermenuitem_nproduct_{{ intMega }}{% endcapture %}
+        {% include 'menu-blockproducts' %}
+      </div>
+      {% endif %}
+      {% if settings[menuhtml] %}
+      <div class="mega-col col-sm-{{ settings[menu_colhtml] }} menuhtml ">
+        {% capture menu_html_title %}vermenuitem_thtml_{{ intMega }}{% endcapture %}
+        {% capture menu_html_img %}vermenuitem_ihtml_{{ intMega }}.jpg{% endcapture %}
+        {% capture menu_html_des %}vermenuitem_chtml_{{ intMega }}{% endcapture %}
+        {% include 'menu-blockhtml' %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
 </div>

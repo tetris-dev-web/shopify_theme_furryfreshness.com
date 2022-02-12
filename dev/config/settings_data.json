@@ -3,6 +3,7 @@
     "bolded-nav-items": "Stain & Odor Removal, Grooming, Training",
     "top_bar_bg": "#e8e8e8",
     "bg_header_color": "rgba(0,0,0,0)",
+    "enable_small_log_header": false,
     "use_logo": true,
     "use_logo_sticky": false,
     "use_favicon": true,
@@ -1844,8 +1845,7 @@
           "2d61e1ce-b152-4489-9fce-1c48a46aa9e9",
           "f9bfe137-963c-4a57-95e9-816d00439ad9"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "weigh-against-alternatives": {
         "type": "weigh-against-alternatives",
@@ -1899,9 +1899,7 @@
         }
       }
     },
-    "content_for_index": [
-
-    ]
+    "content_for_index": []
   },
   "presets": {
     "Default": {

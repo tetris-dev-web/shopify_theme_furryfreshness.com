@@ -1,54 +1,54 @@
-{% capture row_limit %}
-{{ row_limit_setting | times: 5 }}
-{% endcapture %}
-
-<div class="box-content">
-  <div id="{{ owl_id }}" class="owl-control owl_collection">
-    {% for product in collections[tabs_collection].products%}          
-    {% assign current_collection = collections[tabs_collection] %}
-    {% include 'product-grid-item' %}
-    {% endfor %}
-  </div>
-</div>
-
-<script>
-  $(document).ready(function() {
-    $("#{{owl_id}}").owlCarousel({
-      itemsCustom : [
-        [300, 2],
-        [600, 3],
-        [700, 3],
-        [1000, 3],
-        [1600, 4]
-      
-      //  [320, 1],
-      //  [360, 1],
-      //  [450, 2],
-      //  [600, 3],
-      //  [700, 3],
-      //  [1000, 4],
-      //  [1200, {{row_limit_setting}}],
-      //  [1400, {{row_limit_setting}}],
-      //  [1600, {{row_limit_setting}}]
-      
-      ],
-      autoPlay : false,
-      stopOnHover : false,
-
-      lazyLoad : true,
-      lazyFollow : true,
-      lazyEffect : "fade",
-      pagination : false,
-
-      // Navigation
-      navigation : true,
-      navigationText : ['<i class="clever-icon-preview"></i>','<i class="clever-icon-next"></i>'],
-      rewindNav : true,
-      scrollPerPage : false,
-
-    });
-
-  })
-
-</script>
-
+{% capture row_limit %}
+{{ row_limit_setting | times: 5 }}
+{% endcapture %}
+
+<div class="box-content">
+  <div id="{{ owl_id }}" class="owl-control owl_collection">
+    {% for product in collections[tabs_collection].products%}          
+    {% assign current_collection = collections[tabs_collection] %}
+    {% include 'product-grid-item' %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#{{owl_id}}").owlCarousel({
+      itemsCustom : [
+        [300, 2],
+        [600, 3],
+        [700, 3],
+        [1000, 3],
+        [1600, 4]
+      
+      //  [320, 1],
+      //  [360, 1],
+      //  [450, 2],
+      //  [600, 3],
+      //  [700, 3],
+      //  [1000, 4],
+      //  [1200, {{row_limit_setting}}],
+      //  [1400, {{row_limit_setting}}],
+      //  [1600, {{row_limit_setting}}]
+      
+      ],
+      autoPlay : false,
+      stopOnHover : false,
+
+      lazyLoad : true,
+      lazyFollow : true,
+      lazyEffect : "fade",
+      pagination : false,
+
+      // Navigation
+      navigation : true,
+      navigationText : ['<i class="clever-icon-preview"></i>','<i class="clever-icon-next"></i>'],
+      rewindNav : true,
+      scrollPerPage : false,
+
+    });
+
+  })
+
+</script>
+
