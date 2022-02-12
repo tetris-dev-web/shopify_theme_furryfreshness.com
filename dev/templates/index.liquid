@@ -1,211 +1,211 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      {% section 'hero-slider' %}
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-3 block-col-left">
-      {% if settings.home_display_newsletter %}	
-      <div class="home-newsletter">
-        {% include 'homepage-block-newsletter' %}
-      </div>
-      {% endif %}
-
-      {% if settings.enable_block_home_ads_col_left %}	
-      <div class="home-block-ads">
-        <a href="{{ settings.block_ads_link }}">
-          <div class="home-ads-item">
-            <div class="banner-image">
-              {{ 'block_home_ads_col_left.jpg' | asset_url | img_tag }}
-            </div>
-            <div class="block-content-ads">
-              {% if settings.block_text_title_ads_col_left != blank %}
-              <p> {{ settings.block_text_title_ads_col_left }}</p>
-              {% endif %}
-              {% if settings.block_text_content_ads_col_left != blank %}
-              <h3>{{ settings.block_text_content_ads_col_left }}</h3>
-              {% endif %}
-            </div>
-          </div>
-        </a>
-      </div>
-      {% endif %}
-
-      {% if settings.enable_product_top_sale %}	
-      <div class="home-product-sale">
-        {% include 'home-product-col-left' %}
-      </div>
-      {% endif %}
-
-    </div>
-    <div class="col-xs-12 col-sm-12 {% if settings.home_display_newsletter %}col-md-9{% else %} col-md-12 home-cust-container{% endif %} block-col-right">
-      {% if settings.enable_block_home_category %}	
-        <div class="home-block-category shop-by-pet">
-          <div class="row">
-            {% comment %} block category by pet {% endcomment %}
-            {% include 'home-block-category' %}
-          </div>
-        </div>
-      {% endif %}
-
-      <div class="bluebartitle">
-        <div class="heading-block block-home-category-title">
-          <h3 class="bluetitle">Say Goodbye<br/>to Smells and<br/>Stains</h3>
-        </div>
-      </div>
-
-      <div class="bluebar">
-        <ul>
-          <li>Eco Friendly</li>
-          <li>Non Toxic</li>
-          <li>Enzyme Free</li>
-        </ul>
-      </div>
-      
-      <div class="home-block-category shop-by-product">
-        <div class="row">
-          {% comment %} block category by product {% endcomment %}
-          {% include 'home-block-category2' %}
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12">
-      {% section 'weigh-against-alternatives' %}
-    </div>
-  </div>
-  </div>
-      
-       {% if settings.enable_tabs %}	
-     
-  <div class="fav-products-bg">
-     
-       <div class="container"> 
-          <div class="home-cust-container">
-    
-      <div class="tabs-product-home">
-        {% comment %} Product Tabs {% endcomment %}
-        {% include 'home-page-product' %}
-      </div>
-      </div>
-        </div>
-  </div>
-      {% endif %}
-  
- 
-  <div class="container">
- <div class="home-cust-container">
-    
-      {% if settings.display_blog_home %}	
-      <div class="home-blog">
-        {% comment %} Product Tabs {% endcomment %}
-        {% include 'home-blog' %}
-      </div>
-      {% endif %}
-
-    <div class="home-vedio col-xs-12">
-        <div class="heading-block">
-          <h3 class="title">{{settings.vedio-head}}</h3>
-        </div>
-        {% if settings.vedio1 != blank %}
-        <div class="vedioblock">
-        	{{settings.vedio1}}
-        </div>
-        {% endif %}
-        {% if settings.vedio2 != blank %}
-          <div class="vedioblock">
-        	{{settings.vedio2}}
-        </div>
-        {% endif %}
-        {% if settings.vedio3 != blank %}
-          <div class="vedioblock">
-        	{{settings.vedio3}}
-        </div>
-        {% endif %}
-        {% if settings.vedio4 != blank %}
-        <div class="vedioblock">
-        	{{settings.vedio4}}
-        </div>
-         {% endif %}
-         {% if settings.vedio5 != blank %}
-          <div class="vedioblock">
-        	{{settings.vedio5}}
-        </div>
-         {% endif %}
-         {% if settings.vedio6 != blank %}
-          <div class="vedioblock">
-        	{{settings.vedio6}}
-        </div>
-        {% endif %}
-      </div>
-   
-   {% comment %}
-   <div class="testimonial-block">
-     <div class="heading-block">
-       <h3 class="title">Testimonials</h3>
-     </div>
-   <div id="c1g_testimonial"></div>
-   <script src="https://www.cloudonegalaxy.com/cloud/testimonial.js" data-shop="furryfreshness.myshopify.com" defer="defer"></script>
-   </div>
-  {% endcomment %}  
-   
-    {% if settings.show-instagram-feed %}
-      <div id="follow-us">
-        <div class="heading-block">
-          <h3 class="title">
-              {{ settings.instagram-label }}
-          </h3>
-        </div>
-
-        {% if settings.show-instagram-feed %}    
-        {% assign url = '{{image}}' %}
-        {% assign caption = '{{caption}}' %}
-        <div id="instagram-card">
-          <div id="instafeed"></div>
-          <script type="text/javascript">
-            var userFeed = new Instafeed({
-              get: 'user',
-              userId: {{ settings.instagram-user-id }},
-              accessToken: '{{ settings.instagram-access-token }}',
-              template: '<a class="col-md--6 imgss" href="{{url}}" rel="ig" title="{{ caption }}"><img class="instagram-image" src="{{ url }}" /></a>'
-              });
-            userFeed.run();        
-          </script>
-        </div>
-        {% endif %}    
-      </div>
-    {% endif %}
-    {% if settings.show-home-image-gallery and settings.show-instagram-feed == false %}
-      <div id="follow-us">
-        <div class="heading-block">
-          <h3 class="title">
-              {{ settings.home-gallery-label }}
-          </h3>
-        </div>
-
-        <div id="instagram-card">
-          <div id="instafeed">
-            {% for i in (1..12) %}
-            {% capture img_url %}home_image_gallery_{{i}}.jpg{% endcapture %}
-            <a href = "{{settings[img_url]}}" class = "col-md--6 imgss" ><img class = "instagram-image" src = "{{img_url | asset_url}}"></a>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-</div>
-{% if settings.enable_block_icon %}
-<div class="container">
-  <div class="block-icon-container">
-    {% include 'home-block-icon' %}
-  </div>
-</div>
- {% endif %}
-
-<script>
-  jQuery('.main-content > .container').removeClass('container');
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      {% section 'hero-slider' %}
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-3 block-col-left">
+      {% if settings.home_display_newsletter %}	
+      <div class="home-newsletter">
+        {% include 'homepage-block-newsletter' %}
+      </div>
+      {% endif %}
+
+      {% if settings.enable_block_home_ads_col_left %}	
+      <div class="home-block-ads">
+        <a href="{{ settings.block_ads_link }}">
+          <div class="home-ads-item">
+            <div class="banner-image">
+              {{ 'block_home_ads_col_left.jpg' | asset_url | img_tag }}
+            </div>
+            <div class="block-content-ads">
+              {% if settings.block_text_title_ads_col_left != blank %}
+              <p> {{ settings.block_text_title_ads_col_left }}</p>
+              {% endif %}
+              {% if settings.block_text_content_ads_col_left != blank %}
+              <h3>{{ settings.block_text_content_ads_col_left }}</h3>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endif %}
+
+      {% if settings.enable_product_top_sale %}	
+      <div class="home-product-sale">
+        {% include 'home-product-col-left' %}
+      </div>
+      {% endif %}
+
+    </div>
+    <div class="col-xs-12 col-sm-12 {% if settings.home_display_newsletter %}col-md-9{% else %} col-md-12 home-cust-container{% endif %} block-col-right">
+      {% if settings.enable_block_home_category %}	
+        <div class="home-block-category shop-by-pet">
+          <div class="row">
+            {% comment %} block category by pet {% endcomment %}
+            {% include 'home-block-category' %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="bluebartitle">
+        <div class="heading-block block-home-category-title">
+          <h3 class="bluetitle">Say Goodbye<br/>to Smells and<br/>Stains</h3>
+        </div>
+      </div>
+
+      <div class="bluebar">
+        <ul>
+          <li>Eco Friendly</li>
+          <li>Non Toxic</li>
+          <li>Enzyme Free</li>
+        </ul>
+      </div>
+      
+      <div class="home-block-category shop-by-product">
+        <div class="row">
+          {% comment %} block category by product {% endcomment %}
+          {% include 'home-block-category2' %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12">
+      {% section 'weigh-against-alternatives' %}
+    </div>
+  </div>
+  </div>
+      
+       {% if settings.enable_tabs %}	
+     
+  <div class="fav-products-bg">
+     
+       <div class="container"> 
+          <div class="home-cust-container">
+    
+      <div class="tabs-product-home">
+        {% comment %} Product Tabs {% endcomment %}
+        {% include 'home-page-product' %}
+      </div>
+      </div>
+        </div>
+  </div>
+      {% endif %}
+  
+ 
+  <div class="container">
+ <div class="home-cust-container">
+    
+      {% if settings.display_blog_home %}	
+      <div class="home-blog">
+        {% comment %} Product Tabs {% endcomment %}
+        {% include 'home-blog' %}
+      </div>
+      {% endif %}
+
+    <div class="home-vedio col-xs-12">
+        <div class="heading-block">
+          <h3 class="title">{{settings.vedio-head}}</h3>
+        </div>
+        {% if settings.vedio1 != blank %}
+        <div class="vedioblock">
+        	{{settings.vedio1}}
+        </div>
+        {% endif %}
+        {% if settings.vedio2 != blank %}
+          <div class="vedioblock">
+        	{{settings.vedio2}}
+        </div>
+        {% endif %}
+        {% if settings.vedio3 != blank %}
+          <div class="vedioblock">
+        	{{settings.vedio3}}
+        </div>
+        {% endif %}
+        {% if settings.vedio4 != blank %}
+        <div class="vedioblock">
+        	{{settings.vedio4}}
+        </div>
+         {% endif %}
+         {% if settings.vedio5 != blank %}
+          <div class="vedioblock">
+        	{{settings.vedio5}}
+        </div>
+         {% endif %}
+         {% if settings.vedio6 != blank %}
+          <div class="vedioblock">
+        	{{settings.vedio6}}
+        </div>
+        {% endif %}
+      </div>
+   
+   {% comment %}
+   <div class="testimonial-block">
+     <div class="heading-block">
+       <h3 class="title">Testimonials</h3>
+     </div>
+   <div id="c1g_testimonial"></div>
+   <script src="https://www.cloudonegalaxy.com/cloud/testimonial.js" data-shop="furryfreshness.myshopify.com" defer="defer"></script>
+   </div>
+  {% endcomment %}  
+   
+    {% if settings.show-instagram-feed %}
+      <div id="follow-us">
+        <div class="heading-block">
+          <h3 class="title">
+              {{ settings.instagram-label }}
+          </h3>
+        </div>
+
+        {% if settings.show-instagram-feed %}    
+        {% assign url = '{{image}}' %}
+        {% assign caption = '{{caption}}' %}
+        <div id="instagram-card">
+          <div id="instafeed"></div>
+          <script type="text/javascript">
+            var userFeed = new Instafeed({
+              get: 'user',
+              userId: {{ settings.instagram-user-id }},
+              accessToken: '{{ settings.instagram-access-token }}',
+              template: '<a class="col-md--6 imgss" href="{{url}}" rel="ig" title="{{ caption }}"><img class="instagram-image" src="{{ url }}" /></a>'
+              });
+            userFeed.run();        
+          </script>
+        </div>
+        {% endif %}    
+      </div>
+    {% endif %}
+    {% if settings.show-home-image-gallery and settings.show-instagram-feed == false %}
+      <div id="follow-us">
+        <div class="heading-block">
+          <h3 class="title">
+              {{ settings.home-gallery-label }}
+          </h3>
+        </div>
+
+        <div id="instagram-card">
+          <div id="instafeed">
+            {% for i in (1..12) %}
+            {% capture img_url %}home_image_gallery_{{i}}.jpg{% endcapture %}
+            <a href = "{{settings[img_url]}}" class = "col-md--6 imgss" ><img class = "instagram-image" src = "{{img_url | asset_url}}"></a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% if settings.enable_block_icon %}
+<div class="container">
+  <div class="block-icon-container">
+    {% include 'home-block-icon' %}
+  </div>
+</div>
+ {% endif %}
+
+<script>
+  jQuery('.main-content > .container').removeClass('container');
 </script>

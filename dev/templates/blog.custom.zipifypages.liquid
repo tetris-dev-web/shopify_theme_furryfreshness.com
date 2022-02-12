@@ -1,247 +1,247 @@
-{% assign zp_use_favicon = false %}{% assign zp_use_meta_tags = false %}{% assign zp_use_open_graph_tags = false %}<meta name="google-site-verification" content="BCJnWDfAC8pNFR93l8u9w7gYjLdDaKee0QQU3KshdsI" /><!doctype html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-
-  <meta name="google-site-verification" content="RruU07WHkpI-9PpgH7IhM1RBxn0GryYx6j0po5SLeTw" />
-
-  
-  <!-- Basic page needs ================================================== -->
-  <meta charset="utf-8">
-
-  <!-- Title and description ================================================== -->
-  <title>
-    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-  </title>
-
-  {% if page_description %}
-  <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
-
-
-  <!-- Helpers ================================================== -->
-  <link rel="canonical" href="{{ canonical_url }}">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />
-  {% include 'font-family' %}
-
-  <!-- Styles -->
-  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-  <!-- Theme base and media queries -->
-  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
-  {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
-  {{ 'jcarousel.css' | asset_url | stylesheet_tag }}
-  {{ 'selectize.bootstrap3.css' | asset_url | stylesheet_tag }}
-  {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
-  {{ 'component.css' | asset_url | stylesheet_tag }}
-  {{ 'styles.css' | asset_url | stylesheet_tag }}
-  {{ 'styles-setting.css' | asset_url | stylesheet_tag }}
-  {{ 'responsive.css' | asset_url | stylesheet_tag }}
-  {{ 'animate.css' | asset_url | stylesheet_tag }}
-  {{ 'elegantfont.css' | asset_url | stylesheet_tag }}
-  {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
-  {{ 'cleversoft_font.css' | asset_url | stylesheet_tag }}
-
-  {% if template contains "product"%}
-    {{ 'subscribe.scss.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-
-  {% if settings.enable_retina %}
-  {{ 'retina-responsive.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-
-  <!-- Scripts -->
-  {% include 'head_scripts' %}
-{% if template == 'index' %}
-  {{ 'jquery.instagram.js' | asset_url | script_tag }}
-{% endif %}
-  <!-- Header hook for plugins ================================================== -->
-  {% comment %}{{ content_for_header }}{% endcomment %}{% capture zp_include_html %}{% include 'header-scripts.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/header-scripts.zipifypages.liquid' or zp_include_html contains 'Liquid error: Could not find asset snippets/page-content-parser.zipifypages.liquid' %}{{ zp_include_html | strip }}{% assign zp_include_html = '' %}{% endunless %}
-
-  {% include 'bold-common' %}
-
-
-  <!--[if lt IE 9]>
-{{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
-<![endif]-->
-
-  {% comment %}
-  If you store has customers disabled, you can remove the following JS file
-  {% endcomment %}
-  {% if template contains 'customers' %}
-  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-  {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
-  {% endif %}
-  
-<script src="//static.getclicky.com/js" type="text/javascript"></script>
-<script type="text/javascript">try{ clicky.init(100829569); }catch(e){}</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100829569ns.gif" /></p></noscript>
-<script type="text/javascript" src="https://furryfreshness.iljmp.com/improvely.js"></script>
-<script type="text/javascript">
-improvely.init('furryfreshness', 2);
-improvely.conversion({
-	goal: 'clickfromsales',
-	revenue: 0.00,
-	reference: '0'
-});
-</script>
-<noscript>
-<img src="https://furryfreshness.iljmp.com/track/conversion?project=2&goal=sale&revenue=9.95&reference=123" width="1" height="1" />
-</noscript>
-<meta name="google-site-verification" content="BCJnWDfAC8pNFR93l8u9w7gYjLdDaKee0QQU3KshdsI" />
-  
-  <!-- Hotjar Tracking Code for https://shop.furryfreshness.com -->
-<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:1122134,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-</script>
-
-  <!-- Global site tag (gtag.js) - Google Ads: 788537358 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-788537358"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-788537358');
-</script>
-
-  <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"17148100"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
-  
-</head>
-
-{% comment %}
-Add the page template as a class for easy page or template specific styling.
-{% endcomment %}
-<body id="{{ page_title | handle }}" class=" {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
-
-  <div class="wrapper-container">
-    {% include 'header' %}
-    <div class="product-quickview"></div>
-    {% include 'breadcrumb' %}
-    <main class="main-content" >
-      <div class="container main_container">
-        {% comment %}{{ content_for_layout }}{% endcomment %}{% capture zp_include_html %}{% include 'blog-content.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/blog-content.zipifypages.liquid' %}{{ zp_include_html | strip }}{% endunless %}{% assign zp_include_html =  %}
-      </div>
-    </main>
-
-    {% include 'footer' %}
-
-    {% include 'quick-view-product' %}
-    {% include 'footer_scripts' %}
-    {% include 'popup-newsletter' %}
-    <div id="back-top" style="display: none;"><a class="" href="#top"><i class="fa fa-long-arrow-up"></i></a></div>
-  </div>
-  {% include 'canvas-menu' %}
-  {% if settings.enable_product_image_zoom %}
-  {{ 'jqueryzoom.js' | asset_url | script_tag }}
-  {% endif %}
-  {% include 'search-autocomplete' %}
-  {% if settings.display_recently_viewed_products %}
-  <!-- Begin Recently Viewed Products -->
-  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
-  {{ 'jquery.products.min.js' | asset_url | script_tag }}
-  {% if template contains 'product' %}
-  <script>
-    Shopify.Products.recordRecentlyViewed();
-  </script>
-  {% endif %}
-  <!-- End Recently Viewed Products -->
-  {% endif %}
-
-  <script>
-    jQuery(document).ready(function() {
-      jQuery('.tp-caption').hide();
-      jQuery(window).load(function() {
-
-        jQuery('#loading').hide();
-        jQuery('.tp-caption').show();
-      });
-
-    })
-
-  </script>
-
-
-{% include 'gts' %}{% capture zp_include_html %}{% include 'page-footer.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/page-footer.zipifypages.liquid' %}{{ zp_include_html | strip }}{% assign zp_include_html = '' %}{% endunless %}</body>
-</html>
-
-
-
-<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.1) -->
-<script type="text/javascript">
-// Editable fields:
-var afterpay_min = 0.04;            // As per your Afterpay contract.
-var afterpay_max = 1000.00;         // As per your Afterpay contract.
-var afterpay_logo_theme = 'colour'; // Can be 'colour', 'black' or 'white'.
-
-// Overrides:
-var afterpay_product_selector = 'div.prices';
-// var afterpay_cart_integration_enabled = true;
-var afterpay_cart_static_selector = '.add-comments';
-// var afterpay_variable_price_fallback_selector = '#ProductPrice';
-// var afterpay_variable_price_fallback = true; // Requires afterpay_product_selector
-var afterpay_show_currency_code = false;
-var afterpay_modal_responsive = true;
-
-// Non-editable fields:
-var afterpay_shop_currency = {{ shop.currency | json }};
-var afterpay_shop_money_format = {{ shop.money_format | json }};
-var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
-var afterpay_theme_name = {{ theme.name | json }};
-var afterpay_product = {{ product | json }};
-var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
-var afterpay_cart_total_price = {{ cart.total_price | json }};
-var afterpay_js_snippet_version = '1.0.1';
-</script>
-<script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
-<!-- End Shopify-Afterpay JavaScript Snippet (v1.0.1) -->
-
-<style type="text/css">
-
-       p.afterpay-paragraph {
-              color: inherit !important;
-              font-family: inherit !important;
-              display: block !important;
-        }
-        .afterpay-instalments {
-              font-weight: bold !important;
-        }
-        .afterpay-link-inner {
-              font-size: 12px;
-              margin-left: 2px;
-        }
-        .afterpay-logo {
-/*                width: 6em !important; 
-               height: auto !important; */
-        }
-        .afterpay-text2 {
-              margin-right: 1px;
-        }
-
-        @media only screen and (max-width : 480px) {
-            .afterpay-paragraph {
-                font-size: 12px;
-            }
-            .afterpay-link-inner {
-                font-size: 12px;
-            }
-              .afterpay-logo {
-/*                    width: 6em !important; 
-                   height: auto !important; */
-            }
-        }
-
-</style>
+{% assign zp_use_favicon = false %}{% assign zp_use_meta_tags = false %}{% assign zp_use_open_graph_tags = false %}<meta name="google-site-verification" content="BCJnWDfAC8pNFR93l8u9w7gYjLdDaKee0QQU3KshdsI" /><!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+  <meta name="google-site-verification" content="RruU07WHkpI-9PpgH7IhM1RBxn0GryYx6j0po5SLeTw" />
+
+  
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+
+  <!-- Title and description ================================================== -->
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+
+  <!-- Helpers ================================================== -->
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />
+  {% include 'font-family' %}
+
+  <!-- Styles -->
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  <!-- Theme base and media queries -->
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+  {{ 'jcarousel.css' | asset_url | stylesheet_tag }}
+  {{ 'selectize.bootstrap3.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+  {{ 'component.css' | asset_url | stylesheet_tag }}
+  {{ 'styles.css' | asset_url | stylesheet_tag }}
+  {{ 'styles-setting.css' | asset_url | stylesheet_tag }}
+  {{ 'responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'animate.css' | asset_url | stylesheet_tag }}
+  {{ 'elegantfont.css' | asset_url | stylesheet_tag }}
+  {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+  {{ 'cleversoft_font.css' | asset_url | stylesheet_tag }}
+
+  {% if template contains "product"%}
+    {{ 'subscribe.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
+  {% if settings.enable_retina %}
+  {{ 'retina-responsive.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
+  <!-- Scripts -->
+  {% include 'head_scripts' %}
+{% if template == 'index' %}
+  {{ 'jquery.instagram.js' | asset_url | script_tag }}
+{% endif %}
+  <!-- Header hook for plugins ================================================== -->
+  {% comment %}{{ content_for_header }}{% endcomment %}{% capture zp_include_html %}{% include 'header-scripts.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/header-scripts.zipifypages.liquid' or zp_include_html contains 'Liquid error: Could not find asset snippets/page-content-parser.zipifypages.liquid' %}{{ zp_include_html | strip }}{% assign zp_include_html = '' %}{% endunless %}
+
+  {% include 'bold-common' %}
+
+
+  <!--[if lt IE 9]>
+{{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+<![endif]-->
+
+  {% comment %}
+  If you store has customers disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
+  
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100829569); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100829569ns.gif" /></p></noscript>
+<script type="text/javascript" src="https://furryfreshness.iljmp.com/improvely.js"></script>
+<script type="text/javascript">
+improvely.init('furryfreshness', 2);
+improvely.conversion({
+	goal: 'clickfromsales',
+	revenue: 0.00,
+	reference: '0'
+});
+</script>
+<noscript>
+<img src="https://furryfreshness.iljmp.com/track/conversion?project=2&goal=sale&revenue=9.95&reference=123" width="1" height="1" />
+</noscript>
+<meta name="google-site-verification" content="BCJnWDfAC8pNFR93l8u9w7gYjLdDaKee0QQU3KshdsI" />
+  
+  <!-- Hotjar Tracking Code for https://shop.furryfreshness.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1122134,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+  <!-- Global site tag (gtag.js) - Google Ads: 788537358 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-788537358"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-788537358');
+</script>
+
+  <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"17148100"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+  
+</head>
+
+{% comment %}
+Add the page template as a class for easy page or template specific styling.
+{% endcomment %}
+<body id="{{ page_title | handle }}" class=" {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  <div class="wrapper-container">
+    {% include 'header' %}
+    <div class="product-quickview"></div>
+    {% include 'breadcrumb' %}
+    <main class="main-content" >
+      <div class="container main_container">
+        {% comment %}{{ content_for_layout }}{% endcomment %}{% capture zp_include_html %}{% include 'blog-content.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/blog-content.zipifypages.liquid' %}{{ zp_include_html | strip }}{% endunless %}{% assign zp_include_html =  %}
+      </div>
+    </main>
+
+    {% include 'footer' %}
+
+    {% include 'quick-view-product' %}
+    {% include 'footer_scripts' %}
+    {% include 'popup-newsletter' %}
+    <div id="back-top" style="display: none;"><a class="" href="#top"><i class="fa fa-long-arrow-up"></i></a></div>
+  </div>
+  {% include 'canvas-menu' %}
+  {% if settings.enable_product_image_zoom %}
+  {{ 'jqueryzoom.js' | asset_url | script_tag }}
+  {% endif %}
+  {% include 'search-autocomplete' %}
+  {% if settings.display_recently_viewed_products %}
+  <!-- Begin Recently Viewed Products -->
+  {{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+  {{ 'jquery.products.min.js' | asset_url | script_tag }}
+  {% if template contains 'product' %}
+  <script>
+    Shopify.Products.recordRecentlyViewed();
+  </script>
+  {% endif %}
+  <!-- End Recently Viewed Products -->
+  {% endif %}
+
+  <script>
+    jQuery(document).ready(function() {
+      jQuery('.tp-caption').hide();
+      jQuery(window).load(function() {
+
+        jQuery('#loading').hide();
+        jQuery('.tp-caption').show();
+      });
+
+    })
+
+  </script>
+
+
+{% include 'gts' %}{% capture zp_include_html %}{% include 'page-footer.zipifypages' %}{% endcapture %}{% unless zp_include_html contains 'Liquid error: Could not find asset snippets/page-footer.zipifypages.liquid' %}{{ zp_include_html | strip }}{% assign zp_include_html = '' %}{% endunless %}</body>
+</html>
+
+
+
+<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.1) -->
+<script type="text/javascript">
+// Editable fields:
+var afterpay_min = 0.04;            // As per your Afterpay contract.
+var afterpay_max = 1000.00;         // As per your Afterpay contract.
+var afterpay_logo_theme = 'colour'; // Can be 'colour', 'black' or 'white'.
+
+// Overrides:
+var afterpay_product_selector = 'div.prices';
+// var afterpay_cart_integration_enabled = true;
+var afterpay_cart_static_selector = '.add-comments';
+// var afterpay_variable_price_fallback_selector = '#ProductPrice';
+// var afterpay_variable_price_fallback = true; // Requires afterpay_product_selector
+var afterpay_show_currency_code = false;
+var afterpay_modal_responsive = true;
+
+// Non-editable fields:
+var afterpay_shop_currency = {{ shop.currency | json }};
+var afterpay_shop_money_format = {{ shop.money_format | json }};
+var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+var afterpay_theme_name = {{ theme.name | json }};
+var afterpay_product = {{ product | json }};
+var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+var afterpay_cart_total_price = {{ cart.total_price | json }};
+var afterpay_js_snippet_version = '1.0.1';
+</script>
+<script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+<!-- End Shopify-Afterpay JavaScript Snippet (v1.0.1) -->
+
+<style type="text/css">
+
+       p.afterpay-paragraph {
+              color: inherit !important;
+              font-family: inherit !important;
+              display: block !important;
+        }
+        .afterpay-instalments {
+              font-weight: bold !important;
+        }
+        .afterpay-link-inner {
+              font-size: 12px;
+              margin-left: 2px;
+        }
+        .afterpay-logo {
+/*                width: 6em !important; 
+               height: auto !important; */
+        }
+        .afterpay-text2 {
+              margin-right: 1px;
+        }
+
+        @media only screen and (max-width : 480px) {
+            .afterpay-paragraph {
+                font-size: 12px;
+            }
+            .afterpay-link-inner {
+                font-size: 12px;
+            }
+              .afterpay-logo {
+/*                    width: 6em !important; 
+                   height: auto !important; */
+            }
+        }
+
+</style>
 {% layout none %}

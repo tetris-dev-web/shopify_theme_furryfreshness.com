@@ -1,80 +1,80 @@
-{% comment %}
-Loop through a defined number of articles with the 'paginate' tag.
-Don't forget to close the tag after your loop.
-{% endcomment %}
-
-{% paginate blog.articles by 5 %}
-
-{% comment %}
-This template is also used for listing out articles of a specific tag.
-You can change layouts or styles by checking if current_tags is true.
-{% endcomment %}
-
-<div class="banner-blog-sidebar">
-  <!--   {{ 'banner-blog-sidebar.jpg' | asset_url | img_tag:'','img-responsive avt' }} -->
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 blog-layout-1 blog-left">
-      <div class="content-blog">
-        {% comment %}
-        Loop through each article in your blog. This is limited to what you set for pagination above.
-
-        For more info on article liquid tags:
-        - http://docs.shopify.com/themes/liquid-variables/article
-        {% endcomment %}
-
-        <ul class="list-blog">
-          {% for article in blog.articles %}
-          <div class="col-xs-12 col-sm-12 item">
-            <li class="blog-item">
-              {% if article.content contains '<img' %}
-              <div class="image">
-                {% assign content_blog_home = article.content %}
-                <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
-              </div>
-              {% endif %}
-              <div class="blog-bottom">
-                <div class="date-author">
-                  <div class="left-blog">
-                    <span class="blog_author">{{ article.author }}</span>
-                    <span class="date-time">
-                      {{ article.published_at | date: '%b %d, %Y' }}
-                    </span>
-                  </div>
-                  <div class="right-blog">
-                    <ul class="user-tags">
-                      {% include 'tags-article' %}
-                    </ul>
-                  </div>
-                </div>
-                <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
-                <div class="short-des">
-                  {% if article.excerpt.size > 0 %}
-                  {{ article.excerpt }}
-                  {% else %}
-                  <p>{{ article.content | strip_html | truncatewords: 70 }}</p>
-                  {% endif %}
-                </div>
-                <p class="button">
-                  <a href="{{ article.url }}" class="btn-readmore">CONTINUE READING <span class="clever-icon-arrow-right-bold"></span></a>
-                </p>
-              </div>
-            </li>
-          </div>
-          {% endfor %}
-        </ul>
-        {% if paginate.pages > 1 %}
-        <div class="text-center pagination">
-          {% include 'pagination' %}
-        </div>
-        {% endif %}
-      </div>      
-    </div>
-    {% include 'blog_sidebar' %}
-  </div>
-
-  {% endpaginate %}
-  <script>
-    jQuery('.main-content > .container').removeClass('container');
+{% comment %}
+Loop through a defined number of articles with the 'paginate' tag.
+Don't forget to close the tag after your loop.
+{% endcomment %}
+
+{% paginate blog.articles by 5 %}
+
+{% comment %}
+This template is also used for listing out articles of a specific tag.
+You can change layouts or styles by checking if current_tags is true.
+{% endcomment %}
+
+<div class="banner-blog-sidebar">
+  <!--   {{ 'banner-blog-sidebar.jpg' | asset_url | img_tag:'','img-responsive avt' }} -->
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 blog-layout-1 blog-left">
+      <div class="content-blog">
+        {% comment %}
+        Loop through each article in your blog. This is limited to what you set for pagination above.
+
+        For more info on article liquid tags:
+        - http://docs.shopify.com/themes/liquid-variables/article
+        {% endcomment %}
+
+        <ul class="list-blog">
+          {% for article in blog.articles %}
+          <div class="col-xs-12 col-sm-12 item">
+            <li class="blog-item">
+              {% if article.content contains '<img' %}
+              <div class="image">
+                {% assign content_blog_home = article.content %}
+                <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+              </div>
+              {% endif %}
+              <div class="blog-bottom">
+                <div class="date-author">
+                  <div class="left-blog">
+                    <span class="blog_author">{{ article.author }}</span>
+                    <span class="date-time">
+                      {{ article.published_at | date: '%b %d, %Y' }}
+                    </span>
+                  </div>
+                  <div class="right-blog">
+                    <ul class="user-tags">
+                      {% include 'tags-article' %}
+                    </ul>
+                  </div>
+                </div>
+                <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
+                <div class="short-des">
+                  {% if article.excerpt.size > 0 %}
+                  {{ article.excerpt }}
+                  {% else %}
+                  <p>{{ article.content | strip_html | truncatewords: 70 }}</p>
+                  {% endif %}
+                </div>
+                <p class="button">
+                  <a href="{{ article.url }}" class="btn-readmore">CONTINUE READING <span class="clever-icon-arrow-right-bold"></span></a>
+                </p>
+              </div>
+            </li>
+          </div>
+          {% endfor %}
+        </ul>
+        {% if paginate.pages > 1 %}
+        <div class="text-center pagination">
+          {% include 'pagination' %}
+        </div>
+        {% endif %}
+      </div>      
+    </div>
+    {% include 'blog_sidebar' %}
+  </div>
+
+  {% endpaginate %}
+  <script>
+    jQuery('.main-content > .container').removeClass('container');
   </script>

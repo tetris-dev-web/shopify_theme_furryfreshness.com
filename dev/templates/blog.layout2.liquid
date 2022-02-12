@@ -1,73 +1,73 @@
-{% comment %}
-Loop through a defined number of articles with the 'paginate' tag.
-Don't forget to close the tag after your loop.
-{% endcomment %}
-
-{% paginate blog.articles by 5 %}
-
-{% comment %}
-This template is also used for listing out articles of a specific tag.
-You can change layouts or styles by checking if current_tags is true.
-{% endcomment %}
-
-
-<div class="row">
-  <div class="col-main">
-    <div class="content-blog">
-      {% comment %}
-      Loop through each article in your blog. This is limited to what you set for pagination above.
-
-      For more info on article liquid tags:
-      - http://docs.shopify.com/themes/liquid-variables/article
-      {% endcomment %}
-
-      <ul class="list-blog">
-        {% for article in blog.articles %}
-        <div class="col-xs-12 col-sm-6 col-md-4 item">
-          <li class="blog-item">
-            {% if article.content contains '<img' %}
-            <div class="image">
-              {% assign content_blog_home = article.content %}            
-              <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
-            </div>
-            {% endif %}
-            <div class="blog-bottom">
-              <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
-              <ul class="user-tags">
-                {% include 'tags-article' %}
-              </ul>
-              <div class="short-des">
-                {% if article.excerpt.size > 0 %}
-                {{ article.excerpt }}
-                {% else %}
-                <p>{{ article.content | strip_html | truncatewords: 18 }}</p>
-                {% endif %}
-              </div>		  
-              <div class="date-author">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                <span class="date-time">
-                  {{ article.published_at | date: '%b %d, %Y' }}
-                </span> 
-                <span class="blog_author">Posted by {{ article.author }} </span>
-              </div>
-              {% if settings.enable_read_more %}
-              <p class="button">
-                <a href="{{ article.url }}" class="btn-shop-now">Read more</a>
-              </p>
-              {% endif %}
-            </div>
-          </li>
-        </div>
-        {% endfor %}
-
-      </ul>
-
-      {% if paginate.pages > 1 %}
-      <div class="text-center pagination">
-        {% include 'pagination' %}
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</div>
+{% comment %}
+Loop through a defined number of articles with the 'paginate' tag.
+Don't forget to close the tag after your loop.
+{% endcomment %}
+
+{% paginate blog.articles by 5 %}
+
+{% comment %}
+This template is also used for listing out articles of a specific tag.
+You can change layouts or styles by checking if current_tags is true.
+{% endcomment %}
+
+
+<div class="row">
+  <div class="col-main">
+    <div class="content-blog">
+      {% comment %}
+      Loop through each article in your blog. This is limited to what you set for pagination above.
+
+      For more info on article liquid tags:
+      - http://docs.shopify.com/themes/liquid-variables/article
+      {% endcomment %}
+
+      <ul class="list-blog">
+        {% for article in blog.articles %}
+        <div class="col-xs-12 col-sm-6 col-md-4 item">
+          <li class="blog-item">
+            {% if article.content contains '<img' %}
+            <div class="image">
+              {% assign content_blog_home = article.content %}            
+              <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+            </div>
+            {% endif %}
+            <div class="blog-bottom">
+              <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
+              <ul class="user-tags">
+                {% include 'tags-article' %}
+              </ul>
+              <div class="short-des">
+                {% if article.excerpt.size > 0 %}
+                {{ article.excerpt }}
+                {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 18 }}</p>
+                {% endif %}
+              </div>		  
+              <div class="date-author">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span class="date-time">
+                  {{ article.published_at | date: '%b %d, %Y' }}
+                </span> 
+                <span class="blog_author">Posted by {{ article.author }} </span>
+              </div>
+              {% if settings.enable_read_more %}
+              <p class="button">
+                <a href="{{ article.url }}" class="btn-shop-now">Read more</a>
+              </p>
+              {% endif %}
+            </div>
+          </li>
+        </div>
+        {% endfor %}
+
+      </ul>
+
+      {% if paginate.pages > 1 %}
+      <div class="text-center pagination">
+        {% include 'pagination' %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endpaginate %}

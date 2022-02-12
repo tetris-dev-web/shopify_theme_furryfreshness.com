@@ -1,135 +1,135 @@
-
-<!--Top Menu -->
-
-<div class=" megamenu">
-  <ul class="navbar-nav site-nav">
-    
-    {% for link in linklists.main-menu.links %}
-    {% assign hasMega = false %}
-    {% assign intMega = 0 %}
-    {% assign link_title = link.title | downcase %}
-    {% assign fullwidth = '' %}
-    {% for i in (1..5) %}
-    {% capture megamenu %}menuitem_enable_{{ i }}{% endcapture %}
-    {% capture megamenu_title %}menuitem_title_{{ i }}{% endcapture %}
-    {% capture lablenew %}enable_new_{{ i }}{% endcapture %}
-    {% capture lablehot %}enable_hot_{{ i }}{% endcapture %}
-    {% assign megamenu_title = settings[megamenu_title] | strip | downcase %}
-    {% if settings[megamenu] %}
-  
-    {% if link_title == megamenu_title %}
-      {% assign hasMega = true %}
-      {% assign intMega = i %}
-
-      {% if settings[lablenew] %}
-          {% assign lable_new = '<span class="lable-new">New</span>' %}
-      {% else %}
-          {% assign lable_new = '' %}
-      {% endif %}
-    
-      {% if settings[lablehot] %}
-          {% assign lable_hot = '<span class="lable-hot">Hot</span>' %}
-      {% else %}
-          {% assign lable_hot = '' %}
-      {% endif %}
-    
-    {% endif %}
-    {% endif %}
- 
-    {% endfor %}
-    
-    {% if hasMega %}
-    {% capture menufullwidth %}menuitem_fullwidth_{{ intMega }}{% endcapture %}
-    {% if settings[menufullwidth] %}
-    {% assign fullwidth = 'full-width' %}
-    {% else %}
-    {% assign fullwidth = 'aligned-center' %}
-    {% endif %}
-    <li class="menu-dropdown  mega-menu  level-top {{ fullwidth }} {% if link.active %}active{% endif %}">
-      <a class="dropdown-toggle" href="{{ link.url }}" title="{{ link.title }}">
-        <span>{{ link.title }}</span><i class="fa fa-angle-down"></i>
-        {{lable_hot}}{{lable_new}}
-      </a>
-      {% assign mega_link_handle = link.handle %}
-      {% include 'mega-menu' %}
-    </li>
-    {% else %}
-    {% if linklists[link.handle] != empty %}
-    <li class="menu-dropdown  level-top {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}  {% if link.active %}active{% endif %}">
-      <a class="dropdown-toggle has-category" href="{{ link.url }}" title="{{ link.title }}">
-        <span class="">{{ link.title }}</span><i class="fa fa-angle-down"></i>
-      </a>
-      <div class="dropdown-sub level1">
-        <ul>
-          {% for child_link in linklists[link.handle].links %}
-          {% if linklists[child_link.handle] != empty %}
-          <li class="parent dropdown-submenu {% if child_link.active %}active{% endif %}">
-            <a class="dropdown-toggle"  href="{{ child_link.url }}" title="{{ child_link.title }}">
-              <span class="">{{ child_link.title }}</span><i class="fa fa-angle-right"></i>
-            </a>
-            <div class="dropdown-menu level2">
-              <ul>
-                {% for child_link1 in linklists[child_link.handle].links %}
-                {% if linklists[child_link1.handle] != empty %}
-                <li class="parent dropdown-submenu {% if child_link1.active %}active{% endif %}">
-                  <a class="dropdown-toggle"  href="{{ child_link1.url }}" title="{{ child_link1.title }}">
-                    <span class="">{{ child_link1.title }}<i class="fa fa-angle-right"></i></span>
-                  </a>
-                  <div class="dropdown-menu level3">
-                    <ul>
-                      {% for child_link2 in linklists[child_link1.handle].links %}
-                      <li class="{% if child_link2.active %}active{% endif %}">
-                        <a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
-                          <span class="">{{ child_link2.title }}</span>
-                        </a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </li>
-                {% else %}
-                <li class="{% if child_link1.active %}active{% endif %}">
-                  <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
-                    <span class="">{{ child_link1.title }}</span>
-                  </a>
-                </li>
-                {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
-          </li>
-          {% else %}
-          <li class="{% if child_link.active %}active{% endif %}">
-            <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
-              <span class="">{{ child_link.title }}</span>
-            </a>
-          </li>
-          {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </li>
-
-    {% else %}
-    
-    {% assign boldedNavItems = {{settings.bolded-nav-items}} | split: ", " %}
-    <li class="{% if link.active %}active{% endif %} level-top">
-      <a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
-        {% if boldedNavItems contains link.title %}
-          <span class="bolded-nav"> <strong> {{ link.title }} </strong> </span>
-        {% else %}
-          <span class="non-bolded-nav">{{ link.title }} </span>
-        {% endif %}
-      </a>
-    </li>
-
-    {% endif %}
-    {% endif %}
-    {% endfor %}
-  </ul>
-</div>  
-
-<!-- End Menu -->
-
-
-
+
+<!--Top Menu -->
+
+<div class=" megamenu">
+  <ul class="navbar-nav site-nav">
+    
+    {% for link in linklists.main-menu.links %}
+    {% assign hasMega = false %}
+    {% assign intMega = 0 %}
+    {% assign link_title = link.title | downcase %}
+    {% assign fullwidth = '' %}
+    {% for i in (1..5) %}
+    {% capture megamenu %}menuitem_enable_{{ i }}{% endcapture %}
+    {% capture megamenu_title %}menuitem_title_{{ i }}{% endcapture %}
+    {% capture lablenew %}enable_new_{{ i }}{% endcapture %}
+    {% capture lablehot %}enable_hot_{{ i }}{% endcapture %}
+    {% assign megamenu_title = settings[megamenu_title] | strip | downcase %}
+    {% if settings[megamenu] %}
+  
+    {% if link_title == megamenu_title %}
+      {% assign hasMega = true %}
+      {% assign intMega = i %}
+
+      {% if settings[lablenew] %}
+          {% assign lable_new = '<span class="lable-new">New</span>' %}
+      {% else %}
+          {% assign lable_new = '' %}
+      {% endif %}
+    
+      {% if settings[lablehot] %}
+          {% assign lable_hot = '<span class="lable-hot">Hot</span>' %}
+      {% else %}
+          {% assign lable_hot = '' %}
+      {% endif %}
+    
+    {% endif %}
+    {% endif %}
+ 
+    {% endfor %}
+    
+    {% if hasMega %}
+    {% capture menufullwidth %}menuitem_fullwidth_{{ intMega }}{% endcapture %}
+    {% if settings[menufullwidth] %}
+    {% assign fullwidth = 'full-width' %}
+    {% else %}
+    {% assign fullwidth = 'aligned-center' %}
+    {% endif %}
+    <li class="menu-dropdown  mega-menu  level-top {{ fullwidth }} {% if link.active %}active{% endif %}">
+      <a class="dropdown-toggle" href="{{ link.url }}" title="{{ link.title }}">
+        <span>{{ link.title }}</span><i class="fa fa-angle-down"></i>
+        {{lable_hot}}{{lable_new}}
+      </a>
+      {% assign mega_link_handle = link.handle %}
+      {% include 'mega-menu' %}
+    </li>
+    {% else %}
+    {% if linklists[link.handle] != empty %}
+    <li class="menu-dropdown  level-top {% if settings.display_megamenu and items_list contains cat %} mega-menu {% endif %}  {% if link.active %}active{% endif %}">
+      <a class="dropdown-toggle has-category" href="{{ link.url }}" title="{{ link.title }}">
+        <span class="">{{ link.title }}</span><i class="fa fa-angle-down"></i>
+      </a>
+      <div class="dropdown-sub level1">
+        <ul>
+          {% for child_link in linklists[link.handle].links %}
+          {% if linklists[child_link.handle] != empty %}
+          <li class="parent dropdown-submenu {% if child_link.active %}active{% endif %}">
+            <a class="dropdown-toggle"  href="{{ child_link.url }}" title="{{ child_link.title }}">
+              <span class="">{{ child_link.title }}</span><i class="fa fa-angle-right"></i>
+            </a>
+            <div class="dropdown-menu level2">
+              <ul>
+                {% for child_link1 in linklists[child_link.handle].links %}
+                {% if linklists[child_link1.handle] != empty %}
+                <li class="parent dropdown-submenu {% if child_link1.active %}active{% endif %}">
+                  <a class="dropdown-toggle"  href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                    <span class="">{{ child_link1.title }}<i class="fa fa-angle-right"></i></span>
+                  </a>
+                  <div class="dropdown-menu level3">
+                    <ul>
+                      {% for child_link2 in linklists[child_link1.handle].links %}
+                      <li class="{% if child_link2.active %}active{% endif %}">
+                        <a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
+                          <span class="">{{ child_link2.title }}</span>
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+                {% else %}
+                <li class="{% if child_link1.active %}active{% endif %}">
+                  <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                    <span class="">{{ child_link1.title }}</span>
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+          {% else %}
+          <li class="{% if child_link.active %}active{% endif %}">
+            <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+              <span class="">{{ child_link.title }}</span>
+            </a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+
+    {% else %}
+    
+    {% assign boldedNavItems = {{settings.bolded-nav-items}} | split: ", " %}
+    <li class="{% if link.active %}active{% endif %} level-top">
+      <a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+        {% if boldedNavItems contains link.title %}
+          <span class="bolded-nav"> <strong> {{ link.title }} </strong> </span>
+        {% else %}
+          <span class="non-bolded-nav">{{ link.title }} </span>
+        {% endif %}
+      </a>
+    </li>
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>  
+
+<!-- End Menu -->
+
+
+
