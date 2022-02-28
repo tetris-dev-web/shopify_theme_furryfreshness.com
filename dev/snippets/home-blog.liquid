@@ -1,75 +1,75 @@
-{% if settings.display_blog_home %}	
-<div class="main-blog">
-  {% if settings.blog_title != blank %}
-  <div class="heading-block">
-    <h3 class="title">{{ settings.blog_title }}</h3>
-  </div>
-  {% endif %}
- <div class="box-content">
-    <div id="latest-blogs" class="owl-carousel owl-theme">
-	{% for article in blogs.news.articles limit:settings.blog_limit %}
-      <div class="item">
-        <div class="blog-item"> 
- 		 {% if article.content contains '<img' %}
-          <div class="image">
-            {% assign content_blog_home = article.content %}
-            <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
-            <div class="over-block"></div>
-          </div>
-          {% endif %}
-          <div class="blog-item-content">
-            <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
-            <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-              {{ article.published_at | date: '%b %d, %Y' }}
-            </time>
-          </div>
-          {% for tag in blog.all_tags %}
-          {{ tag }} 
-          {% endfor %}
-          <div class="short-des">
-            {% if article.excerpt.size > 0 %}
-            {{ article.excerpt }}
-            {% else %}
-            <p>{{ article.content | strip_html | truncatewords: 15 }}</p>
-            {% endif %}
-          </div>
-          {% if article.comments_enabled? %}
-          <a href="{{ article.url }}#comments">
-            <i class="fa fa-comments-o"></i>{{ article.comments_count }} 
-          </a>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-  <script>
-    $(document).ready(function() {
-      $("#latest-blogs").owlCarousel({
-        itemsCustom : [ 
-          [320, 1],
-          [450, 1],
-          [600, 2],
-          [700, 2],
-          [1000, {{settings.blog_limit}}],
-          [1200, {{settings.blog_limit}}],
-          [1400, {{settings.blog_limit}}],
-          [1600, {{settings.blog_limit}}]
-        ],
-        autoPlay : false,
-        stopOnHover : false,
-        lazyLoad : false,
-        lazyFollow : true,
-        lazyEffect : "fade",
-        pagination : true,
-        // Navigation
-        navigation : false,
-        navigationText : ['<i class="arrow_carrot-left"></i>','<i class="arrow_carrot-right"></i>'],
-        rewindNav : true,
-        scrollPerPage : false,
-      });
-    })
-  </script>
-</div>
+{% if settings.display_blog_home %}	
+<div class="main-blog">
+  {% if settings.blog_title != blank %}
+  <div class="heading-block">
+    <h3 class="title">{{ settings.blog_title }}</h3>
+  </div>
+  {% endif %}
+ <div class="box-content">
+    <div id="latest-blogs" class="owl-carousel owl-theme">
+	{% for article in blogs.news.articles limit:settings.blog_limit %}
+      <div class="item">
+        <div class="blog-item"> 
+ 		 {% if article.content contains '<img' %}
+          <div class="image">
+            {% assign content_blog_home = article.content %}
+            <img src="{% include 'blog-images' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+            <div class="over-block"></div>
+          </div>
+          {% endif %}
+          <div class="blog-item-content">
+            <h3 class="p10">{{ article.title | link_to: article.url }}</h3>
+            <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+              {{ article.published_at | date: '%b %d, %Y' }}
+            </time>
+          </div>
+          {% for tag in blog.all_tags %}
+          {{ tag }} 
+          {% endfor %}
+          <div class="short-des">
+            {% if article.excerpt.size > 0 %}
+            {{ article.excerpt }}
+            {% else %}
+            <p>{{ article.content | strip_html | truncatewords: 15 }}</p>
+            {% endif %}
+          </div>
+          {% if article.comments_enabled? %}
+          <a href="{{ article.url }}#comments">
+            <i class="fa fa-comments-o"></i>{{ article.comments_count }} 
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $("#latest-blogs").owlCarousel({
+        itemsCustom : [ 
+          [320, 1],
+          [450, 1],
+          [600, 2],
+          [700, 2],
+          [1000, {{settings.blog_limit}}],
+          [1200, {{settings.blog_limit}}],
+          [1400, {{settings.blog_limit}}],
+          [1600, {{settings.blog_limit}}]
+        ],
+        autoPlay : false,
+        stopOnHover : false,
+        lazyLoad : false,
+        lazyFollow : true,
+        lazyEffect : "fade",
+        pagination : true,
+        // Navigation
+        navigation : false,
+        navigationText : ['<i class="arrow_carrot-left"></i>','<i class="arrow_carrot-right"></i>'],
+        rewindNav : true,
+        scrollPerPage : false,
+      });
+    })
+  </script>
+</div>
 {% endif %}

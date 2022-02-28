@@ -3952,6 +3952,16 @@
       },
       {
         "type": "header",
+        "content": "Product Review"
+      },
+      {
+        "type": "text",
+        "id": "hide-review-collections",
+        "label": "Comma separated list of nav menu items that should hide product reviews. These must be entered exactly as they are in the Nav settings. (Items are caps sensitive.)",
+        "default" : "training, grooming"
+      },      
+      {
+        "type": "header",
         "content": "Product Image"
       },
       {

@@ -1,134 +1,134 @@
-{% if settings.verticalmenu_enable %}
-<div id="menu-vertical{{block-verticalmenu}}" class="block">
-  <div class="parent-title"><i aria-hidden="true" class="icon_menu"></i><span>{{settings.verticalmenu_title}}</span></div>
-  <div id="verticalmenu{{block-verticalmenu}}" class="verticalmenu">
-    <div class="navbar">
-      <ul class="nav navbar-nav nav-verticalmenu">
-        {% for link in linklists[settings.verticalmenu_linklist].links %}
-        {% assign hasMega = false %}
-        {% assign intMega = 0 %}
-        {% assign link_title = link.title | downcase %}
-        {% capture vericon %}vermenuicon_eimage_{{ forloop.index }}{% endcapture %}
-        {% capture verfonticon %}vermenuicon_font_{{ forloop.index }}{% endcapture %}
-        {% for i in (1..5) %}
-        {% capture vermenu %}vermenuitem_enable_{{ i }}{% endcapture %}
-        {% capture vermenu_title %}vermenuitem_title_{{ i }}{% endcapture %}
-
-        {% capture background_vermenuitem %} background_vermenuitem_{{ i }}{% endcapture %}
-        {% assign vermenu_title = settings[vermenu_title] | strip | downcase %}
-        {% if settings[vermenu] %}
-        {% if link_title == vermenu_title %}
-        {% assign hasMega = true %}
-        {% assign intMega = i %}
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-        {% if hasMega %}
-
-        {% capture menufullwidth %}menuitem_fullwidth_{{ intMega }}{% endcapture %}
-        {% if settings[menufullwidth] %}
-        {% assign fullwidth = 'full-width' %}
-        {% else %}
-        {% assign fullwidth = 'aligned-center' %}
-        {% endif %}
-        <li class=" parent dropdown{% if link.active %} active{% endif %}">
-          <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
-            {% if settings.vermenuicon_enable %}
-            {% if settings[vericon] %}
-            <span class="menu-icon menu-icon-{{ forloop.index }}">
-              <i class="{{ settings[verfonticon] }}"></i>
-              <span class="menu-titlea">{{ link.title }}</span>
-            </span>
-            {% else %}
-            <span class="menu-icon">
-              <i class="{{ settings[verfonticon] }}"></i>
-              <span class="menu-titlea">{{ link.title }}</span>
-            </span>
-            {% endif %}
-            {% else %}
-            <span class="menu-icon">
-              <span class="menu-titlea">{{ link.title }}</span>
-            </span>
-            {% endif %}
-          </a>
-          <i class="fa fa-angle-right"></i>
-          {% assign mega_link_handle = link.handle %}
-          {% include 'verticalmenu-megamenu' %}
-        </li>
-        {% else %}
-        {% if linklists[link.handle] != empty %}
-        <li class="parent dropdown{% if link.active %} active{% endif %}">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ link.url }}">
-            <span class="menu-icon menu-icon-{{ forloop.index }}">
-              {% if settings.vermenuicon_enable %}
-              <i class="{{ settings[verfonticon] }}"></i>
-              {% endif %}
-              <span class="menu-titlea">{{ link.title }}</span>
-            </span>
-          </a>
-          <i class="fa fa-angle-right"></i>
-          <div class="dropdown-menu level1">
-            <div class="dropdown-menu-inner">
-              <div class="row">
-                <div class="mega-col col-sm-12">
-                  <div class="mega-col-inner">
-                    <ul>
-                      {% for child_link in linklists[link.handle].links %}
-                      {% if linklists[child_link.handle] != empty %}
-                      <li class="parent dropdown{% if link.active %} active{% endif %}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link.url }}" title="{{ child_link.title }}">
-                          <span class="">{{ child_link.title }}</span>
-                        </a>
-                        <b class="caret"></b>
-                        <div class="dropdown-menu level2">
-                          <div class="dropdown-menu-inner">
-                            <div class="row">
-                              <div class="mega-col 888 col-sm-12">
-                                <div class="mega-col-inner">
-                                  <ul>
-                                    {% for child_link1 in linklists[child_link.handle].links %}
-                                    <li class="{% if child_link1.active %}active{% endif %}">
-                                      <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
-                                        <span class="">{{ child_link1.title }}</span>
-                                      </a>
-                                    </li>
-                                    {% endfor %}
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      {% else %}
-                      <li class="{% if child_link.active %}active{% endif %}">
-                        <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
-                          <span class="">{{ child_link.title }}</span>
-                        </a>
-                      </li>
-                      {% endif %}
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        {% else %}
-        <li class="{% if link.active %}active{% endif %}">
-          <a href="{{ link.url }}" title="{{ link.title }}">
-            {% if settings.vermenuicon_enable %}
-            <i class="{{ settings[verfonticon] }}"></i>
-            {% endif %}
-            <span class="menu-titlea">{{ link.title }}</span>
-          </a>
-        </li>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</div>
+{% if settings.verticalmenu_enable %}
+<div id="menu-vertical{{block-verticalmenu}}" class="block">
+  <div class="parent-title"><i aria-hidden="true" class="icon_menu"></i><span>{{settings.verticalmenu_title}}</span></div>
+  <div id="verticalmenu{{block-verticalmenu}}" class="verticalmenu">
+    <div class="navbar">
+      <ul class="nav navbar-nav nav-verticalmenu">
+        {% for link in linklists[settings.verticalmenu_linklist].links %}
+        {% assign hasMega = false %}
+        {% assign intMega = 0 %}
+        {% assign link_title = link.title | downcase %}
+        {% capture vericon %}vermenuicon_eimage_{{ forloop.index }}{% endcapture %}
+        {% capture verfonticon %}vermenuicon_font_{{ forloop.index }}{% endcapture %}
+        {% for i in (1..5) %}
+        {% capture vermenu %}vermenuitem_enable_{{ i }}{% endcapture %}
+        {% capture vermenu_title %}vermenuitem_title_{{ i }}{% endcapture %}
+
+        {% capture background_vermenuitem %} background_vermenuitem_{{ i }}{% endcapture %}
+        {% assign vermenu_title = settings[vermenu_title] | strip | downcase %}
+        {% if settings[vermenu] %}
+        {% if link_title == vermenu_title %}
+        {% assign hasMega = true %}
+        {% assign intMega = i %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% if hasMega %}
+
+        {% capture menufullwidth %}menuitem_fullwidth_{{ intMega }}{% endcapture %}
+        {% if settings[menufullwidth] %}
+        {% assign fullwidth = 'full-width' %}
+        {% else %}
+        {% assign fullwidth = 'aligned-center' %}
+        {% endif %}
+        <li class=" parent dropdown{% if link.active %} active{% endif %}">
+          <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+            {% if settings.vermenuicon_enable %}
+            {% if settings[vericon] %}
+            <span class="menu-icon menu-icon-{{ forloop.index }}">
+              <i class="{{ settings[verfonticon] }}"></i>
+              <span class="menu-titlea">{{ link.title }}</span>
+            </span>
+            {% else %}
+            <span class="menu-icon">
+              <i class="{{ settings[verfonticon] }}"></i>
+              <span class="menu-titlea">{{ link.title }}</span>
+            </span>
+            {% endif %}
+            {% else %}
+            <span class="menu-icon">
+              <span class="menu-titlea">{{ link.title }}</span>
+            </span>
+            {% endif %}
+          </a>
+          <i class="fa fa-angle-right"></i>
+          {% assign mega_link_handle = link.handle %}
+          {% include 'verticalmenu-megamenu' %}
+        </li>
+        {% else %}
+        {% if linklists[link.handle] != empty %}
+        <li class="parent dropdown{% if link.active %} active{% endif %}">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ link.url }}">
+            <span class="menu-icon menu-icon-{{ forloop.index }}">
+              {% if settings.vermenuicon_enable %}
+              <i class="{{ settings[verfonticon] }}"></i>
+              {% endif %}
+              <span class="menu-titlea">{{ link.title }}</span>
+            </span>
+          </a>
+          <i class="fa fa-angle-right"></i>
+          <div class="dropdown-menu level1">
+            <div class="dropdown-menu-inner">
+              <div class="row">
+                <div class="mega-col col-sm-12">
+                  <div class="mega-col-inner">
+                    <ul>
+                      {% for child_link in linklists[link.handle].links %}
+                      {% if linklists[child_link.handle] != empty %}
+                      <li class="parent dropdown{% if link.active %} active{% endif %}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                          <span class="">{{ child_link.title }}</span>
+                        </a>
+                        <b class="caret"></b>
+                        <div class="dropdown-menu level2">
+                          <div class="dropdown-menu-inner">
+                            <div class="row">
+                              <div class="mega-col 888 col-sm-12">
+                                <div class="mega-col-inner">
+                                  <ul>
+                                    {% for child_link1 in linklists[child_link.handle].links %}
+                                    <li class="{% if child_link1.active %}active{% endif %}">
+                                      <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                        <span class="">{{ child_link1.title }}</span>
+                                      </a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      {% else %}
+                      <li class="{% if child_link.active %}active{% endif %}">
+                        <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                          <span class="">{{ child_link.title }}</span>
+                        </a>
+                      </li>
+                      {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% else %}
+        <li class="{% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}" title="{{ link.title }}">
+            {% if settings.vermenuicon_enable %}
+            <i class="{{ settings[verfonticon] }}"></i>
+            {% endif %}
+            <span class="menu-titlea">{{ link.title }}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
 {% endif %}

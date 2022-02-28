@@ -1,371 +1,371 @@
-<div class="home-cust-container">
-{% comment %}
-  Regular page content goes here.
-  {% endcomment %}
-  <div class="rte">
-    {{ page.content }}
-  </div>
-
-<div class=" page-contact-faq">
-
-
-    <div class="row">
-      {% if settings.titlefaq != blank %}
-      <div class="heading-block block-home-category-title">
-    <h3 class="bluetitle">Here are some commonly asked questions:</h3>
-  </div>
-      
-      {% endif %}    
-      <div class="faq-col">
-    {% comment %}
-        {% for i in (1..20) %}
-      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
-      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
-      {% capture collapse %}collapse{{ i }}{% endcapture %}
-      <div class="panel-group" id="accordion">
-        {% if settings[subtitlefaq] != blank %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
-                {{ settings[subtitlefaq] }}
-                <i class="fa fa-angle-down"></i>
-              </a>
-            </h4>
-          </div>
-          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
-            {{ settings[contentfaq] }}
-          </div>
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-{% endcomment %}
-
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question1" class="collapsed">
-                <span>Q.</span> Is there anything that can come out of my pet that FurryFreshness CAN'T remove?
-              </a>
-            </h4>
-          </div>
-          <div id="question1" class="panel-collapse collapse">
-            <span>A.</span> No! FurryFreshness will 100% remove any type of liquid or substance that can come from your pets and or family members. 
-          </div>
-        </div>     
-      </div>
-        
-       <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question2" class="collapsed">
-                <span>Q.</span> Does FurryFreshness work on cat stains and odors?
-              </a>
-            </h4>
-          </div>
-          <div id="question2" class="panel-collapse collapse">
-           <span>A.</span> Yes! FurryFreshness works very well on cat stain stains and odors and we even have a Feline Formula which is packaged specifically for cat owners. We just ask that you keep in mind that cat urine is one of the strongest scents you will have to remove so more product and applications will be needed to remove that smell. Be patient but it WILL work! 
-          </div>
-        </div>     
-      </div>
-       
-         <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question3" class="collapsed">
-                <span>Q.</span> Will FurryFreshness work on hardwood, tile, concrete and or laminate flooring?
-              </a>
-            </h4>
-          </div>
-          <div id="question3" class="panel-collapse collapse">
-          <span>A.</span> Yes, FurryFreshness will work on all of these flooring however we recommend that you spray the problem areas and let the product sit for about 10-15 minutes. After this time go in and wipe the product up completely with a wet towel or a mop. Reapply as needed.
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question4" class="collapsed">
-               <span>Q.</span> I have a cat and a dog - which FurryFreshness formula should I buy?      
-              </a>
-            </h4>
-          </div>
-          <div id="question4" class="panel-collapse collapse">
-          <span>A.</span> Either formula will work great for both cat and dog stains. The formulas themselves are very similar the focus is more on the packaging as the original formula only has the dog on the front - we wanted to be more fair and offer a bottle with a cat for all of our feline owners. 
-          </div>
-        </div>     
-      </div>
-        
-         <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question5" class="collapsed">
-               <span>Q.</span> Will FurryFreshness work on older stains?   
-              </a>
-            </h4>
-          </div>
-          <div id="question5" class="panel-collapse collapse">
-         <span>A.</span> Yes FurryFreshness will work on older stain as well as new stains! Keep in mind with older stains you may need to do a few applications especially if other products have already been used. 
-          </div>
-        </div>     
-      </div>
-        
-          <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question6" class="collapsed">
-               <span>Q.</span> How much FurryFreshness do I need to use on each stain?  
-              </a>
-            </h4>
-          </div>
-          <div id="question6" class="panel-collapse collapse">
-         <span>A.</span> You want to be sure that you are heavily saturating each stain with enough product for FurryFreshness to work its magic. We typically recommend 15-20 sprays per 1 square foot of stain with reapplications every 6 hours. 
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question7" class="collapsed">
-               <span>Q.</span> Does FurryFreshness require any scrubbing?
-              </a>
-            </h4>
-          </div>
-          <div id="question7" class="panel-collapse collapse">
-         <span>A.</span> In most cases no. A simple spray and walk away will remove most of your stain and smells. For tougher situations, multiple applications and light scrubbing may be necessary.
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question8" class="collapsed">
-               <span>Q.</span> Can I use FurryFreshness in a carpet cleaner?
-              </a>
-            </h4>
-          </div>
-          <div id="question8" class="panel-collapse collapse">
-         <span>A.</span> Yes you can use FurryFreshness in a carpet cleaner. Here is how we recommend you do so;<br/><br/>
-
-1) Put the product into the carpet cleaner at full strength. Do not dilute with water as it can contaminate the solution and compromise it! <br/><br/>
-
-2) Run the cycle in the desired areas but do not suck it back up!<br/>
-
-*Keep in mind that the odors are going to get stronger after application. This means the product is working as it is breaking down the solid bacterias in your carpet and releasing them as molecules into the air. The odors will only last for about 24 hours.<br/><br/>
-
-3) Allow the product to sit in the carpet for 12-24 hours before sucking it back up! The longer you can leave it sit the better. Avoid contact with the areas when wet and if available use a ceiling fan to ventilate the room or open a window or door! <br/><br/>
-
-4) Repeat if necessary.
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question9" class="collapsed">
-               <span>Q.</span> Does FurryFreshness have a scent?
-              </a>
-            </h4>
-          </div>
-          <div id="question9" class="panel-collapse collapse">
-        <span>A.</span> FurryFreshness does not have a smell at all - it is completely odorless thus never masking a smell but completely removing the odor causing bacterias behind it. 
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question10" class="collapsed">
-               <span>Q.</span> What ingredients make up FurryFreshness?
-              </a>
-            </h4>
-          </div>
-          <div id="question10" class="panel-collapse collapse">
-        <span>A.</span> Deionized water, hydrogen peroxide, proprietary blend of surfactants and stabilizers. FurryFreshness does not contain ANY harsh chemical or dyes and is completely scent-free therefore it is safe to use around children, pets and plants. 
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question11" class="collapsed">
-               <span>Q.</span> Is there anything I can't use FurryFreshness on?
-              </a>
-            </h4>
-          </div>
-          <div id="question11" class="panel-collapse collapse">
-        <span>A.</span> We do not recommend you use FurryFreshness on leather, wool carpeting, silk, sisal, jute or suede. If you are ever concerned about a surface we recommend doing a test strip in a small area and wait 6 hours to see how it reacts.
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question12" class="collapsed">
-               <span>Q.</span> Can I use FurryFreshness on my furniture?
-              </a>
-            </h4>
-          </div>
-          <div id="question12" class="panel-collapse collapse">
-       <span>A.</span> Yes you can use FurryFreshness on most furniture and upholstery. We do not recommend you use FurryFreshness on leather, suede, sisal, jute or wood finished furniture. 
-          </div>
-        </div>     
-      </div>
-        
-        <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question13" class="collapsed">
-               <span>Q.</span> Where can I purchase FurryFreshness?
-              </a>
-            </h4>
-          </div>
-          <div id="question13" class="panel-collapse collapse">
-       <span>A.</span> Currently we sell exclusively online via this website and Amazon. We are looking to get into more pet stores, vets, groomers, boutiques in the upcoming year. Once we are in more local shops we will post by state where you can find us locally! 
-          </div>
-        </div>     
-      </div>
-        
-         <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question14" class="collapsed">
-               <span>Q.</span> Do you offer wholesale?
-              </a>
-            </h4>
-          </div>
-          <div id="question14" class="panel-collapse collapse">
-       <span>A.</span> Yes we do offer wholesale! Contact us below or send an email to info@furryfreshness.com with some information on your business to be considered. 
-          </div>
-        </div>     
-      </div>
-        
-         <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#question15" class="collapsed">
-              <span>Q.</span> How long until I receive my FurryFreshness order?
-              </a>
-            </h4>
-          </div>
-          <div id="question15" class="panel-collapse collapse">
-      <span>A.</span> We ship all orders via USPS Priority Mail which takes 1-3 business days. Pre-shipment can take anywhere from 1-5 business days depending on how many orders we have to get out and if we get backed up. For questions regarding your order status - feel free to contact us individually.
-          </div>
-        </div>     
-      </div>
-  
-      </div>
-    
-
-  </div>
-</div> 
-  
-
-
-{% comment %}
-This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
-Be sure to select page.contact as the template from the admin page to have this template take effect.
-
-For information on adding more fields, visit:
-- http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
-{% endcomment %}
-
-{% comment %}
-Google Map
-{% endcomment %}
-
-
-<div class="contactus-page">
-
-  {% comment %}
-  Contact form starts here
-  {% endcomment %}
-  <div class="row">
-    {% if settings.display_google_map %}
-    <div>
-      <div class="content-top">
-        {{ settings.contact_top }}
-      </div>
-      {% form 'contact' %}
-
-      <div id="contactFormWrapper">
-        <div class="heading-block block-home-category-title">
-   				 <h3 class="bluetitle">Do you have a question that you<br/>don't see an answer to?</h3>
-    	</div>
-       <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-		<div style="width: 48%;">
-        <label for="contactFormMessage">Send A Message</label>
-        <textarea rows="10" name="contact[body]" id="contactFormMessage" placeholder="Your Message"></textarea>
-        </div>
-        <div style="width: 48%;">
-        <label for="contactFormName">Name</label>
-        <input type="text" id="contactFormName" name="contact[name]" autocapitalize="words" placeholder="Your Full Name">        
-
-        <label for="contactFormEmail">Email</label>
-        <input type="email" name="contact[email]" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="Your Email">
-
-        <label for="contactFormPhone">Phone Number</label>
-        <input type="text" name="contact[phone]" id="contactFormPhone" placeholder="Your Phone Number">
-        </div>
-        <input type="submit" class="btn left" value="send message">
-      </div>
-
-        
-           {% comment %}
-      Successful message
-      {% endcomment %}
-      {% if form.posted_successfully? %}
-      <p class="note form-success">
-        Thanks for contacting us! We'll get back to you as soon as possible.
-      </p>
-      {% endif %}
-
-      {% include 'form-errors-custom' %}
-        
-      {% endform %}
-    </div>
-    <div class="col-md-5 col-sm-5 col-xs-12">
-      {% if settings.google_map_code != blank %}
-      {{ settings.google_map_code }}
-      {% endif %}
-      <div class="content-bottom">
-        {{ settings.contact_bottom }}
-      </div>
-    </div>
-    {% endif %}
-  </div>
-</div>
-
-  </div>
-
-
-<script>
-  jQuery('.main-content > .container').removeClass('container');
-  jQuery('.main-content').removeClass('container');
-</script>
-
-{% include 'facebook-pixel-init' %}
+<div class="home-cust-container">
+{% comment %}
+  Regular page content goes here.
+  {% endcomment %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+
+<div class=" page-contact-faq">
+
+
+    <div class="row">
+      {% if settings.titlefaq != blank %}
+      <div class="heading-block block-home-category-title">
+    <h3 class="bluetitle">Here are some commonly asked questions:</h3>
+  </div>
+      
+      {% endif %}    
+      <div class="faq-col">
+    {% comment %}
+        {% for i in (1..20) %}
+      {% capture subtitlefaq %}subtitlefaq_{{ i }}{% endcapture %}
+      {% capture contentfaq %}contentfaq_{{ i }}{% endcapture %}
+      {% capture collapse %}collapse{{ i }}{% endcapture %}
+      <div class="panel-group" id="accordion">
+        {% if settings[subtitlefaq] != blank %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{subtitlefaq}}">
+                {{ settings[subtitlefaq] }}
+                <i class="fa fa-angle-down"></i>
+              </a>
+            </h4>
+          </div>
+          <div id="{{subtitlefaq}}" class="panel-collapse collapse">
+            {{ settings[contentfaq] }}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+{% endcomment %}
+
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question1" class="collapsed">
+                <span>Q.</span> Is there anything that can come out of my pet that FurryFreshness CAN'T remove?
+              </a>
+            </h4>
+          </div>
+          <div id="question1" class="panel-collapse collapse">
+            <span>A.</span> No! FurryFreshness will 100% remove any type of liquid or substance that can come from your pets and or family members. 
+          </div>
+        </div>     
+      </div>
+        
+       <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question2" class="collapsed">
+                <span>Q.</span> Does FurryFreshness work on cat stains and odors?
+              </a>
+            </h4>
+          </div>
+          <div id="question2" class="panel-collapse collapse">
+           <span>A.</span> Yes! FurryFreshness works very well on cat stain stains and odors and we even have a Feline Formula which is packaged specifically for cat owners. We just ask that you keep in mind that cat urine is one of the strongest scents you will have to remove so more product and applications will be needed to remove that smell. Be patient but it WILL work! 
+          </div>
+        </div>     
+      </div>
+       
+         <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question3" class="collapsed">
+                <span>Q.</span> Will FurryFreshness work on hardwood, tile, concrete and or laminate flooring?
+              </a>
+            </h4>
+          </div>
+          <div id="question3" class="panel-collapse collapse">
+          <span>A.</span> Yes, FurryFreshness will work on all of these flooring however we recommend that you spray the problem areas and let the product sit for about 10-15 minutes. After this time go in and wipe the product up completely with a wet towel or a mop. Reapply as needed.
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question4" class="collapsed">
+               <span>Q.</span> I have a cat and a dog - which FurryFreshness formula should I buy?      
+              </a>
+            </h4>
+          </div>
+          <div id="question4" class="panel-collapse collapse">
+          <span>A.</span> Either formula will work great for both cat and dog stains. The formulas themselves are very similar the focus is more on the packaging as the original formula only has the dog on the front - we wanted to be more fair and offer a bottle with a cat for all of our feline owners. 
+          </div>
+        </div>     
+      </div>
+        
+         <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question5" class="collapsed">
+               <span>Q.</span> Will FurryFreshness work on older stains?   
+              </a>
+            </h4>
+          </div>
+          <div id="question5" class="panel-collapse collapse">
+         <span>A.</span> Yes FurryFreshness will work on older stain as well as new stains! Keep in mind with older stains you may need to do a few applications especially if other products have already been used. 
+          </div>
+        </div>     
+      </div>
+        
+          <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question6" class="collapsed">
+               <span>Q.</span> How much FurryFreshness do I need to use on each stain?  
+              </a>
+            </h4>
+          </div>
+          <div id="question6" class="panel-collapse collapse">
+         <span>A.</span> You want to be sure that you are heavily saturating each stain with enough product for FurryFreshness to work its magic. We typically recommend 15-20 sprays per 1 square foot of stain with reapplications every 6 hours. 
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question7" class="collapsed">
+               <span>Q.</span> Does FurryFreshness require any scrubbing?
+              </a>
+            </h4>
+          </div>
+          <div id="question7" class="panel-collapse collapse">
+         <span>A.</span> In most cases no. A simple spray and walk away will remove most of your stain and smells. For tougher situations, multiple applications and light scrubbing may be necessary.
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question8" class="collapsed">
+               <span>Q.</span> Can I use FurryFreshness in a carpet cleaner?
+              </a>
+            </h4>
+          </div>
+          <div id="question8" class="panel-collapse collapse">
+         <span>A.</span> Yes you can use FurryFreshness in a carpet cleaner. Here is how we recommend you do so;<br/><br/>
+
+1) Put the product into the carpet cleaner at full strength. Do not dilute with water as it can contaminate the solution and compromise it! <br/><br/>
+
+2) Run the cycle in the desired areas but do not suck it back up!<br/>
+
+*Keep in mind that the odors are going to get stronger after application. This means the product is working as it is breaking down the solid bacterias in your carpet and releasing them as molecules into the air. The odors will only last for about 24 hours.<br/><br/>
+
+3) Allow the product to sit in the carpet for 12-24 hours before sucking it back up! The longer you can leave it sit the better. Avoid contact with the areas when wet and if available use a ceiling fan to ventilate the room or open a window or door! <br/><br/>
+
+4) Repeat if necessary.
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question9" class="collapsed">
+               <span>Q.</span> Does FurryFreshness have a scent?
+              </a>
+            </h4>
+          </div>
+          <div id="question9" class="panel-collapse collapse">
+        <span>A.</span> FurryFreshness does not have a smell at all - it is completely odorless thus never masking a smell but completely removing the odor causing bacterias behind it. 
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question10" class="collapsed">
+               <span>Q.</span> What ingredients make up FurryFreshness?
+              </a>
+            </h4>
+          </div>
+          <div id="question10" class="panel-collapse collapse">
+        <span>A.</span> Deionized water, hydrogen peroxide, proprietary blend of surfactants and stabilizers. FurryFreshness does not contain ANY harsh chemical or dyes and is completely scent-free therefore it is safe to use around children, pets and plants. 
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question11" class="collapsed">
+               <span>Q.</span> Is there anything I can't use FurryFreshness on?
+              </a>
+            </h4>
+          </div>
+          <div id="question11" class="panel-collapse collapse">
+        <span>A.</span> We do not recommend you use FurryFreshness on leather, wool carpeting, silk, sisal, jute or suede. If you are ever concerned about a surface we recommend doing a test strip in a small area and wait 6 hours to see how it reacts.
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question12" class="collapsed">
+               <span>Q.</span> Can I use FurryFreshness on my furniture?
+              </a>
+            </h4>
+          </div>
+          <div id="question12" class="panel-collapse collapse">
+       <span>A.</span> Yes you can use FurryFreshness on most furniture and upholstery. We do not recommend you use FurryFreshness on leather, suede, sisal, jute or wood finished furniture. 
+          </div>
+        </div>     
+      </div>
+        
+        <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question13" class="collapsed">
+               <span>Q.</span> Where can I purchase FurryFreshness?
+              </a>
+            </h4>
+          </div>
+          <div id="question13" class="panel-collapse collapse">
+       <span>A.</span> Currently we sell exclusively online via this website and Amazon. We are looking to get into more pet stores, vets, groomers, boutiques in the upcoming year. Once we are in more local shops we will post by state where you can find us locally! 
+          </div>
+        </div>     
+      </div>
+        
+         <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question14" class="collapsed">
+               <span>Q.</span> Do you offer wholesale?
+              </a>
+            </h4>
+          </div>
+          <div id="question14" class="panel-collapse collapse">
+       <span>A.</span> Yes we do offer wholesale! Contact us below or send an email to info@furryfreshness.com with some information on your business to be considered. 
+          </div>
+        </div>     
+      </div>
+        
+         <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#question15" class="collapsed">
+              <span>Q.</span> How long until I receive my FurryFreshness order?
+              </a>
+            </h4>
+          </div>
+          <div id="question15" class="panel-collapse collapse">
+      <span>A.</span> We ship all orders via USPS Priority Mail which takes 1-3 business days. Pre-shipment can take anywhere from 1-5 business days depending on how many orders we have to get out and if we get backed up. For questions regarding your order status - feel free to contact us individually.
+          </div>
+        </div>     
+      </div>
+  
+      </div>
+    
+
+  </div>
+</div> 
+  
+
+
+{% comment %}
+This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+For information on adding more fields, visit:
+- http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+{% endcomment %}
+
+{% comment %}
+Google Map
+{% endcomment %}
+
+
+<div class="contactus-page">
+
+  {% comment %}
+  Contact form starts here
+  {% endcomment %}
+  <div class="row">
+    {% if settings.display_google_map %}
+    <div>
+      <div class="content-top">
+        {{ settings.contact_top }}
+      </div>
+      {% form 'contact' %}
+
+      <div id="contactFormWrapper">
+        <div class="heading-block block-home-category-title">
+   				 <h3 class="bluetitle">Do you have a question that you<br/>don't see an answer to?</h3>
+    	</div>
+       <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+		<div style="width: 48%;">
+        <label for="contactFormMessage">Send A Message</label>
+        <textarea rows="10" name="contact[body]" id="contactFormMessage" placeholder="Your Message"></textarea>
+        </div>
+        <div style="width: 48%;">
+        <label for="contactFormName">Name</label>
+        <input type="text" id="contactFormName" name="contact[name]" autocapitalize="words" placeholder="Your Full Name">        
+
+        <label for="contactFormEmail">Email</label>
+        <input type="email" name="contact[email]" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="Your Email">
+
+        <label for="contactFormPhone">Phone Number</label>
+        <input type="text" name="contact[phone]" id="contactFormPhone" placeholder="Your Phone Number">
+        </div>
+        <input type="submit" class="btn left" value="send message">
+      </div>
+
+        
+           {% comment %}
+      Successful message
+      {% endcomment %}
+      {% if form.posted_successfully? %}
+      <p class="note form-success">
+        Thanks for contacting us! We'll get back to you as soon as possible.
+      </p>
+      {% endif %}
+
+      {% include 'form-errors-custom' %}
+        
+      {% endform %}
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-12">
+      {% if settings.google_map_code != blank %}
+      {{ settings.google_map_code }}
+      {% endif %}
+      <div class="content-bottom">
+        {{ settings.contact_bottom }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+  </div>
+
+
+<script>
+  jQuery('.main-content > .container').removeClass('container');
+  jQuery('.main-content').removeClass('container');
+</script>
+
+{% include 'facebook-pixel-init' %}
 {% include 'facebook-pixel-view-content' %}

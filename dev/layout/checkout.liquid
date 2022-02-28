@@ -1,271 +1,271 @@
-{% comment %}Determin Dog or Cat, show_1 = dot, show_2 = cat{% endcomment %}
-{% assign show_1 = false %}
-{% assign show_2 = false %}
-
-{% for line_item in checkout.line_items %}
-{% for collection in line_item.product.collections%}
-<script>console.log('')</script>
-{% assign text_collection_id_chekcout = collection.id | append : '-' %}
-{% assign text_collection_id_settings = settings['checkout_offer_product_collection_id_1'] | append : '-' %}
-{% if text_collection_id_chekcout == text_collection_id_settings %}{% assign show_1 = true %}{% break %}{% endif %}
-{% assign text_collection_id_settings = settings['checkout_offer_product_collection_id_2'] | append : '-' %}
-{% if text_collection_id_chekcout == text_collection_id_settings %}{% assign show_2 = true %}{% continue %}{% endif %}
-{% endfor %}
-{% endfor %}
-
-{% assign checkout_offer_product_variant_id = '' %}
-{% assign checkout_offer_product_title = '' %}
-{% assign checkout_offer_product_description = '' %}
-{% assign checkout_offer_product_price = '' %}
-{% assign checkout_offer_product_img_url = '' %}
-
-{% if show_2 %}
-{% assign checkout_offer_product_variant_id = settings['checkout_offer_product_variant_id_2'] %}
-{% assign checkout_offer_product_title = settings['checkout_offer_product_title_2'] %}
-{% assign checkout_offer_product_description = settings['checkout_offer_product_description_2'] %}
-{% assign checkout_offer_product_price = settings['checkout_offer_product_price_2'] %}
-{% assign checkout_offer_product_img_url = 'checkout_offer_product_2.png' %}
-{% endif %}
-{% if show_1 %}
-{% assign checkout_offer_product_variant_id = settings['checkout_offer_product_variant_id_1'] %}
-{% assign checkout_offer_product_title = settings['checkout_offer_product_title_1'] %}
-{% assign checkout_offer_product_description = settings['checkout_offer_product_description_1'] %}
-{% assign checkout_offer_product_price = settings['checkout_offer_product_price_1'] %}
-{% assign checkout_offer_product_img_url = 'checkout_offer_product_1.png' %}
-{% endif %}
-
-{% assign has_special_offer = false %}
-{% for line_item in checkout.line_items %}
-{% assign text_variant_id_chekcout = line_item.variant_id | append : '-' %}
-{% assign text_variant_id_settings = checkout_offer_product_variant_id | append : '-' %}
-{% if text_variant_id_chekcout == text_variant_id_settings %}{% assign has_special_offer = true %}{% break %}{% endif %}
-{% endfor %}
-
-<!DOCTYPE html>
-<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
-
-<head>
-  <!-- Google Optimize (must always be at top of HEAD)  -->
-  <script src="https://www.googleoptimize.com/optimize.js?id=OPT-5T25FHT"></script>
-  <!-- /Google Optimize -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
-  <meta name="referrer" content="origin">
-
-  <title>{{ page_title }}</title>
-
-  {{ content_for_header }}
-
-  {{ checkout_stylesheets }}
-  {{ checkout_scripts }}
-  {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
-  {{ 'checkout-offer.scss.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-</head>
-
-<body>
-  {{ skip_to_content_link }}
-
-  <div class="banner" data-header>
-    <div class="wrap">
-      {{ content_for_logo }}
-    </div>
-  </div>
-
-  {{ order_summary_toggle }}
-
-  <div class="content" data-content>
-    <div class="wrap">
-      <div class="main" role="main">
-        <div class="main__header">
-          {{ content_for_logo }}
-          {{ breadcrumb }}
-          {{ alternative_payment_methods }}
-        </div>
-        <div class="main__content">
-          {{ content_for_layout }}
-        </div>
-        <div class="main__footer">
-          {{ content_for_footer }}
-        </div>
-      </div>
-      <div class="sidebar" role="complementary">
-        <div class="sidebar__header">
-          {{ content_for_logo }}
-        </div>
-        <div class="sidebar__content">
-          {{ content_for_order_summary }}
-
-          {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
-          {% if show_1 or show_2 %}
-
-          <div id='checkout-special-offer-wrapper'>
-            <div class="order-summary__section order-summary__special-offer">
-              <h2 class="offer-title">{{settings['checkout_offer_title']}}</h2>
-              <table class="total-line-table">
-                <caption class="visually-hidden">Cost summary</caption>
-                <thead>
-                  <tr>
-                  <tr>
-                    <th scope="col"><span class="visually-hidden">Product image</span></th>
-                    <th scope="col"><span class="visually-hidden">Description</span></th>
-                    <th scope="col"><span class="visually-hidden">Quantity</span></th>
-                    <th scope="col"><span class="visually-hidden">Price</span></th>
-                  </tr>
-                </thead>
-                <tbody class="total-line-table__tbody">
-                  <tr class="product" data-product-id="436511776"
-                    data-variant-id="{{checkout_offer_product_variant_id}}" data-product-type="FurryFreshness"
-                    data-customer-ready-visible="">
-                    <td class="product__image">
-                      <div class="product-thumbnail">
-                        <div class="product-thumbnail__wrapper">
-                          <img alt="FurryFreshness Gallon" class="product-thumbnail__image"
-                            src="{{checkout_offer_product_img_url | asset_img_url : 'master' }}">
-                        </div>
-                        <!--span class="product-thumbnail__quantity" aria-hidden="true">1</span-->
-                      </div>
-                    </td>
-                    <td class="product__description">
-                      <span
-                        class="product__description__name order-summary__emphasis">{{checkout_offer_product_title}}</span>
-                      <span class="product__description__variant order-summary__small-text"></span>
-                    </td>
-                    <td class="product__quantity visually-hidden">
-                      1
-                    </td>
-                    <td class="product__price">
-                      <span class="order-summary__emphasis">$ {{checkout_offer_product_price}}</span>
-                    </td>
-                  </tr>
-                  <tr class="product">
-                    <td colspan=4 style="text-align: left;">
-                      {{checkout_offer_product_description}}
-                    </td>
-                  </tr>
-                  <tr class="product">
-                    <td colspan=4 style="text-align: left;">
-                      {% unless has_special_offer %}
-                      <button name="button" type="button" class="step__footer__continue-btn btn btn-offer-add">
-                        <span class="btn__content">
-                          {{settings['checkout_offer_add_button_text']}}
-                        </span>
-                      </button>
-                      {% else %}
-                      <button name="button" type="button" class="step__footer__continue-btn btn btn-offer-remove">
-                        <span class="btn__content">
-                          {{settings['checkout_offer_remove_button_text']}}
-                        </span>
-                      </button>
-                      {% endunless %}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{ tracking_code }}
-</body>
-
-</html>
-
-<script>
-  $(document).ready(function () {
-    {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
-    {% if show_1 or show_2 %}
-
-    // Move Special offer HTML to order summary
-    $('#order-summary .order-summary__sections').append($('#checkout-special-offer-wrapper').html());
-    $('#checkout-special-offer-wrapper').html('');
-
-    // Event Handler for buttons
-    $('.btn-offer-add').click(function () {
-      $(this).find('span').html('Adding...');
-
-      $.ajax({
-        url: '/cart/add.js',
-        dataType: 'json',
-        type: 'post',
-        data: {
-          quantity: 1,
-          id: {{ checkout_offer_product_variant_id }}
-          },
-    success: function (data) {
-      console.log(data);
-      $('.btn-offer-add span').html('Added !');
-      setTimeout(function () { location.reload(); }, 2000);
-    },
-    error: function (data) {
-      console.log(data.responseJSON.description);
-    }
-        });      
-
-      });
-
-  $('.btn-offer-remove').click(function () {
-    $(this).find('span').html('Removing...');
-
-    $.ajax({
-      url: '/cart/change.js',
-      dataType: 'json',
-      type: 'post',
-      data: {
-        quantity: 0,
-        id: {{ checkout_offer_product_variant_id }}
-          },
-    success: function (data) {
-      console.log(data);
-      $('.btn-offer-remove span').html('Removed !');
-      setTimeout(function () { location.reload(); }, 2000);
-    },
-    error: function (data) {
-      console.log(data.responseJSON.description);
-    }
-        });      
-
-      });
-
-  // Change subtotal
-  //     $('.total-line--subtotal .total-line__price .order-summary__emphasis').html('$ ' + ((parseInt($('.total-line--subtotal .total-line__price .order-summary__emphasis').data('checkout-subtotal-price-target')) + {{settings['checkout_offer_product_price']}} * 100) / 100).toFixed(2));
-  //     $('.payment-due__price').html('$ ' + ((parseInt($('.payment-due__price').data('checkout-payment-due-target')) + {{settings['checkout_offer_product_price']}} * 100) / 100).toFixed(2));
-
-  {% endif %}
-  {% endif %}
-
-  {% assign prefixTitle = page_title | strip | truncate : 13 %}
-  {% if prefixTitle == 'Thank you!...' %}
-  jQuery(document).ready(function () {
-
-    $.ajax('https://www.bmbonlineassets.com/app_dashboard/endpoint/getCheckoutPromotion', {
-      type: 'GET',
-      data: {},
-      statusCode: {
-        200: function (response) {
-          jQuery('.main__content .step[data-step=thank-you]>.section:last-child>.section__content:last-child').append(response.responseText);
-        },
-        201: function (response) {
-          jQuery('.main__content .step[data-step=thank-you]').append(response.responseText);
-        },
-        400: function (response) {
-          console.log(response);
-        },
-        404: function (response) {
-          console.log(response);
-        }
-      },
-      success: function () { },
-    });
-  });
-  {% endif %}
-        
-  });
+{% comment %}Determin Dog or Cat, show_1 = dot, show_2 = cat{% endcomment %}
+{% assign show_1 = false %}
+{% assign show_2 = false %}
+
+{% for line_item in checkout.line_items %}
+{% for collection in line_item.product.collections%}
+<script>console.log('')</script>
+{% assign text_collection_id_chekcout = collection.id | append : '-' %}
+{% assign text_collection_id_settings = settings['checkout_offer_product_collection_id_1'] | append : '-' %}
+{% if text_collection_id_chekcout == text_collection_id_settings %}{% assign show_1 = true %}{% break %}{% endif %}
+{% assign text_collection_id_settings = settings['checkout_offer_product_collection_id_2'] | append : '-' %}
+{% if text_collection_id_chekcout == text_collection_id_settings %}{% assign show_2 = true %}{% continue %}{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% assign checkout_offer_product_variant_id = '' %}
+{% assign checkout_offer_product_title = '' %}
+{% assign checkout_offer_product_description = '' %}
+{% assign checkout_offer_product_price = '' %}
+{% assign checkout_offer_product_img_url = '' %}
+
+{% if show_2 %}
+{% assign checkout_offer_product_variant_id = settings['checkout_offer_product_variant_id_2'] %}
+{% assign checkout_offer_product_title = settings['checkout_offer_product_title_2'] %}
+{% assign checkout_offer_product_description = settings['checkout_offer_product_description_2'] %}
+{% assign checkout_offer_product_price = settings['checkout_offer_product_price_2'] %}
+{% assign checkout_offer_product_img_url = 'checkout_offer_product_2.png' %}
+{% endif %}
+{% if show_1 %}
+{% assign checkout_offer_product_variant_id = settings['checkout_offer_product_variant_id_1'] %}
+{% assign checkout_offer_product_title = settings['checkout_offer_product_title_1'] %}
+{% assign checkout_offer_product_description = settings['checkout_offer_product_description_1'] %}
+{% assign checkout_offer_product_price = settings['checkout_offer_product_price_1'] %}
+{% assign checkout_offer_product_img_url = 'checkout_offer_product_1.png' %}
+{% endif %}
+
+{% assign has_special_offer = false %}
+{% for line_item in checkout.line_items %}
+{% assign text_variant_id_chekcout = line_item.variant_id | append : '-' %}
+{% assign text_variant_id_settings = checkout_offer_product_variant_id | append : '-' %}
+{% if text_variant_id_chekcout == text_variant_id_settings %}{% assign has_special_offer = true %}{% break %}{% endif %}
+{% endfor %}
+
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+
+<head>
+  <!-- Google Optimize (must always be at top of HEAD)  -->
+  <script src="https://www.googleoptimize.com/optimize.js?id=OPT-5T25FHT"></script>
+  <!-- /Google Optimize -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+  <meta name="referrer" content="origin">
+
+  <title>{{ page_title }}</title>
+
+  {{ content_for_header }}
+
+  {{ checkout_stylesheets }}
+  {{ checkout_scripts }}
+  {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
+  {{ 'checkout-offer.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+</head>
+
+<body>
+  {{ skip_to_content_link }}
+
+  <div class="banner" data-header>
+    <div class="wrap">
+      {{ content_for_logo }}
+    </div>
+  </div>
+
+  {{ order_summary_toggle }}
+
+  <div class="content" data-content>
+    <div class="wrap">
+      <div class="main" role="main">
+        <div class="main__header">
+          {{ content_for_logo }}
+          {{ breadcrumb }}
+          {{ alternative_payment_methods }}
+        </div>
+        <div class="main__content">
+          {{ content_for_layout }}
+        </div>
+        <div class="main__footer">
+          {{ content_for_footer }}
+        </div>
+      </div>
+      <div class="sidebar" role="complementary">
+        <div class="sidebar__header">
+          {{ content_for_logo }}
+        </div>
+        <div class="sidebar__content">
+          {{ content_for_order_summary }}
+
+          {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
+          {% if show_1 or show_2 %}
+
+          <div id='checkout-special-offer-wrapper'>
+            <div class="order-summary__section order-summary__special-offer">
+              <h2 class="offer-title">{{settings['checkout_offer_title']}}</h2>
+              <table class="total-line-table">
+                <caption class="visually-hidden">Cost summary</caption>
+                <thead>
+                  <tr>
+                  <tr>
+                    <th scope="col"><span class="visually-hidden">Product image</span></th>
+                    <th scope="col"><span class="visually-hidden">Description</span></th>
+                    <th scope="col"><span class="visually-hidden">Quantity</span></th>
+                    <th scope="col"><span class="visually-hidden">Price</span></th>
+                  </tr>
+                </thead>
+                <tbody class="total-line-table__tbody">
+                  <tr class="product" data-product-id="436511776"
+                    data-variant-id="{{checkout_offer_product_variant_id}}" data-product-type="FurryFreshness"
+                    data-customer-ready-visible="">
+                    <td class="product__image">
+                      <div class="product-thumbnail">
+                        <div class="product-thumbnail__wrapper">
+                          <img alt="FurryFreshness Gallon" class="product-thumbnail__image"
+                            src="{{checkout_offer_product_img_url | asset_img_url : 'master' }}">
+                        </div>
+                        <!--span class="product-thumbnail__quantity" aria-hidden="true">1</span-->
+                      </div>
+                    </td>
+                    <td class="product__description">
+                      <span
+                        class="product__description__name order-summary__emphasis">{{checkout_offer_product_title}}</span>
+                      <span class="product__description__variant order-summary__small-text"></span>
+                    </td>
+                    <td class="product__quantity visually-hidden">
+                      1
+                    </td>
+                    <td class="product__price">
+                      <span class="order-summary__emphasis">$ {{checkout_offer_product_price}}</span>
+                    </td>
+                  </tr>
+                  <tr class="product">
+                    <td colspan=4 style="text-align: left;">
+                      {{checkout_offer_product_description}}
+                    </td>
+                  </tr>
+                  <tr class="product">
+                    <td colspan=4 style="text-align: left;">
+                      {% unless has_special_offer %}
+                      <button name="button" type="button" class="step__footer__continue-btn btn btn-offer-add">
+                        <span class="btn__content">
+                          {{settings['checkout_offer_add_button_text']}}
+                        </span>
+                      </button>
+                      {% else %}
+                      <button name="button" type="button" class="step__footer__continue-btn btn btn-offer-remove">
+                        <span class="btn__content">
+                          {{settings['checkout_offer_remove_button_text']}}
+                        </span>
+                      </button>
+                      {% endunless %}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ tracking_code }}
+</body>
+
+</html>
+
+<script>
+  $(document).ready(function () {
+    {% if checkout.customer.email == 'hagen.bauer@outlook.com' or true %}
+    {% if show_1 or show_2 %}
+
+    // Move Special offer HTML to order summary
+    $('#order-summary .order-summary__sections').append($('#checkout-special-offer-wrapper').html());
+    $('#checkout-special-offer-wrapper').html('');
+
+    // Event Handler for buttons
+    $('.btn-offer-add').click(function () {
+      $(this).find('span').html('Adding...');
+
+      $.ajax({
+        url: '/cart/add.js',
+        dataType: 'json',
+        type: 'post',
+        data: {
+          quantity: 1,
+          id: {{ checkout_offer_product_variant_id }}
+          },
+    success: function (data) {
+      console.log(data);
+      $('.btn-offer-add span').html('Added !');
+      setTimeout(function () { location.reload(); }, 2000);
+    },
+    error: function (data) {
+      console.log(data.responseJSON.description);
+    }
+        });      
+
+      });
+
+  $('.btn-offer-remove').click(function () {
+    $(this).find('span').html('Removing...');
+
+    $.ajax({
+      url: '/cart/change.js',
+      dataType: 'json',
+      type: 'post',
+      data: {
+        quantity: 0,
+        id: {{ checkout_offer_product_variant_id }}
+          },
+    success: function (data) {
+      console.log(data);
+      $('.btn-offer-remove span').html('Removed !');
+      setTimeout(function () { location.reload(); }, 2000);
+    },
+    error: function (data) {
+      console.log(data.responseJSON.description);
+    }
+        });      
+
+      });
+
+  // Change subtotal
+  //     $('.total-line--subtotal .total-line__price .order-summary__emphasis').html('$ ' + ((parseInt($('.total-line--subtotal .total-line__price .order-summary__emphasis').data('checkout-subtotal-price-target')) + {{settings['checkout_offer_product_price']}} * 100) / 100).toFixed(2));
+  //     $('.payment-due__price').html('$ ' + ((parseInt($('.payment-due__price').data('checkout-payment-due-target')) + {{settings['checkout_offer_product_price']}} * 100) / 100).toFixed(2));
+
+  {% endif %}
+  {% endif %}
+
+  {% assign prefixTitle = page_title | strip | truncate : 13 %}
+  {% if prefixTitle == 'Thank you!...' %}
+  jQuery(document).ready(function () {
+
+    $.ajax('https://www.bmbonlineassets.com/app_dashboard/endpoint/getCheckoutPromotion', {
+      type: 'GET',
+      data: {},
+      statusCode: {
+        200: function (response) {
+          jQuery('.main__content .step[data-step=thank-you]>.section:last-child>.section__content:last-child').append(response.responseText);
+        },
+        201: function (response) {
+          jQuery('.main__content .step[data-step=thank-you]').append(response.responseText);
+        },
+        400: function (response) {
+          console.log(response);
+        },
+        404: function (response) {
+          console.log(response);
+        }
+      },
+      success: function () { },
+    });
+  });
+  {% endif %}
+        
+  });
 </script>

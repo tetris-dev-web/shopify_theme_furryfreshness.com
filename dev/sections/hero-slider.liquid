@@ -1,114 +1,114 @@
-
-{% if section.blocks.size > 0 %}
-  <div class="hero-slider">
-    {%- for block in section.blocks -%}
-      {%- assign _block = block.settings -%}
-      {%- assign block_image = _block.image -%}
-      {%- assign block_title = _block.title -%}
-      {%- assign block_btn_text = _block.btn_text -%}
-      {%- assign block_btn_url = _block.btn_url -%}
-      {%- assign block_text_align = _block.text_align -%}
-
-      {% if block_image != blank %}
-        <div class="hero-slider__slide">
-          <div class="hero-slider__image">
-            <img src="{{- block_image | img_url: '2160x' -}}" alt="{{- block_image.alt -}}">
-          </div>
-
-          {% if block_title != blank or block_btn_text != blank %}
-            <div class="hero-slider__content" style="text-align: {{ block_text_align }};">
-              {% if block_title != blank %}
-                <h2 class="hero-slider__title">
-                  <span>{{ block_title | newline_to_br }}</span>
-                </h2>
-              {% endif %}
-
-              {% if block_btn_text != blank and block_btn_url != blank %}
-                <a class="hero-slider__btn" href="{{- block_btn_url -}}">{{- block_btn_text -}}</a>
-              {% endif %}
-            </div>
-          {% endif %}
-        </div>
-      {% endif %}
-    {%- endfor -%}
-  </div>
-
-  <script>
-    $(document).ready(function() {
-      $(".hero-slider").owlCarousel({
-        items: 1,
-        autoPlay : true,
-        stopOnHover : true,
-        lazyLoad : true,
-        lazyFollow : true,
-        lazyEffect : "fade",
-        pagination : false,
-
-        // Navigation
-        navigation : false,
-        rewindNav : true,
-        scrollPerPage : false
-      });
-    })
-  </script>
-{% endif %}
-
-{% schema %}
-{
-  "name": "Hero Slider",
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "textarea",
-          "id": "title",
-          "label": "Title"
-        },
-        {
-          "type": "text",
-          "id": "btn_text",
-          "label": "Button - Text"
-        },
-        {
-          "type": "url",
-          "id": "btn_url",
-          "label": "Button - URL"
-        },
-        {
-          "type": "select",
-          "id": "text_align",
-          "label": "Text align",
-          "options": [
-            {
-              "value": "left",
-              "label": "Left"
-            },
-            {
-              "value": "center",
-              "label": "center"
-            },
-            {
-              "value": "right",
-              "label": "Right"
-            }
-          ],
-          "default": "right"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Hero Slider",
-      "category": "Homepage"
-    }
-  ]
-}
+
+{% if section.blocks.size > 0 %}
+  <div class="hero-slider">
+    {%- for block in section.blocks -%}
+      {%- assign _block = block.settings -%}
+      {%- assign block_image = _block.image -%}
+      {%- assign block_title = _block.title -%}
+      {%- assign block_btn_text = _block.btn_text -%}
+      {%- assign block_btn_url = _block.btn_url -%}
+      {%- assign block_text_align = _block.text_align -%}
+
+      {% if block_image != blank %}
+        <div class="hero-slider__slide">
+          <div class="hero-slider__image">
+            <img src="{{- block_image | img_url: '2160x' -}}" alt="{{- block_image.alt -}}">
+          </div>
+
+          {% if block_title != blank or block_btn_text != blank %}
+            <div class="hero-slider__content" style="text-align: {{ block_text_align }};">
+              {% if block_title != blank %}
+                <h2 class="hero-slider__title">
+                  <span>{{ block_title | newline_to_br }}</span>
+                </h2>
+              {% endif %}
+
+              {% if block_btn_text != blank and block_btn_url != blank %}
+                <a class="hero-slider__btn" href="{{- block_btn_url -}}">{{- block_btn_text -}}</a>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {%- endfor -%}
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $(".hero-slider").owlCarousel({
+        items: 1,
+        autoPlay : true,
+        stopOnHover : true,
+        lazyLoad : true,
+        lazyFollow : true,
+        lazyEffect : "fade",
+        pagination : false,
+
+        // Navigation
+        navigation : false,
+        rewindNav : true,
+        scrollPerPage : false
+      });
+    })
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Hero Slider",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button - Text"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button - URL"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Slider",
+      "category": "Homepage"
+    }
+  ]
+}
 {% endschema %}

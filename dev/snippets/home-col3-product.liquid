@@ -1,79 +1,79 @@
-<div class="col-product-home">
-
-  <div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
-
-      {% if settings.enable_tabnew  %}
-      {% if settings.items_tab_1 != blank %}
-      <div class="block-title"><h2><span>{{ settings.items_tab_1 }}</span></h2></div>
-      {% endif %}
-
-
-      {% assign tabnew_collection = settings.tabnew_collection %}
-      {% assign row_limit_setting = settings.tabs_visible_item %}
-
-      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
-      {% assign current_collection = collections[tabnew_collection] %}
-      {% include 'product-tabs-item' %}
-      {% endfor %}
-
-
-      {% endif %}
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
-      {% if settings.enable_tabfeatured %}
-      {% if settings.items_tab_2 != blank %}
-      <div class="block-title"><h2><span>{{ settings.items_tab_2 }}</span></h2></div>
-      {% endif %}
-      {% assign tabnew_collection = settings.tabfeatured_collection %}
-      {% assign row_limit_setting = settings.collection_tabs_limit_2 %}
-      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
-      {% assign current_collection = collections[tabnew_collection] %}
-      {% include 'product-tabs-item' %}
-      {% endfor %} 
-      {% endif %}
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
-
-      {% if settings.enable_tabsale %}
-      {% if settings.items_tab_3 != blank %}
-      <div class="block-title"><h2><span>{{ settings.items_tab_3 }}</span></h2></div>
-      {% endif %}
-      {% assign tabnew_collection = settings.tabsale_collection %}
-      {% assign row_limit_setting = settings.collection_tabs_limit_3 %}
-      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
-      {% assign current_collection = collections[tabnew_collection] %}
-      {% include 'product-tabs-item' %}
-      {% endfor %}
-      {% endif %}
-    </div>
-
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
-
-      {% if settings.enable_block_home_ads_col_left %}	
-      <div class="home-block-ads">
-        <a href="{{ settings.block_ads_link }}">
-          <div class="home-ads-item">
-            <div class="banner-image">
-              {{ 'block_home_ads_col_left.jpg' | asset_url | img_tag }}
-              <div class="over-block"></div>
-            </div>
-            <div class="block-content-ads">
-              {% if settings.block_text_content_ads_col_left != blank %}
-              <p>{{ settings.block_text_content_ads_col_left }}</p>
-              {% endif %}
-              {% if settings.block_text_title_ads_col_left != blank %}
-              <h3> {{ settings.block_text_title_ads_col_left }}</h3>
-              {% endif %}
-            </div>
-          </div>
-        </a>
-      </div>
-      {% endif %}
-
-    </div>
-  </div>
-
-</div>
-
-
+<div class="col-product-home">
+
+  <div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
+
+      {% if settings.enable_tabnew  %}
+      {% if settings.items_tab_1 != blank %}
+      <div class="block-title"><h2><span>{{ settings.items_tab_1 }}</span></h2></div>
+      {% endif %}
+
+
+      {% assign tabnew_collection = settings.tabnew_collection %}
+      {% assign row_limit_setting = settings.tabs_visible_item %}
+
+      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
+      {% assign current_collection = collections[tabnew_collection] %}
+      {% include 'product-tabs-item' %}
+      {% endfor %}
+
+
+      {% endif %}
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
+      {% if settings.enable_tabfeatured %}
+      {% if settings.items_tab_2 != blank %}
+      <div class="block-title"><h2><span>{{ settings.items_tab_2 }}</span></h2></div>
+      {% endif %}
+      {% assign tabnew_collection = settings.tabfeatured_collection %}
+      {% assign row_limit_setting = settings.collection_tabs_limit_2 %}
+      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
+      {% assign current_collection = collections[tabnew_collection] %}
+      {% include 'product-tabs-item' %}
+      {% endfor %} 
+      {% endif %}
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
+
+      {% if settings.enable_tabsale %}
+      {% if settings.items_tab_3 != blank %}
+      <div class="block-title"><h2><span>{{ settings.items_tab_3 }}</span></h2></div>
+      {% endif %}
+      {% assign tabnew_collection = settings.tabsale_collection %}
+      {% assign row_limit_setting = settings.collection_tabs_limit_3 %}
+      {% for product in collections[tabnew_collection].products limit: row_limit_setting %}          
+      {% assign current_collection = collections[tabnew_collection] %}
+      {% include 'product-tabs-item' %}
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 tab-home-product">
+
+      {% if settings.enable_block_home_ads_col_left %}	
+      <div class="home-block-ads">
+        <a href="{{ settings.block_ads_link }}">
+          <div class="home-ads-item">
+            <div class="banner-image">
+              {{ 'block_home_ads_col_left.jpg' | asset_url | img_tag }}
+              <div class="over-block"></div>
+            </div>
+            <div class="block-content-ads">
+              {% if settings.block_text_content_ads_col_left != blank %}
+              <p>{{ settings.block_text_content_ads_col_left }}</p>
+              {% endif %}
+              {% if settings.block_text_title_ads_col_left != blank %}
+              <h3> {{ settings.block_text_title_ads_col_left }}</h3>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>
+
+

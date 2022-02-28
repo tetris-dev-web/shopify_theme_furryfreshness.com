@@ -1,80 +1,80 @@
-{% comment %}
-This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
-Be sure to select page.contact as the template from the admin page to have this template take effect.
-
-For information on adding more fields, visit:
-- http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
-{% endcomment %}
-
-{% comment %}
-Google Map
-{% endcomment %}
-
-
-<div class="contactus-page">
-  {% comment %}
-  Regular page content goes here.
-  {% endcomment %}
-  <div class="rte">
-    {{ page.content }}
-  </div>
-
-  {% comment %}
-  Contact form starts here
-  {% endcomment %}
-  <div class="row">
-    {% if settings.display_google_map %}
-    <div class="col-md-7 col-sm-7 col-sx-12">
-      <div class="content-top">
-        {{ settings.contact_top }}
-      </div>
-      {% form 'contact' %}
-
-      {% comment %}
-      Successful message
-      {% endcomment %}
-      {% if form.posted_successfully? %}
-      <p class="note form-success">
-        Thanks for contacting us! We'll get back to you as soon as possible.
-      </p>
-      {% endif %}
-
-      {% include 'form-errors-custom' %}
-
-      <div id="contactFormWrapper">
-        <h2>{{ settings.contact_title }}</h2>
-
-        <label for="contactFormMessage">{{ settings.contact_your_comment }}</label>
-        <textarea rows="10" name="contact[body]" id="contactFormMessage" placeholder=""></textarea>
-        
-        <label for="contactFormName">{{ settings.contact_your_name }}</label>
-        <input type="text" id="contactFormName" name="contact[name]" autocapitalize="words" placeholder="">        
-
-        <label for="contactFormEmail">{{ settings.contact_your_email }}</label>
-        <input type="email" name="contact[email]" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="">
-
-        <label for="contactFormPhone">{{ settings.contact_phone_number }}</label>
-        <input type="text" name="contact[phone]" id="contactFormPhone" placeholder="">
-
-        <input type="submit" class="btn left" value="send message">
-      </div>
-
-      {% endform %}
-    </div>
-    <div class="col-md-5 col-sm-5 col-xs-12">
-      {% if settings.google_map_code != blank %}
-      {{ settings.google_map_code }}
-      {% endif %}
-      <div class="content-bottom">
-        {{ settings.contact_bottom }}
-      </div>
-    </div>
-    {% endif %}
-  </div>
-</div>
-
-<script>
-  jQuery('.main-content').removeClass('container');
-</script>
-{% include 'facebook-pixel-init' %}
+{% comment %}
+This page template is a requirement if you are submitting your theme to the Shopify Theme Store.
+Be sure to select page.contact as the template from the admin page to have this template take effect.
+
+For information on adding more fields, visit:
+- http://docs.shopify.com/support/configuration/store-customization/adding-fields-to-the-liquid-contact-form
+{% endcomment %}
+
+{% comment %}
+Google Map
+{% endcomment %}
+
+
+<div class="contactus-page">
+  {% comment %}
+  Regular page content goes here.
+  {% endcomment %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+
+  {% comment %}
+  Contact form starts here
+  {% endcomment %}
+  <div class="row">
+    {% if settings.display_google_map %}
+    <div class="col-md-7 col-sm-7 col-sx-12">
+      <div class="content-top">
+        {{ settings.contact_top }}
+      </div>
+      {% form 'contact' %}
+
+      {% comment %}
+      Successful message
+      {% endcomment %}
+      {% if form.posted_successfully? %}
+      <p class="note form-success">
+        Thanks for contacting us! We'll get back to you as soon as possible.
+      </p>
+      {% endif %}
+
+      {% include 'form-errors-custom' %}
+
+      <div id="contactFormWrapper">
+        <h2>{{ settings.contact_title }}</h2>
+
+        <label for="contactFormMessage">{{ settings.contact_your_comment }}</label>
+        <textarea rows="10" name="contact[body]" id="contactFormMessage" placeholder=""></textarea>
+        
+        <label for="contactFormName">{{ settings.contact_your_name }}</label>
+        <input type="text" id="contactFormName" name="contact[name]" autocapitalize="words" placeholder="">        
+
+        <label for="contactFormEmail">{{ settings.contact_your_email }}</label>
+        <input type="email" name="contact[email]" id="contactFormEmail" autocorrect="off" autocapitalize="off" placeholder="">
+
+        <label for="contactFormPhone">{{ settings.contact_phone_number }}</label>
+        <input type="text" name="contact[phone]" id="contactFormPhone" placeholder="">
+
+        <input type="submit" class="btn left" value="send message">
+      </div>
+
+      {% endform %}
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-12">
+      {% if settings.google_map_code != blank %}
+      {{ settings.google_map_code }}
+      {% endif %}
+      <div class="content-bottom">
+        {{ settings.contact_bottom }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  jQuery('.main-content').removeClass('container');
+</script>
+{% include 'facebook-pixel-init' %}
 {% include 'facebook-pixel-view-content' %}

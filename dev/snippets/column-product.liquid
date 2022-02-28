@@ -73,16 +73,21 @@
       </h3>
 
       <!-- Stamped - Begin Star Rating Badge -->
-      <span 
-        class="stamped-product-reviews-badge" 
-        data-id="{{ product.id }}"
-        data-product-sku="{{ product.handle }}" 
-        data-product-type="{{product.type}}" 
-        data-product-title="{{product.title}}" 
-        style="display:block;">
+      {% assign found = false %}
+      {% assign hideReviewCollections = {{settings.hide-review-collections}} | split: ", " %}
+      {% for c in product.collections %}
+        {% if hideReviewCollections contains c.handle %}
+          {% assign found = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}      
+      {% unless found %} 
+      <span class="stamped-product-reviews-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}"
+        data-product-type="{{product.type}}" data-product-title="{{product.title}}" style="display:block;">
         {{product.metafields.stamped.badge}}
-        </span>
-        <!-- Stamped - End Star Rating Badge -->
+      </span>
+      {% endunless %}      
+      <!-- Stamped - End Star Rating Badge -->
     
       <div class="product_loop hover">
         <div class="product_loop_switcher">

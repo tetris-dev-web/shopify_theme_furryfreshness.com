@@ -1,63 +1,63 @@
-<div class="newsletter">
-  <div class="modal-bg-image"> 
-    {{ 'newsletter-bg.png' | asset_url | img_tag }}
-  </div>
-  {% if settings.home_newsletter_title != blank %}
-  <div class="title_newsletter">
-    {{ settings.home_newsletter_title }}
-  </div>
-  {% endif %}
-  <div class="content">
-    <form action="{{ settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
-      <div class="input-group newsletter_form_content">
-        <input  class="input__field input-group-field" type="email" value="" name="EMAIL" aria-label="Email Address">
-        <label class="input_label" for="input-23">
-          <span class="input_label-content">{{ settings.home_newsletter_content }}</span>
-        </label>
-        <span class="input-group-btn">
-          <input type="submit" class="btn harman_btn4" value="{{ settings.home_newsletter_go }}" name="subscribe">
-        </span>
-      </div>
-    </form>
-  </div>
-</div>
-{% if settings.sub_title_newsletter != blank %}
-<p class="sub_newsletter">
-  {{ settings.sub_title_newsletter }}
-</p>
-{% endif %}  
-<script>
-  (function() {
-    // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-    if (!String.prototype.trim) {
-      (function() {
-        // Make sure we trim BOM and NBSP
-        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-        String.prototype.trim = function() {
-          return this.replace(rtrim, '');
-        };
-      })();
-    }
-
-    [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
-      // in case the input is already filled..
-      if( inputEl.value.trim() !== '' ) {
-        classie.add( inputEl.parentNode, 'input--filled' );
-      }
-
-      // events:
-      inputEl.addEventListener( 'focus', onInputFocus );
-      inputEl.addEventListener( 'blur', onInputBlur );
-    } );
-
-    function onInputFocus( ev ) {
-      classie.add( ev.target.parentNode, 'input--filled' );
-    }
-
-    function onInputBlur( ev ) {
-      if( ev.target.value.trim() === '' ) {
-        classie.remove( ev.target.parentNode, 'input--filled' );
-      }
-    }
-  })();
+<div class="newsletter">
+  <div class="modal-bg-image"> 
+    {{ 'newsletter-bg.png' | asset_url | img_tag }}
+  </div>
+  {% if settings.home_newsletter_title != blank %}
+  <div class="title_newsletter">
+    {{ settings.home_newsletter_title }}
+  </div>
+  {% endif %}
+  <div class="content">
+    <form action="{{ settings.mailing_list_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+      <div class="input-group newsletter_form_content">
+        <input  class="input__field input-group-field" type="email" value="" name="EMAIL" aria-label="Email Address">
+        <label class="input_label" for="input-23">
+          <span class="input_label-content">{{ settings.home_newsletter_content }}</span>
+        </label>
+        <span class="input-group-btn">
+          <input type="submit" class="btn harman_btn4" value="{{ settings.home_newsletter_go }}" name="subscribe">
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+{% if settings.sub_title_newsletter != blank %}
+<p class="sub_newsletter">
+  {{ settings.sub_title_newsletter }}
+</p>
+{% endif %}  
+<script>
+  (function() {
+    // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+    if (!String.prototype.trim) {
+      (function() {
+        // Make sure we trim BOM and NBSP
+        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+        String.prototype.trim = function() {
+          return this.replace(rtrim, '');
+        };
+      })();
+    }
+
+    [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+      // in case the input is already filled..
+      if( inputEl.value.trim() !== '' ) {
+        classie.add( inputEl.parentNode, 'input--filled' );
+      }
+
+      // events:
+      inputEl.addEventListener( 'focus', onInputFocus );
+      inputEl.addEventListener( 'blur', onInputBlur );
+    } );
+
+    function onInputFocus( ev ) {
+      classie.add( ev.target.parentNode, 'input--filled' );
+    }
+
+    function onInputBlur( ev ) {
+      if( ev.target.value.trim() === '' ) {
+        classie.remove( ev.target.parentNode, 'input--filled' );
+      }
+    }
+  })();
 </script>

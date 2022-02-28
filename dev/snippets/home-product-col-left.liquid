@@ -1,20 +1,20 @@
-{% if settings.home_product_title_top_sale != blank %}
-<div class="heading-block">
-  <h3 class="title">{{ settings.home_product_title_top_sale }}</h3>
-</div>
-{% endif %}
-{% if settings.enable_product_top_sale %}
-<div class="top-product">
-  {% assign tabnew_collection = settings.saleoff_collection %}
-
-  
-     {% assign item_in_page = settings.collection_saleoff_itempage | plus:0 %}
-        {% assign columns_product = settings.collection_saleoff_columntab | plus:0 %}
-        {% assign product_in_tab = settings.collection_saleoff_limit | plus:0 %} 
-  
-  {% assign current_collection = collections[tabnew_collection] %}
-  {% assign collection_produclists = collections[settings.saleoff_collection].products %}
-  {% assign owl_id = 'owl_productleft' %}
-  {% include 'carousel-saler' %}
-</div>
+{% if settings.home_product_title_top_sale != blank %}
+<div class="heading-block">
+  <h3 class="title">{{ settings.home_product_title_top_sale }}</h3>
+</div>
+{% endif %}
+{% if settings.enable_product_top_sale %}
+<div class="top-product">
+  {% assign tabnew_collection = settings.saleoff_collection %}
+
+  
+     {% assign item_in_page = settings.collection_saleoff_itempage | plus:0 %}
+        {% assign columns_product = settings.collection_saleoff_columntab | plus:0 %}
+        {% assign product_in_tab = settings.collection_saleoff_limit | plus:0 %} 
+  
+  {% assign current_collection = collections[tabnew_collection] %}
+  {% assign collection_produclists = collections[settings.saleoff_collection].products %}
+  {% assign owl_id = 'owl_productleft' %}
+  {% include 'carousel-saler' %}
+</div>
 {% endif %}
