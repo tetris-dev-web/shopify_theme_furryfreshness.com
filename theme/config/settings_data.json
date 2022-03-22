@@ -358,6 +358,7 @@
     "collection_results_per_row": "4",
     "isotope_collection_results_per_page": "21",
     "isotope_items_min_width": "250",
+    "hide-review-collections": "training, grooming",
     "product_image_hover": true,
     "product_style_images_click": true,
     "product_image_resize": false,

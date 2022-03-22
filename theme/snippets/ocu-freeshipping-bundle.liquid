@@ -1,0 +1,57 @@
+{% assign ocu_fs_trigger_1_variant_id = 39764554481803 %}
+{% assign ocu_fs_trigger_2_variant_id = 40037814337675 %}
+{% assign ocu_fs_offer_variant_id = 40037816565899 %}
+
+{% assign ocu_fs_trigger_1_qty = 0 %}
+{% assign ocu_fs_trigger_2_qty = 0 %}
+{% assign ocu_fs_offer_qty = 0 %}
+{% assign ocu_fs_offer_new_qty = 0 %}
+
+{% for item in cart.items %}
+<script>
+  console.log("{{item.variant_id}}-{{ocu_fs_trigger_1_variant_id}}-{{ocu_fs_trigger_2_variant_id}}");
+</script>
+
+  {% if item.variant_id == ocu_fs_trigger_1_variant_id %}
+<script>console.log('find 1'); </script>
+    {% assign ocu_fs_trigger_1_qty = ocu_fs_trigger_1_qty | plus : item.quantity %}
+  {% endif %}
+  {% if item.variant_id == ocu_fs_trigger_2_variant_id %}
+<script>console.log('find 2'); </script>
+    {% assign ocu_fs_trigger_2_qty = ocu_fs_trigger_2_qty | plus : item.quantity %}
+  {% endif %}
+  {% if item.variant_id == ocu_fs_offer_variant_id %}
+    {% assign ocu_fs_offer_qty = ocu_fs_offer_qty | plus : item.quantity %}
+  {% endif %}
+{% endfor %}
+
+{% assign ocu_fs_offer_new_qty = ocu_fs_trigger_1_qty %}
+{% if ocu_fs_offer_new_qty > ocu_fs_trigger_2_qty %}
+  {% assign ocu_fs_offer_new_qty = ocu_fs_trigger_2_qty %}
+{% endif %}
+
+<script>
+  console.log("{{ocu_fs_trigger_1_qty}}-{{ocu_fs_trigger_2_qty}}-{{ocu_fs_offer_qty}}-{{ocu_fs_offer_new_qty}}");
+</script>
+{% if ocu_fs_offer_new_qty > 0 %}
+<script>
+    $.ajax({
+      url: '/cart/update.js',
+      dataType: 'json',
+      type: 'post',
+      data: {
+        updates : {
+          {{ocu_fs_trigger_1_variant_id}}: {{ocu_fs_trigger_1_qty | minus : ocu_fs_offer_new_qty}},
+          {{ocu_fs_trigger_2_variant_id}}: {{ocu_fs_trigger_2_qty | minus : ocu_fs_offer_new_qty}},
+          {{ocu_fs_offer_variant_id}}: {{ocu_fs_offer_qty | plus : ocu_fs_offer_new_qty}}
+        }
+      },
+    success: function (data) {
+      setTimeout(function () { location.reload(); }, 1000);
+    },
+    error: function (data) {
+      console.log(data.responseJSON.description);
+    }  
+  });
+</script>
+{% endif %}
